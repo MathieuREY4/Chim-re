@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +8,11 @@
 
 body {
   font-family: "Arial", sans-serif;
-  background-color: #0a0a0a;
+  /* background-color: #0a0a0a; */
+  background-image: url(../assets/chimère-home.jpg);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
   color: #f5f5f5;
   overflow-x: hidden;
 }
@@ -162,15 +168,21 @@ body {
   }
 }
 
-/* Police horreur (optionnelle) */
-@import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
-
+/* Titre Chimere */
 .title {
-  font-size: 2rem;
+  font-size: 3rem;
   margin-bottom: 0.5rem;
   text-align: center;
+  font-family: "Creepster", cursive;
+  letter-spacing: 0.1em;
+
+  background: linear-gradient(to top, #900 30%, #fff 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Phrase d'introduction sous le titre */
 .subtitle {
   font-size: 1rem;
   text-align: center;
@@ -188,7 +200,8 @@ nav {
 
 nav ul {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  list-style: none;
   gap: 0.5rem;
 }
 
@@ -206,75 +219,53 @@ nav a:hover {
   background-color: #222;
 }
 
-/* Sections */
-section {
-  padding: 2rem 1rem;
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #900;
-  padding-bottom: 0.5rem;
-}
-
-.cards-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.card {
-  background-color: #1a1a1a;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
-  text-align: center;
-}
-
-.card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-}
-
-.card h3 {
-  color: #c00;
-  margin-bottom: 0.5rem;
-}
-
-.card p {
-  font-size: 0.9rem;
-  color: #ddd;
-}
-
 /* Responsive pour tablettes et PC */
 @media (min-width: 600px) {
   nav ul {
     flex-direction: row;
     justify-content: space-around;
-  }
-
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
   }
 }
 
-@media (min-width: 900px) {
-  .cards-container {
-    grid-template-columns: repeat(3, 1fr);
+/* --- BURGER MENU --- */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 30px;
+  gap: 6px;
+}
+
+.burger span {
+  height: 4px;
+  background: #f5f5f5;
+  border-radius: 2px;
+}
+
+/* Mobile only */
+@media (max-width: 599px) {
+  .burger {
+    display: flex;
   }
 
-  #door-container {
-    height: 400px;
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #111;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 1rem 0;
+    z-index: 5;
   }
 
-  .title {
-    font-size: 3rem;
+  nav ul.active {
+    display: flex;
   }
 
-  .subtitle {
-    font-size: 1.25rem;
+  nav {
+    position: relative;
   }
 }

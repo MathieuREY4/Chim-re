@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chimère - Le Livre</title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
@@ -10,8 +10,8 @@
     <!-- Écran d'accueil avec la porte -->
     <div id="intro-screen">
       <div class="intro-content">
-        <h1 class="title">CHIMÈRE</h1>
-        <p class="subtitle">Une plongée dans l'horreur et le mystère</p>
+        <h1 class="title">Toc toc toc...</h1>
+        <p class="subtitle"></p>
         <div id="door-container">
           <div class="door left"></div>
           <div class="door right"></div>
@@ -27,7 +27,12 @@
     <!-- Contenu principal du site caché initialement -->
     <main id="main-content" class="hidden">
       <nav>
-        <ul>
+        <div class="burger" id="burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul id="nav-links">
           <li><a href="#auteur">Auteur</a></li>
           <li><a href="#livre">Le Livre</a></li>
           <li><a href="#personnages">Personnages</a></li>
@@ -36,40 +41,19 @@
         </ul>
       </nav>
 
-      <section id="auteur">
-        <h2>L'Auteur</h2>
-        <p>Présentation de l'auteur ici...</p>
-      </section>
+      <div class="content-wrapper">
+        <section class="Intro-container">
+          <h2>Bienvenue dans mon univers, lecteurs !</h2>
+        </section>
 
-      <section id="livre">
-        <h2>Le Roman</h2>
-        <p>
-          Dans l’obscurité de la ville de Golza, la nuit devient le théâtre de
-          l'horreur. <strong>Chimère</strong> nous plonge dans un monde où les
-          cicatrices du passé et la quête de justice se croisent pour donner
-          naissance à une danse macabre. [...]
-        </p>
-      </section>
-
-      <section id="personnages">
-        <h2>Les Personnages</h2>
-        <div class="cards-container">
-          <div class="card">
-            <img src="assets/fallen.jpg" alt="Fallen" />
-            <h3>Fallen</h3>
-            <p>
-              Figure mystérieuse et redoutée, déterminée à venger les injustices
-              de son passé.
-            </p>
-          </div>
-          <!-- Ajoutez d'autres cartes ici -->
-        </div>
-      </section>
-
-      <section id="exploration">
-        <h2>Exploration</h2>
-        <p>Mini jeu ou navigation immersive à ajouter ici...</p>
-      </section>
+        <section class="Text-container">
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui
+            aperiam labore pariatur illum fugiat excepturi minus! Quas,
+            obcaecati. Laboriosam, nulla.
+          </p>
+        </section>
+      </div>
     </main>
 
     <script src="./js/script.js"></script>

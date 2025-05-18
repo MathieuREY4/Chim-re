@@ -21,3 +21,11 @@ replayButton.addEventListener("click", (e) => {
   introScreen.style.display = "flex";
   mainContent.classList.add("hidden");
 });
+
+// --- MENU BURGER ---
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("nav-links");
+
+burger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});

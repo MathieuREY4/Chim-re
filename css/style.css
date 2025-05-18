@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
 
+/* RESET ET BASE */
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +9,6 @@
 
 body {
   font-family: "Arial", sans-serif;
-  /* background-color: #0a0a0a; */
   background-image: url(../assets/chimère-home.jpg);
   background-size: cover;
   background-position: top center;
@@ -21,7 +21,7 @@ body {
   display: none;
 }
 
-/* Intro - mobile first */
+/* ========== INTRO SCREEN (mobile first) ========== */
 #intro-screen {
   position: fixed;
   top: 0;
@@ -33,6 +33,17 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 1000;
+}
+
+.intro-content {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2em;
+  padding-bottom: 2em;
 }
 
 #door-container {
@@ -47,40 +58,31 @@ body {
   margin-bottom: 2rem;
 }
 
-.intro-content {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 2em;
-  padding-bottom: 2em;
-}
-
 .door {
   width: 50%;
   height: 100%;
   background: url("../assets/sang.jpg") center/cover no-repeat;
   border: 2px solid #440000;
-  transition: transform 2s ease-in-out;
-  transform-origin: center left;
-  margin-top: 2rem;
   box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.3);
+  transition: transform 2s ease-in-out;
+  margin-top: 2rem;
+}
+
+.door.left {
+  transform-origin: center left;
 }
 
 .door.right {
   transform-origin: center right;
 }
 
-/* Container pour le bouton + les gouttes */
+/* BOUTON ENTRER + GOUTTES DE SANG */
 .bloody-button-container {
   position: relative;
   display: inline-block;
   margin-top: 2rem;
 }
 
-/* Bouton d'entrée */
 #enter-button {
   padding: 1rem 2.5rem;
   background: #6e0000;
@@ -102,7 +104,6 @@ body {
   background: #8b0000;
 }
 
-/* Gouttes de sang */
 .drip {
   position: absolute;
   bottom: -10px;
@@ -123,7 +124,7 @@ body {
   animation-delay: 1s;
 }
 
-/* Animations */
+/* ANIMATIONS */
 @keyframes drip {
   0% {
     height: 6px;
@@ -168,12 +169,12 @@ body {
   }
 }
 
-/* Titre Chimere */
+/* TITRE & SOUS-TITRE */
 .title {
+  font-family: "Creepster", cursive;
   font-size: 3rem;
   margin-bottom: 0.5rem;
   text-align: center;
-  font-family: "Creepster", cursive;
   letter-spacing: 0.1em;
 
   background: linear-gradient(to top, #900 30%, #fff 80%);
@@ -182,16 +183,15 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Phrase d'introduction sous le titre */
 .subtitle {
   font-size: 1rem;
   text-align: center;
   color: #ccc;
 }
 
-/* Navigation */
+/* ========== NAVIGATION (mobile first) ========== */
 nav {
-  background-color: #111;
+  background-color: transparent;
   padding: 1rem;
   position: sticky;
   top: 0;
@@ -201,6 +201,7 @@ nav {
 nav ul {
   display: flex;
   flex-direction: row;
+  font-family: "Creepster", cursive;
   list-style: none;
   gap: 0.5rem;
 }
@@ -208,27 +209,15 @@ nav ul {
 nav a {
   color: #f5f5f5;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 3rem;
   padding: 0.5rem;
   border-left: 4px solid transparent;
   transition: 0.3s;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
-nav a:hover {
-  border-color: #900;
-  background-color: #222;
-}
-
-/* Responsive pour tablettes et PC */
-@media (min-width: 600px) {
-  nav ul {
-    flex-direction: row;
-    justify-content: space-around;
-    list-style: none;
-  }
-}
-
-/* --- BURGER MENU --- */
+/* BURGER MENU - mobile */
 .burger {
   display: none;
   flex-direction: column;
@@ -243,7 +232,7 @@ nav a:hover {
   border-radius: 2px;
 }
 
-/* Mobile only */
+/* MOBILE ONLY (max-width: 599px) */
 @media (max-width: 599px) {
   .burger {
     display: flex;
@@ -267,5 +256,83 @@ nav a:hover {
 
   nav {
     position: relative;
+  }
+
+  nav a {
+    font-size: 1em;
+  }
+
+  nav a:hover {
+    background: #fff;
+    opacity: 0.5;
+  }
+}
+
+/* CONTENU PRINCIPAL - mobile first */
+#main-content .Intro-container {
+  position: static; /* pas fixe sur mobile */
+  margin: 3rem auto;
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px 1px #bababa;
+  max-width: 90%;
+  text-align: center;
+  cursor: pointer;
+}
+
+#main-content .Intro-container h2 {
+  color: black;
+  font-size: 1.2rem;
+}
+
+/* ========== MEDIA QUERIES - TABLETTE ET PC (desktop) ========== */
+
+/* Nav ul desktop - >600px */
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+  }
+
+  nav ul li:hover {
+    animation: tremble 0.3s infinite;
+    cursor: pointer;
+  }
+}
+
+/* Intro container desktop >=768px */
+@media (min-width: 768px) {
+  #main-content .Intro-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem 3rem;
+    max-width: 600px;
+    width: 90%;
+    cursor: pointer;
+  }
+
+  #main-content .Intro-container h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animation tremble */
+@keyframes tremble {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
   }
 }

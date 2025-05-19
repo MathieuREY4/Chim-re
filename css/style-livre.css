@@ -268,3 +268,22 @@ nav a {
 .flip-btn:hover {
   background-color: #900;
 }
+
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #220000dd;
+  color: #d4a3a3;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  user-select: none;
+  z-index: 1000;
+}
+
+.blood-heart {
+  color: #8b0000;
+  font-size: 1.1rem;
+}

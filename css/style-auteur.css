@@ -180,3 +180,162 @@ nav a {
 }
 
 /* Partie NAV terminée------------------------------------------------------------- */
+.author-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Profil de l'auteur */
+.author-profile {
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(255, 60, 0, 0.3);
+  margin-bottom: 3rem;
+}
+
+.author-name {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ff3c00;
+}
+
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.author-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Carte de contact avec effet flip */
+.contact-card {
+  width: 200px;
+  height: 100px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.contact-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: #2e2e2e;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+.card-front {
+  background-color: #ff3c00;
+  color: #fff;
+  font-weight: bold;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background-color: #333;
+  color: #ff3c00;
+  font-family: monospace;
+}
+
+/* Biographie */
+.author-bio {
+  font-size: 1.1rem;
+  text-align: justify;
+  color: #ccc;
+}
+
+/* FAQ */
+.author-faq {
+  padding: 2rem;
+  background-color: #161616;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 60, 0, 0.2);
+}
+
+.author-faq h2 {
+  font-size: 2rem;
+  color: #ff3c00;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+  font-size: 1.3rem;
+  color: red;
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .author-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .author-photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .contact-card {
+    width: 180px;
+    height: 90px;
+  }
+}
+
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #220000dd;
+  color: #d4a3a3;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  user-select: none;
+  z-index: 1000;
+}
+
+.blood-heart {
+  color: #8b0000;
+  font-size: 1.1rem;
+}

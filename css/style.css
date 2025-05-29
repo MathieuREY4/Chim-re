@@ -192,7 +192,7 @@ body {
 
 /* ========== NAVIGATION (mobile first) ========== */
 nav {
-  background-color: transparent;
+  background-color: black;
   padding: 1rem;
   position: sticky;
   top: 0;

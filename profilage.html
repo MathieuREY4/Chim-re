@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="./css/style-profilage.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-links">
+        <li><a href="auteur.html">Auteur</a></li>
+        <li><a href="livre.html">Le Livre</a></li>
+        <li><a href="personnages.html">Personnages</a></li>
+        <li><a href="immersion.html">Immersion</a></li>
+        <li><a href="index.html" id="replay-door">Accueil</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section class="intro">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc blandit.
+        </p>
+      </section>
+
+      <section class="cards-section">
+        <div class="card">
+          <img src="./assets/riviere.png" alt="Image 1" />
+          <button class="toggle-btn">Voir plus</button>
+          <p class="card-text hidden">
+            La Rivière fonctionne en miroir des émotions extérieures. Elle a
+            besoin de liens humains profonds pour se sentir exister. Sa tendance
+            à la culpabilité et à la remise en question témoigne d’une
+            conscience morale élevée, mais aussi d’une faible solidité du Moi.
+            Elle est vulnérable à la manipulation émotionnelle et cherche
+            souvent la sécurité dans les autres plutôt qu'en elle-même. Elle
+            préfère les illusions rassurantes aux vérités cruelles, non par
+            faiblesse, mais par refus de blesser ou d’être blessée. Ce sont des
+            êtres qui, dans leur lumière, incarnent la compassion pure, mais
+            dans leur ombre, peuvent sombrer dans le déni ou la passivité.
+          </p>
+        </div>
+        <div class="card">
+          <img src="./assets/montagne.png" alt="Image 2" />
+          <button class="toggle-btn">Voir plus</button>
+          <p class="card-text hidden">
+            La Montagne vit selon une logique de construction personnelle
+            constante. Elle est tournée vers l’ascension, le mérite, la conquête
+            de soi. Elle n’est pas insensible, mais hiérarchise fortement ce
+            qu’elle exprime. Son monde intérieur est cloisonné, protégé par des
+            principes forts, une volonté de performance et une peur larvée de la
+            faiblesse. Elle valorise l’effort, la vérité crue et la méfiance
+            sélective. Dans son versant lumineux, elle est charismatique et
+            stable ; dans son versant sombre, elle peut devenir autoritaire,
+            compétitive à outrance, voire froide.
+          </p>
+        </div>
+        <div class="card">
+          <img src="./assets/ancre.png" alt="Image 3" />
+          <button class="toggle-btn">Voir plus</button>
+          <p class="card-text hidden">
+            L’Ancre est un esprit forgé dans le chaos, mû par une intelligence
+            émotionnelle inversée : non pas pour ressentir, mais pour décrypter,
+            dominer, et survivre. Elle sacralise la vérité, l’endurance, la
+            justice vengeresse. Chez elle, les émotions sont connues, comprises…
+            puis muselées. Elle se méfie des liens, qu’elle perçoit comme des
+            points d’entrée pour la trahison. L’Ancre est un psychisme marqué
+            par le trauma et la solitude volontaire. Elle peut devenir stratège,
+            impitoyable, voire destructrice si le système perçu comme injuste la
+            heurte. Dans sa lumière, elle est inébranlable ; dans son ombre,
+            elle est dangereusement nihiliste.
+          </p>
+        </div>
+      </section>
+
+      <hr />
+
+      <section class="quiz-card">
+        <h2>Êtes-vous une Rivière, une Montagne ou une Ancre ?</h2>
+        <div id="quiz-container"></div>
+        <button id="restart-button" style="display: none">
+          Recommencer le quiz
+        </button>
+      </section>
+      <a href="index.html" class="homepage-button" role="button"
+        >Retour à l'accueil</a
+      >
+      <footer class="site-footer">
+        <div class="footer-content">
+          <p>&copy; 2025 Chimère. Tous droits réservés.</p>
+          <p>
+            Créé avec <span class="blood-heart">❤️</span> dans les ténèbres.
+          </p>
+        </div>
+      </footer>
+    </main>
+
+    <script src="./js/script-profilage.js"></script>
+  </body>
+</html>

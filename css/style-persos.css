@@ -218,6 +218,7 @@ nav a {
   font-family: "Creepster", cursive;
   font-size: 2rem;
   color: #900;
+  -webkit-text-stroke: 0.1px white;
   margin-bottom: 0.5rem;
 }
 

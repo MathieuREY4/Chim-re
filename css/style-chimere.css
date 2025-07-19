@@ -1,0 +1,550 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --neon-red: #ff0033;
+  --dark-bg: #0d0d0d;
+  --light-strip: #f2f2f2;
+  --card-bg: #1a1a1a;
+  --text-color: #e0e0e0;
+}
+
+body {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ========== NAVIGATION (mobile first) ========== */
+nav {
+  background-color: black;
+  padding: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  font-family: "Rubik Glitch", system-ui;
+  list-style: none;
+  box-shadow: 0px 1px 0px 0px #bababa;
+  padding-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+nav a {
+  font-size: 3rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: 0.3s;
+
+  background: linear-gradient(
+    90deg,
+    white 0%,
+    white 45%,
+    #8b0000 47%,
+    #8b0000 53%,
+    white 55%,
+    white 100%
+  );
+  background-size: 300% 100%;
+  background-position: 0 0;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: bleedingLetters 30s linear infinite;
+}
+
+@keyframes bleedingLetters {
+  0% {
+    background-position: 300% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* BURGER MENU - mobile */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 30px;
+  gap: 6px;
+}
+
+.burger span {
+  height: 4px;
+  background: #f5f5f5;
+  border-radius: 2px;
+}
+
+/* MOBILE ONLY (max-width: 599px) */
+@media (max-width: 599px) {
+  .burger {
+    display: flex;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #111;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 1rem 0;
+    z-index: 5;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav {
+    position: relative;
+  }
+
+  nav a {
+    font-size: 1em;
+  }
+
+  nav a:hover {
+    background: #fff;
+    opacity: 0.5;
+  }
+}
+
+/* Nav ul desktop - >600px */
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+  }
+
+  nav ul li:hover {
+    animation-name: tremble;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    cursor: pointer;
+  }
+}
+
+/* Animation tremble */
+@keyframes tremble {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+}
+
+/* ---------- CAROUSEL PRINCIPAL ---------- */
+.carousel-section {
+  padding: 2rem 1rem;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden;
+  background: var(--card-bg);
+  border-radius: 1rem;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-item img {
+  width: 100%;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.caption {
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--neon-red);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s;
+}
+
+.arrow:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.arrow.left {
+  left: 0.5rem;
+}
+
+.arrow.right {
+  right: 0.5rem;
+}
+
+/* ---------- BOUTON DE TÉLÉCHARGEMENT ---------- */
+.download-wrapper {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+#downloadBtn {
+  background-color: var(--neon-red);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px var(--neon-red);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+#downloadBtn:hover {
+  box-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-red);
+  transform: scale(1.05);
+}
+
+/* ---------- IMAGE + TEXTE ---------- */
+.card-side-by-side {
+  padding: 2rem 1rem;
+}
+
+.card-img-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.card-img-text img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 1rem;
+}
+
+.card-text {
+  max-width: 600px;
+  text-align: center;
+}
+
+.card-text h2 {
+  font-family: "Caveat", cursive;
+  font-size: 3em;
+  line-height: 1.6;
+  color: #ff1c1c;
+  text-shadow: 0 0 5px #ff1c1c, 0 0 10px #ff1c1c, 0 0 20px #ff0000,
+    0 0 30px #ff0000, 0 0 40px #ff0000;
+}
+
+@keyframes neonPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 5px #ff1c1c, 0 0 10px #ff1c1c, 0 0 20px #ff0000,
+      0 0 30px #ff0000, 0 0 40px #ff0000;
+  }
+  50% {
+    text-shadow: 0 0 2px #ff1c1c, 0 0 5px #ff1c1c, 0 0 10px #ff0000,
+      0 0 15px #ff0000, 0 0 20px #ff0000;
+  }
+}
+
+.card-text h2 {
+  animation: neonPulse 2s infinite alternate;
+}
+
+.card-text p {
+  font-size: 1.2em;
+}
+
+@media (min-width: 768px) {
+  .card-img-text {
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  .card-text {
+    text-align: left;
+  }
+}
+
+/* ---------- REMERCIEMENTS ---------- */
+.remerciements-section {
+  position: relative;
+  padding: 2rem 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--background);
+}
+
+.remerciements-carousel {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.remerciement-card {
+  width: 100%;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+}
+
+.remerciement-card.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--neon-red, #ff0033);
+  cursor: pointer;
+  user-select: none;
+  width: 3rem;
+  height: 3rem;
+  z-index: 10;
+  transition: transform 0.2s ease;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.remerciement-card img {
+  width: 100%;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.remerciement-card a,
+.remerciement-card button {
+  margin-top: 0.5rem;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--neon-red, #ff0033);
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 5px red, 0 0 10px red;
+  transition: box-shadow 0.3s ease;
+}
+
+.remerciement-card a:hover,
+.remerciement-card button:hover {
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+}
+
+/* Flèches */
+.remerciements-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.remerciements-controls button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--neon-red, #ff0033);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  pointer-events: auto;
+  user-select: none;
+  width: 3rem;
+  height: 3rem;
+}
+
+.remerciements-controls button:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.arrow.left {
+  left: 0;
+}
+
+.arrow.right {
+  right: 0;
+}
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- PROCHAINS LIVRES ---------- */
+.futurs-livres {
+  margin: 4rem 0;
+  padding: 0 1rem;
+}
+
+.titre-bande {
+  background: var(--light-strip);
+  color: black;
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.livres-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.livre-card {
+  perspective: 1000px;
+}
+
+.livre-inner {
+  width: 300px;
+  height: 500px;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.livre-card.flipped .livre-inner {
+  transform: rotateY(180deg);
+}
+
+.livre-front,
+.livre-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.livre-front img {
+  max-width: 100%;
+  border-radius: 1rem;
+}
+
+.livre-back {
+  transform: rotateY(180deg);
+}
+
+.flip-btn {
+  margin-top: 1rem;
+  background: var(--neon-red);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .livres-grid {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.site-footer {
+  position: relative;
+  margin-top: 2rem;
+  left: 0;
+  width: 100%;
+  background-color: #220000dd;
+  color: #d4a3a3;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  user-select: none;
+  z-index: 1000;
+}
+
+.blood-heart {
+  color: #8b0000;
+  font-size: 1.1rem;
+}

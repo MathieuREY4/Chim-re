@@ -41,18 +41,36 @@
         </ul>
       </nav>
 
-      <div class="content-wrapper">
-        <section class="Intro-container">
-          <h2>Bienvenue dans mon univers, lecteurs !</h2>
-        </section>
+    <div class="card content-wrapper">
+  <div class="card-left">
+    <section class="Intro-container">
+      <h2>
+        " Le bourreau n'a plus toute sa tête depuis que le soleil s'est
+        enrhumé. La chenille s'est enfermée dans sa chrysalide et un loup en
+        est sorti lorsque la lune l'a vacciné de cette froide étoile. Le
+        papillon aux griffes et crocs aiguisés viendra déchiqueter le
+        sinistre arc-en-ciel nait d'une larme et d'un feu..."
+      </h2>
+    </section>
 
-        <section class="Text-container">
-          <p>
-            Ceci est un site vitrine uniquement dédié au lore de l'histoire du
-            livre
-          </p>
-        </section>
-      </div>
+    <a href="./chimere.html" class="btn">
+      <div class="box" id="box"></div>
+      <span>Entrez</span>
+    </a>
+  </div>
+
+  <div class="card-right">
+    <img src="./assets/fallen-rue.png" alt="Illustration" />
+  </div>
+
+  <!-- Le filtre SVG reste à la fin du HTML -->
+  <svg>
+    <filter id="gooey">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 -10">
+    </filter>
+  </svg>
+</div>
 
       <section class="image-text-section">
         <div class="image-text-wrapper">
@@ -119,7 +137,7 @@
         </p>
         <!-- <button class="fallen-button">Plongez dans l’univers</button> -->
         <a href="profilage.html" class="fallen-button"
-          >Plongez dans l’univers</a
+          >Veux-tu sonder ton âme?</a
         >
       </section>
 
@@ -134,5 +152,6 @@
     </main>
 
     <script src="./js/script.js"></script>
+     <script src="./js/script-btn.js"></script>
   </body>
 </html>

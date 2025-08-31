@@ -7,15 +7,32 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   font-family: "Arial", sans-serif;
   background: black;
   /* background-image: url(../assets/chimère-home.jpg);
   background-size: cover;
   background-position: top center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
+  */
   color: #f5f5f5;
   overflow-x: hidden;
+}
+
+main {
+  flex: 1; /* prend tout l’espace dispo et pousse le footer en bas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .hidden {
@@ -60,7 +77,6 @@ body {
   margin-bottom: 0.5rem;
   text-align: center;
   letter-spacing: 0.1em;
-
   background: linear-gradient(to top, #900 30%, #fff 80%);
   -webkit-background-clip: text;
   color: transparent;
@@ -92,7 +108,6 @@ nav a {
   text-decoration: none;
   border-left: 4px solid transparent;
   transition: 0.3s;
-
   background: linear-gradient(
     90deg,
     white 0%,
@@ -269,10 +284,6 @@ nav a {
   }
 }
 
-.hidden {
-  display: none;
-}
-
 #feedback {
   margin-top: 1rem;
   color: crimson;
@@ -286,161 +297,183 @@ nav a {
   margin-top: 2rem;
 }
 
-/* journal intime ----------------------------------------------------------- */
-/* Section carousel */
-.journal-carousel-section {
-  max-width: 900px;
-  margin: 40px auto 80px;
-  padding: 20px;
-  background: #f9f1e7;
-  border: 1px solid #d6cbb2;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe Script", cursive, "Comic Sans MS", sans-serif;
-  border-radius: 12px;
-  color: #4b3b2b;
+/* NOUVELLE CARTE INTERACTIVE */
+.separator {
+  width: 100%;
+  height: 2px;
+  background-color: var(--neon-red);
+  margin: 3rem auto;
 }
 
-.journal-carousel-section h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-shadow: 1px 1px 0 #c7b79a;
+.code-card-wrapper {
+  perspective: 1000px;
+  max-width: 800px;
+  margin: 3rem auto;
 }
 
-/* Carousel container */
-.carousel-container {
+.code-card {
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-face {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  backface-visibility: hidden;
+  background-color: #1a1a1a;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-#prev-btn,
-#next-btn {
-  background: #8b7a5e;
+.card-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  /* display: none; */
+  position: absolute; /* Laissez seulement cette ligne pour le verso */
+  top: 0;
+  left: 0;
+}
+
+/* Style de la carte retournée */
+.code-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Style du rapport de police */
+.police-report-header {
+  border-bottom: 2px solid var(--neon-red);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.police-report-header h3 {
+  font-family: "Rubik", Arial, sans-serif;
+  font-size: 1.5rem;
+  color: var(--neon-red);
+}
+
+.police-report-header .report-id {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.police-report-text {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #c0c0c0;
+}
+
+/* Zone de mot de passe */
+.password-input-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-bottom: 1rem;
+}
+
+#password-input {
+  width: 80%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #777;
+  border-radius: 5px;
+  background: #333;
+  color: #fff;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#submit-btn {
+  padding: 0.7rem 1.5rem;
   border: none;
-  color: #f9f1e7;
-  font-size: 2.5rem;
+  border-radius: 5px;
+  background-color: var(--neon-red);
+  color: white;
+  font-weight: bold;
   cursor: pointer;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease;
 }
 
-#prev-btn:hover,
-#next-btn:hover {
-  background: #a08c70;
+#submit-btn:hover {
+  background-color: #ff3366;
 }
 
-.separator {
-  height: 120px;
-  background: linear-gradient(
-    to bottom,
-    rgba(90, 0, 0, 0) 0%,
-    /* Transparent en haut */ rgba(90, 0, 0, 1) 50%,
-    /* Rouge bordeaux opaque au centre */ rgba(90, 0, 0, 0) 100%
-      /* Transparent en bas */
-  );
-  border: none;
-  box-shadow: none;
-  margin: 0;
-  padding: 0;
+/* Messages de feedback */
+.feedback-text {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
 }
 
-/* Journal pages container */
-.journal-pages {
-  width: 100%; /* prend toute la largeur disponible */
-  max-width: 600px; /* max 600px sur grand écran */
-  max-height: 450px;
-  overflow: hidden;
-  position: relative;
-  border-radius: 10px;
-  box-shadow: inset 0 0 8px #d6cbb2;
+.feedback-text.error {
+  color: #ff0000;
 }
 
-.journal-page {
-  width: 100%; /* adapte à la largeur parent */
-  max-width: 600px; /* max 600px */
-  /* height: 250px; */
-  max-height: 250px; /* optionnel : limite maxi mais laisse s’adapter */
-  overflow-y: auto;
-  background: #fef6e4;
-  padding: 25px 35px;
-  box-sizing: border-box;
+.feedback-text.success {
+  color: #00ff00;
+}
+
+/* Calque de validation */
+.validation-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.2) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-  font-style: italic;
-  font-size: 1.15rem;
-  line-height: 1.5;
-  user-select: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 1rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 5;
+  transition: opacity 0.5s ease-out;
 }
 
-/* Page visible */
-.journal-page.active {
-  opacity: 1;
-  transform: translateX(0);
-  position: relative;
-  user-select: text;
+.validation-overlay.visible {
+  display: flex;
 }
 
-/* Title style */
-.journal-page h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-family: "Brush Script MT", cursive, "Segoe Script", cursive;
-  font-size: 1.6rem;
-  text-shadow: 1px 1px 0 #c7b79a;
-  user-select: text;
+#validation-text {
+  font-family: "Rubik Glitch", system-ui;
+  font-size: 2rem;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
 }
 
-.journal-page p {
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  margin: 0;
+#return-btn {
+  padding: 0.7rem 1.5rem;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--neon-red);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: center; /* Centrer le bouton */
 }
 
-/* Media query pour petit écran */
-@media (max-width: 650px) {
-  .journal-pages,
-  .journal-page {
-    height: auto; /* laisse la hauteur s’adapter au contenu */
-    padding: 20px 15px; /* moins de padding sur mobile */
-  }
-
-  .journal-page h3 {
-    font-size: 1.3rem;
-  }
-
-  .journal-page p {
-    font-size: 1rem;
-  }
-
-  .separator {
-    height: 200px;
-  }
+#return-btn:hover {
+  background-color: #ff3366;
 }
 
 .site-footer {
-  position: relative;
-  margin-top: 2rem;
+  margin-top: auto; /* colle en bas */
   left: 0;
   width: 100%;
   background-color: #220000dd;

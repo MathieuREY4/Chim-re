@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const text = btn.nextElementSibling;
-      text.classList.toggle("hidden");
+      text.classList.toggle("visible");
     });
   });
 

@@ -36,104 +36,41 @@
       <div id="final-result" class="hidden"></div>
     </main>
 
-    <hr class="separator" />
-
-    <section class="journal-carousel-section">
-      <h2>Pages de Journal Intime</h2>
-      <div class="carousel-container">
-        <button id="prev-btn" aria-label="Page précédente">&lt;</button>
-        <div class="journal-pages">
-          <article class="journal-page">
-            <h3>Axel - 12 Mars</h3>
-            <p>Cher journal,</p>
-            <p>
-              Je sens l’ombre de Fallen qui s’approche... Chaque nuit est un
-              combat contre mes démons intérieurs.
-            </p>
-          </article>
-          <article class="journal-page">
-            <h3>Victoria - 18 Mars</h3>
-            <p>Patient : Alix DRAUGH</p>
-            <p>Premières observations :</p>
-            <p>
-              Alix présente une intelligence très aiguisée, marquée par une
-              capacité d'observation exceptionnelle. Il semble avoir un besoin
-              compulsif de comprendre et de maîtriser son environnement, ce qui
-              pourrait indiquer un profil obsessionnel, possiblement lié à un
-              besoin de contrôle exacerbé. Cette hypervigilance aux détails
-              traduit chez lui un besoin de réduire l'incertitude qui l'entoure,
-              symptôme typique des troubles anxieux, même si cela reste à
-              approfondir. Il se montre hautain dans ses interactions,
-              manifestant une attitude de supériorité intellectuelle. Ce
-              comportement peut révéler un mécanisme de défense face à un
-              possible sentiment d'infériorité sous-jacent, ou à une fragilité
-              narcissique qu'il tente de masquer en se positionnant au-dessus
-              des autres. Cela demande une évaluation plus approfondie de son
-              estime de soi. Alix a montré une tendance marquée à déshumaniser
-              certaines relations, en particulier celle avec sa sœur, qu’il
-              aborde de manière détachée et cryptique. Le lien qu’il entretient
-              avec elle semble central à ses difficultés, et il est probable que
-              ce sujet soit une clé pour comprendre ses traumatismes non
-              résolus. Il refuse de nommer explicitement les émotions qui
-              pourraient l'affecter à ce sujet, usant de mécanismes d’évitement
-              et de rationalisation. Il convient d’explorer cette dynamique
-              familiale, et de comprendre en quoi la relation avec sa sœur a
-              façonné ses perceptions du monde et des autres. La résistance
-              d'Alix à se livrer directement sur ce point pourrait être un
-              indice de la profondeur du traumatisme, nécessitant une approche
-              progressive et prudente pour ne pas déclencher davantage de
-              mécanismes de défense. Piste de travail : exploration du lien
-              fraternel, décryptage de son rapport au contrôle et évaluation de
-              son estime de soi.
-            </p>
-          </article>
-          <article class="journal-page">
-            <h3>Angèle - 20 Mars</h3>
-            <p>Cher journal,</p>
-            <p>
-              Mon père me disait toujours, que de tous temps, il est plus facile
-              de construire des enfants solides que de réparer des hommes
-              brisés. Sur ce point, je pense qu'il avait raison. Mais il pensait
-              également que le pardon était impensable, que si on nous faisait
-              du mal, il était de notre devoir de ne pas souffrir seul. J'ai
-              comrpis récement qu'il se trompait sur la notion de pardon. Je
-              suis intement convaincu que pardonner, ce n'est pas un geste que
-              l'on fait envers la personne responsable de nos maux, mais un
-              cadeau que l'on se fait à soi-même. Un geste noble qui nous libère
-              de l'emprise qui nous ciblait. D'un seul choix, s'offrir le moyen
-              de dire : " Ce que tu as fait n'interfère plus dans ma vie, c'est
-              un mal qui ne concerne plus que toi". Car celui qui veut du mal
-              est par définition incapable de s'attirer le bon. Il en demeure
-              donc le seul à souffrir.
-            </p>
-          </article>
-          <article class="journal-page">
-            <h3>-A- - 22 Mars</h3>
-            <p>
-              Tu n'existeras que dans la différence. Être ce que personne n'a
-              pensé ou osé être. Faire ce qui n'a jamais été fait ou imaginé.
-              Devenir ce que personne n'aurait vu en toi. Être la contradiction,
-              vouloir ce que tout le monde rejette. Ouvrir les bras au pire, et
-              en faire le meilleur. Apprécier l'inconfortable, mépriser la
-              facilité. Être, et non pas ressembler. Tel est le chemin des
-              Ancres.
-            </p>
-          </article>
-          <article class="journal-page">
-            <h3>Fallen - 25 Mars</h3>
-            <p>
-              Et le loup dit à l’agneau à l’esprit étriqué, que s’il s’évertue à
-              prendre pour vérité tout ce qu’adopte le troupeau, sa vie
-              s’éteindra dans l’ignorance. Autant de vérités que de crocs qui
-              parfois s’émoussent et se cassent mais dont aucun d’eux ne perds
-              de son envie de mordre. Plus elle désire manger et plus la
-              mâchoire convainc. L’agneau à la chair tendre est croqué et aucune
-              de ses convictions n’est alors entendue. C’est la raison pour
-              laquelle Rivières et Montagnes ont toujours tort.
-            </p>
-          </article>
+    <div class="separator"></div>
+    <section class="code-card-wrapper">
+      <div class="code-card">
+        <div class="card-face card-front">
+          <div class="police-report-header">
+            <h3>Rapport d'enquête | Affaire "Chimeres"</h3>
+            <p class="report-id">Réf: Dossier #34-738 | Confidentiel</p>
+          </div>
+          <p class="police-report-text">
+            Le sujet désigné sous le nom de code est repéré pour la dernière
+            fois à proximité d'un lieu abandonné. Selon le témoignage d'un
+            informateur, le sujet semble obsédé par la notion de rédemption. Le
+            mot de passe pour accéder à son journal est son nom de code.
+          </p>
+          <div class="password-input-area">
+            <input
+              type="text"
+              id="password-input"
+              placeholder="Entrez le mot de passe"
+            />
+            <button id="submit-btn">VALIDER</button>
+            <p id="password-feedback" class="feedback-text"></p>
+          </div>
+          <div class="validation-overlay">
+            <p id="validation-text"></p>
+          </div>
         </div>
-        <button id="next-btn" aria-label="Page suivante">&gt;</button>
+
+        <div class="card-face card-back">
+          <div class="journal-page">
+            <h3 id="journal-title"></h3>
+            <p id="journal-content"></p>
+          </div>
+          <button id="return-btn">Retourner</button>
+        </div>
       </div>
     </section>
 

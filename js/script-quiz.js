@@ -1,3 +1,4 @@
+// -------------------- QUIZ --------------------
 const questions = [
   {
     question: "Quel est le nom de la ville où se déroule l'histoire ?",
@@ -40,12 +41,12 @@ const questions = [
     correct: 1,
   },
   {
-    question: "Qui dirrige l'orphelinat de Golza ?",
+    question: "Qui dirige l'orphelinat de Golza ?",
     answers: ["Carl", "Laurenn", "Roberta"],
     correct: 2,
   },
   {
-    question: "Comment se fait appeller l'énigmatique personnage ?",
+    question: "Comment se fait appeler l'énigmatique personnage ?",
     answers: ["-A-", "_A_", "-v-"],
     correct: 0,
   },
@@ -74,7 +75,7 @@ const questions = [
     correct: 1,
   },
   {
-    question: "Quel est le nom du superieur d'Aaron ?",
+    question: "Quel est le nom du supérieur d'Aaron ?",
     answers: ["Carl", "Danny", "Earl"],
     correct: 2,
   },
@@ -94,17 +95,16 @@ const questions = [
     correct: 0,
   },
   {
-    question: "Lequel de ces personnage n'existe pas dans le roman ?",
+    question: "Lequel de ces personnages n'existe pas dans le roman ?",
     answers: ["John", "Rudy", "Nathan"],
     correct: 1,
   },
   {
     question:
-      "Selon toi, quel personnage dit cette citation :  Du plaisir vient ce que l'on veut entendre, de la peur vient l'improvisation, de la haine vient l'exagération, de la douleur vient la vérité. Dois-je vous laisser le choix de la réponse, où dois-je choisir la manière de poser la question?",
+      "Selon toi, quel personnage dit cette citation : Du plaisir vient ce que l'on veut entendre, de la peur vient l'improvisation, de la haine vient l'exagération, de la douleur vient la vérité. Dois-je vous laisser le choix de la réponse, où dois-je choisir la manière de poser la question?",
     answers: ["Nina", "Fallen", "-A-"],
     correct: 2,
   },
-  // Ajoute jusqu'à 20 questions ici
 ];
 
 let currentQuestionIndex = 0;
@@ -134,7 +134,6 @@ function showQuestion() {
 
 function checkAnswer(index, button) {
   const correctIndex = questions[currentQuestionIndex].correct;
-
   if (index === correctIndex) {
     button.classList.add("correct");
     score += attempts === 0 ? 3 : attempts === 1 ? 1 : 0;
@@ -151,7 +150,6 @@ function checkAnswer(index, button) {
     feedbackEl.textContent = "Mauvaise réponse, Fallen est à tes trousses...";
     feedbackEl.classList.remove("hidden");
     attempts++;
-
     if (attempts >= 2) {
       setTimeout(() => {
         currentQuestionIndex++;
@@ -174,48 +172,98 @@ function showFinalResult() {
   questionEl.textContent = "";
   answersEl.innerHTML = "";
   feedbackEl.classList.add("hidden");
-
   if (score >= 15) {
     finalResultEl.textContent = `Félicitations, tu as semé Fallen ! Tu as obtenu ${score} points. File vite te cacher pendant que c'est safe.`;
   } else {
     finalResultEl.textContent = `Fallen t'a rattrapé... Tu as obtenu ${score} points. Tu es mort.`;
   }
-
   finalResultEl.classList.remove("hidden");
 }
 
 showQuestion();
 
-// Journal intime--------------------------------------------------------------
-// Carousel journal intime
-const pages = document.querySelectorAll(".journal-page");
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
-let currentPage = 0;
+// -------------------- CARTE INTERACTIVE --------------------
+const passwordInput = document.getElementById("password-input");
+const submitBtn = document.getElementById("submit-btn");
+const passwordFeedback = document.getElementById("password-feedback"); // message spécifique mot de passe
+const codeCard = document.querySelector(".code-card");
+const validationOverlay = document.querySelector(".validation-overlay");
+const validationText = document.getElementById("validation-text");
 
-function showPage(index) {
-  pages.forEach((page, i) => {
-    page.classList.toggle("active", i === index);
-  });
-}
+// Base simulée de 20 mots de passe et journaux
+const journalTexts = {
+  Alix: "Journal Intime de l'Ombre - 24 Mai\nLes jours se ressemblent et les nuits sont courtes. Je pensais trouver un peu de paix ici...",
+  "-A-":
+    "Journal d'Alpha - 1er Juin\nLa mission a été difficile, mais nous avons survécu...",
+  Fallen:
+    "Journal de Beta - 2 Juin\nRien n'est ce qu'il semble dans cette ville...",
+  Ambre:
+    "Journal de Gamma - 3 Juin\nJe dois prendre une décision importante aujourd'hui...",
+  Kylia:
+    "Journal de Delta - 4 Juin\nLes ombres deviennent plus longues chaque soir...",
+  Abby: "Journal d'Epsilon - 5 Juin\nJ'ai rencontré quelqu'un qui connaît la vérité...",
+  Aaron:
+    "Journal de Zeta - 6 Juin\nIl y a des secrets que personne ne doit découvrir...",
+  Fox: "Journal d'Eta - 7 Juin\nJe commence à perdre confiance en mes alliés...",
+  Shayna: "Journal de Theta - 8 Juin\nUne énigme étrange m'a été laissée...",
+  Glenn: "Journal d'Iota - 9 Juin\nLes souvenirs du passé me hantent encore...",
+  Nina: "Journal de Kappa - 10 Juin\nJe sens que quelqu'un m'observe...",
+  Tyler:
+    "Journal de Lambda - 11 Juin\nIl faut agir avant qu'il ne soit trop tard...",
+  Grace: "Journal de Mu - 12 Juin\nLa vérité est plus sombre que prévu...",
+  John: "Journal de Nu - 13 Juin\nJe dois me méfier de chaque visage...",
+  Victoria:
+    "Journal de Xi - 14 Juin\nLe temps presse et les décisions sont critiques...",
+  Carl: "Journal d'Omicron - 15 Juin\nUne découverte surprenante change tout...",
+  Earl: "Journal de Pi - 16 Juin\nJe ne peux plus faire confiance à personne...",
+  Nathan:
+    "Journal de Rho - 17 Juin\nChaque nuit apporte de nouveaux dangers...",
+  Laurenn:
+    "Journal de Sigma - 18 Juin\nLe passé refait surface et menace mes plans...",
+  Lucie: "Journal de Tau - 19 Juin\nDemain, tout pourrait changer à jamais...",
+};
 
-prevBtn.addEventListener("click", () => {
-  currentPage = (currentPage - 1 + pages.length) % pages.length;
-  showPage(currentPage);
+submitBtn.addEventListener("click", () => {
+  const userInput = passwordInput.value.trim();
+
+  if (journalTexts[userInput]) {
+    passwordFeedback.textContent = "";
+    passwordFeedback.classList.remove("error");
+    validationText.textContent = "Accès autorisé";
+    validationOverlay.classList.add("visible");
+
+    // Mettre le texte du journal dans la face arrière
+    const cardBackText = codeCard.querySelector(".journal-page p");
+    cardBackText.textContent = journalTexts[userInput];
+
+    setTimeout(() => {
+      codeCard.classList.add("flipped");
+    }, 500);
+  } else {
+    passwordFeedback.textContent = "Connexion refusée";
+    passwordFeedback.classList.add("error");
+    submitBtn.classList.add("shake");
+    setTimeout(() => submitBtn.classList.remove("shake"), 500);
+
+    // Supprimer le message après 2 secondes
+    setTimeout(() => {
+      passwordFeedback.textContent = "";
+      passwordFeedback.classList.remove("error");
+    }, 2000);
+  }
 });
 
-nextBtn.addEventListener("click", () => {
-  currentPage = (currentPage + 1) % pages.length;
-  showPage(currentPage);
+passwordInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") submitBtn.click();
 });
 
-// Init display
-showPage(currentPage);
+const returnBtn = document.getElementById("return-btn");
+returnBtn.addEventListener("click", () => {
+  codeCard.classList.remove("flipped");
+  validationOverlay.classList.remove("visible");
+});
 
-// --- MENU BURGER ---
+// -------------------- MENU BURGER --------------------
 const burger = document.getElementById("burger");
 const navLinks = document.getElementById("nav-links");
-
-burger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-});
+burger.addEventListener("click", () => navLinks.classList.toggle("active"));

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bureau sécurisé - Aaron Selina</title>
+    <link rel="stylesheet" href="./css/style-archive.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-links">
+        <li><a href="auteur.html">Auteur</a></li>
+        <li><a href="livre.html">Le Livre</a></li>
+        <li><a href="personnages.html">Personnages</a></li>
+        <li><a href="immersion.html">Immersion</a></li>
+        <li><a href="index.html" id="replay-door">Accueil</a></li>
+      </ul>
+    </nav>
+    <div id="login-screen">
+      <a id="back-btn" href="./immersion.html">&#8592; Retour</a>
+      <div class="login-box">
+        <h2>Session sécurisée</h2>
+        <p>Utilisateur : <strong>Aaron Selina</strong></p>
+        <input type="password" id="password-input" placeholder="Mot de passe" />
+        <button id="login-btn">Connexion</button>
+        <p id="login-error"></p>
+      </div>
+    </div>
+
+    <div id="desktop" class="hidden">
+      <div class="desktop-icons">
+        <div class="icon" data-window="reports">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/document.png"
+            alt="Rapports"
+          />
+          <span>Rapports</span>
+        </div>
+        <div class="icon" data-window="mails">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/new-post.png"
+            alt="Mails"
+          />
+          <span>Boîte mail</span>
+        </div>
+        <div class="icon" data-window="photos">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/camera.png"
+            alt="Photos"
+          />
+          <span>Photos</span>
+        </div>
+        <div class="icon" id="orphelinat-icon" data-window="orphelinat">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/lock-2.png"
+            alt="Orphelinat"
+          />
+          <span>Orphelinat</span>
+        </div>
+        <div class="icon" data-window="trash">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/trash.png"
+            alt="Corbeille"
+          />
+          <span>Corbeille</span>
+        </div>
+        <div class="icon" data-window="chat">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/speech-bubble.png"
+            alt="Chat Sécurisé"
+          />
+          <span>Chat Sécurisé</span>
+          <span class="notification">1</span>
+        </div>
+        <div class="icon" data-window="map">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/map-pin.png"
+            alt="Carte"
+          />
+          <span>Carte de la ville</span>
+        </div>
+        <div class="icon" data-window="terminal">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/console.png"
+            alt="Terminal"
+          />
+          <span>Terminal</span>
+        </div>
+        <div class="icon" data-window="notes">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/note.png"
+            alt="Notes"
+          />
+          <span>Notes</span>
+        </div>
+        <div class="icon" data-window="tictactoe">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/tic-tac-toe.png"
+            alt="Morpion"
+          />
+          <span>Morpion</span>
+        </div>
+        <div class="icon" data-window="snake">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/snake.png"
+            alt="Snake"
+          />
+          <span>Snake</span>
+        </div>
+        <div class="icon" data-window="calculator">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/calculator.png"
+            alt="Calculatrice"
+          />
+          <span>Calculatrice</span>
+        </div>
+        <div class="icon" data-window="forensic-analyser">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/microscope.png"
+            alt="Analyse"
+          />
+          <span>Analyse</span>
+        </div>
+        <div class="icon" id="shutdown-btn">
+          <img
+            src="https://img.icons8.com/ios-filled/64/ffffff/power-off-button.png"
+            alt="Éteindre"
+          />
+          <span>Éteindre</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="forensic-analyser-window" class="window hidden">
+      <div class="window-header">
+        <span>Analyse médico-légale</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content forensic-analyser-content">
+        <div class="image-container">
+          <img
+            id="forensic-img"
+            src="./assets/floue.png"
+            alt="Preuve"
+            class="analysed-img"
+          />
+        </div>
+        <div class="controls">
+          <label for="blur-slider"
+            >Flou (px): <span id="blur-value">0</span></label
+          >
+          <input type="range" id="blur-slider" min="0" max="10" value="0" />
+
+          <label for="contrast-slider"
+            >Contraste (%): <span id="contrast-value">100</span></label
+          >
+          <input
+            type="range"
+            id="contrast-slider"
+            min="50"
+            max="200"
+            value="100"
+          />
+
+          <label for="brightness-slider"
+            >Luminosité (%): <span id="brightness-value">100</span></label
+          >
+          <input
+            type="range"
+            id="brightness-slider"
+            min="0"
+            max="200"
+            value="100"
+          />
+
+          <label for="saturate-slider"
+            >Saturation (%): <span id="saturate-value">100</span></label
+          >
+          <input
+            type="range"
+            id="saturate-slider"
+            min="0"
+            max="200"
+            value="100"
+          />
+
+          <label for="grayscale-slider"
+            >Niveau de gris (%): <span id="grayscale-value">0</span></label
+          >
+          <input
+            type="range"
+            id="grayscale-slider"
+            min="0"
+            max="100"
+            value="0"
+          />
+
+          <button id="reset-filters-btn">Réinitialiser les filtres</button>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="reports-window" class="window hidden">
+      <div class="window-header">
+        <span>Rapports d’enquête</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content reports-content"></div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="mails-window" class="window hidden">
+      <div class="window-header">
+        <span>Boîte mail sécurisée</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content mails-content">
+        <div class="mail-list" id="mail-list"></div>
+        <div class="mail-view" id="mail-content">
+          <h3>Sélectionnez un mail pour l’ouvrir</h3>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="photos-window" class="window hidden">
+      <div class="window-header">
+        <span>Galerie photos</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content photos-content" id="photos-container">
+        <img
+          src="./assets/crime1.png"
+          class="gallery-photo"
+          alt="Photo 1"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 2"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 3"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 4"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 5"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 6"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 7"
+          draggable="true"
+        />
+        <img
+          src="https://img.icons8.com/ios-filled/200/ffffff/camera.png"
+          class="gallery-photo"
+          alt="Photo 8"
+          draggable="true"
+        />
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="orphelinat-window" class="window hidden">
+      <div class="window-header">
+        <span>Dossier Orphelinat</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <p>Ce fichier est protégé par mot de passe secondaire.</p>
+        <input
+          type="password"
+          id="orphelinat-pass"
+          placeholder="Mot de passe"
+        />
+        <button id="orphelinat-btn">Déverrouiller</button>
+        <p id="orphelinat-error"></p>
+        <div id="orphelinat-data" class="hidden">
+          <h3>Dossier classifié : Orphelinat de Golza</h3>
+          <p>Enfants disparus 2021-2022, projet Chimère.</p>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="trash-window" class="window hidden">
+      <div class="window-header">
+        <span>Corbeille - Notes</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content trash-content"></div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="chat-window" class="window hidden">
+      <div class="window-header">
+        <span>C:\> Chat Sécurisé</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content chat-content">
+        <div id="chat-output">
+          <p>> Connexion au serveur ...</p>
+          <p>> Authentification réussie. Bienvenue, Agent Selina.</p>
+          <p>
+            > ANONYME:<br />
+            > &nbsp;&nbsp;[Dossier FALLEN - Confidentiel]<br />
+            Vous jouez à un jeu dont vous ignorez les règles, Aaron. J'ai pris
+            soin de vous transférer des fichiers qui vous aideront peut-être. A
+            vous de réussir à les décoder pour y voir plus clair.
+          </p>
+        </div>
+        <div id="chat-actions">
+          <button id="chat-reply-btn">Répondre</button>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="map-window" class="window hidden">
+      <div class="window-header">
+        <span>Carte de l'enquête</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content map-content">
+        <img
+          src="./assets/map.png"
+          alt="Carte de la ville"
+          class="city-map-img"
+        />
+        <div class="map-overlay">
+          <div class="poi" id="poi-orphelinat" style="top: 20%; left: 30%">
+            <span class="poi-label">Orphelinat de Golza</span>
+          </div>
+          <div class="poi" id="poi-industriel" style="top: 50%; left: 60%">
+            <span class="poi-label">Secteur industriel</span>
+          </div>
+          <div class="poi" id="poi-entrepot" style="top: 75%; left: 15%">
+            <span class="poi-label">Ancien entrepôt</span>
+          </div>
+          <div class="poi" id="poi-north" style="top: 10%; left: 70%">
+            <span class="poi-label">Quartier Nord</span>
+          </div>
+          <div class="poi" id="poi-south" style="top: 85%; left: 40%">
+            <span class="poi-label">Quartier Sud</span>
+          </div>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="terminal-window" class="window hidden">
+      <div class="window-header">
+        <span>Terminal de Décryptage</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content terminal-content">
+        <div id="terminal-output">
+          <p>> Terminal V2.4. Prêt.</p>
+          <p>> Tapez 'ls' pour lister les fichiers disponibles.</p>
+          <p>> Tapez 'help' pour les commandes.</p>
+          <br />
+        </div>
+        <div class="terminal-input-line">
+          <span>C:\></span><input type="text" id="terminal-input" autofocus />
+          <button id="send-btn">Envoyer</button>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="notes-window" class="window hidden">
+      <div class="window-header">
+        <span>Bloc-notes</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <textarea
+          id="notes-textarea"
+          placeholder="Commencez à taper ici..."
+        ></textarea>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="tictactoe-window" class="window hidden">
+      <div class="window-header">
+        <span>Morpion</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content game-content">
+        <div id="game-board">
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
+        </div>
+        <div id="game-status">Au tour de X</div>
+        <button id="reset-game-btn">Recommencer</button>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="snake-window" class="window hidden">
+      <div class="window-header">
+        <span>Snake</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content snake-content">
+        <canvas id="game-canvas" width="600" height="600"></canvas>
+        <div id="game-controls">
+          <div id="game-info">
+            <p>Score : <span id="score">0</span></p>
+            <button id="start-snake-btn">Commencer</button>
+          </div>
+          <div class="mobile-controls">
+            <button class="arrow-btn" id="up-btn">▲</button>
+            <div>
+              <button class="arrow-btn" id="left-btn">◀</button>
+              <button class="arrow-btn" id="right-btn">▶</button>
+            </div>
+            <button class="arrow-btn" id="down-btn">▼</button>
+          </div>
+        </div>
+        <p id="game-message" class="hidden">
+          Utilisez les flèches du clavier pour vous déplacer.
+        </p>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="calculator-window" class="window hidden">
+      <div class="window-header">
+        <span>Calculatrice</span>
+        <div class="window-controls">
+          <button class="minimize-btn">_</button>
+          <button class="close-btn">X</button>
+        </div>
+      </div>
+      <div class="window-content calculator-content">
+        <div id="calculator-display">0</div>
+        <div class="calculator-buttons">
+          <button class="calc-btn op-btn" data-value="C">C</button>
+          <button class="calc-btn op-btn" data-value="±">±</button>
+          <button class="calc-btn op-btn" data-value="%">%</button>
+          <button class="calc-btn op-btn" data-value="/">/</button>
+          <button class="calc-btn num-btn" data-value="7">7</button>
+          <button class="calc-btn num-btn" data-value="8">8</button>
+          <button class="calc-btn num-btn" data-value="9">9</button>
+          <button class="calc-btn op-btn" data-value="*">x</button>
+          <button class="calc-btn num-btn" data-value="4">4</button>
+          <button class="calc-btn num-btn" data-value="5">5</button>
+          <button class="calc-btn num-btn" data-value="6">6</button>
+          <button class="calc-btn op-btn" data-value="-">-</button>
+          <button class="calc-btn num-btn" data-value="1">1</button>
+          <button class="calc-btn num-btn" data-value="2">2</button>
+          <button class="calc-btn num-btn" data-value="3">3</button>
+          <button class="calc-btn op-btn" data-value="+">+</button>
+          <button class="calc-btn num-btn zero-btn" data-value="0">0</button>
+          <button class="calc-btn num-btn" data-value=".">.</button>
+          <button class="calc-btn equals-btn" data-value="=">=</button>
+        </div>
+      </div>
+      <div class="resize-handle top-left-handle"></div>
+      <div class="resize-handle top-right-handle"></div>
+      <div class="resize-handle bottom-left-handle"></div>
+      <div class="resize-handle bottom-right-handle"></div>
+    </div>
+
+    <div id="taskbar">
+      <div id="taskbar-icons"></div>
+    </div>
+
+    <script src="./js/script-archive.js"></script>
+  </body>
+</html>

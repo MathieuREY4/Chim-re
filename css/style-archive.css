@@ -1,0 +1,1120 @@
+/* NAV */
+
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --neon-red: #ff0033;
+  --dark-bg: #0d0d0d;
+  --light-strip: #f2f2f2;
+  --card-bg: #1a1a1a;
+  --text-color: #e0e0e0;
+}
+
+/* ===== STRUCTURE FLEX POUR FOOTER ===== */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+main,
+.quiz-container,
+.code-card-wrapper {
+  flex: 1;
+  /* occupe tout l'espace vertical restant */
+  overflow-y: auto;
+  /* scroll interne si nécessaire */
+}
+
+/* ========== NAVIGATION (mobile first) ========== */
+nav {
+  background-color: black;
+  padding: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  font-family: "Rubik Glitch", system-ui;
+  list-style: none;
+  box-shadow: 0px 1px 0px 0px #bababa;
+  padding-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+nav a {
+  font-size: 3rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: 0.3s;
+  background: linear-gradient(
+    90deg,
+    white 0%,
+    white 45%,
+    #8b0000 47%,
+    #8b0000 53%,
+    white 55%,
+    white 100%
+  );
+  background-size: 300% 100%;
+  background-position: 0 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: bleedingLetters 30s linear infinite;
+}
+
+@keyframes bleedingLetters {
+  0% {
+    background-position: 300% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* BURGER MENU - mobile */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 30px;
+  gap: 6px;
+}
+
+.burger span {
+  height: 4px;
+  background: #f5f5f5;
+  border-radius: 2px;
+}
+
+/* MOBILE ONLY (max-width: 599px) */
+@media (max-width: 599px) {
+  .burger {
+    display: flex;
+  }
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #111;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 1rem 0;
+    z-index: 5;
+  }
+  nav ul.active {
+    display: flex;
+  }
+  nav {
+    position: relative;
+  }
+  nav a {
+    font-size: 1em;
+  }
+  nav a:hover {
+    background: #fff;
+    opacity: 0.5;
+  }
+}
+
+/* Nav ul desktop - >600px */
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+  }
+  nav ul li:hover {
+    animation-name: tremble;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    cursor: pointer;
+  }
+}
+
+@keyframes tremble {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+}
+
+/* ÉCRAN DE LOGIN */
+#login-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.login-box {
+  background: #1b1b1b;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #000;
+  text-align: center;
+}
+
+.login-box input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+
+.login-box button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #0078d7;
+  color: #fff;
+}
+
+.login-box p#login-error {
+  color: #f33;
+  margin-top: 5px;
+}
+
+/* BUREAU */
+#desktop {
+  position: fixed;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 50px); /* laisse le top du nav */
+  background: #0b0b0b url("../assets/ordinateur.png") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+/* Icônes */
+.desktop-icons {
+  display: flex;
+  flex-wrap: wrap;
+}
+.icon {
+  width: 100px;
+  text-align: center;
+  margin: 15px;
+  cursor: pointer;
+  color: #fff;
+  position: relative; /* Pour positionner la notification */
+}
+.icon img {
+  width: 64px;
+  height: 64px;
+  display: block;
+  margin: 0 auto 5px auto;
+}
+
+/* Fenêtres */
+.window {
+  position: fixed;
+  top: 190px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 1000px;
+  max-height: calc(100vh - 190px - 60px - 20px);
+  background: #1b1b1b;
+  border-radius: 8px;
+  box-shadow: 0 0 25px #000;
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.window-header {
+  background: #222;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.window-header .close-btn {
+  background: #c00;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.window-content {
+  padding: 15px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Rapports */
+.reports-content .report {
+  background: #2b2b2b;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.reports-content .report h3 {
+  margin: 0 0 5px 0;
+}
+.reports-content .report h4 {
+  margin: 10px 0 5px 0;
+}
+.reports-content .report ul {
+  margin: 5px 0 10px 20px;
+}
+.reports-content .report .signature {
+  margin-top: 15px;
+  font-style: italic;
+  text-align: right;
+}
+.report-img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  margin: 10px 0;
+}
+
+/* Mails */
+.mails-content {
+  display: flex;
+  height: 100%;
+}
+.mail-list {
+  width: 35%;
+  background: #2b2b2b;
+  overflow-y: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.mail-item {
+  padding: 8px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+}
+.mail-item.unread {
+  font-weight: bold;
+}
+.mail-view {
+  flex: 1;
+  background: #1b1b1b;
+  padding: 10px;
+  overflow-y: auto;
+  margin-left: 10px;
+}
+
+/* Galerie photos */
+.photos-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  overflow-y: auto;
+}
+.photos-content .gallery-photo {
+  width: calc(33% - 10px);
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+/* Champ mot de passe Orphelinat */
+#orphelinat-window input {
+  width: 60%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+#orphelinat-window button {
+  padding: 8px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #0078d7;
+  color: #fff;
+}
+#orphelinat-error {
+  color: #f33;
+  margin-top: 5px;
+}
+
+/* CLASS HIDDEN */
+.hidden {
+  display: none !important;
+}
+
+/* FOOTER */
+.site-footer {
+  background-color: #220000dd;
+  color: #d4a3a3;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  user-select: none;
+  z-index: 1000;
+  margin-top: 50rem;
+}
+
+/* cœur */
+.blood-heart {
+  color: #8b0000;
+  font-size: 1.1rem;
+}
+
+/* Style pour la notification de l'icône de chat */
+.notification {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--neon-red);
+  color: var(--text-color);
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  border: 2px solid var(--dark-bg);
+}
+
+/* Style de la fenêtre de chat */
+.chat-content {
+  background-color: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 15px;
+  overflow-y: auto;
+  border: 1px solid #00ff00;
+  white-space: pre-wrap;
+}
+
+#chat-output {
+  margin-bottom: 10px;
+}
+
+#chat-actions {
+  text-align: right;
+}
+
+#chat-reply-btn {
+  background-color: #0078d7;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Style de la fenêtre de la carte */
+.map-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; /* Fond noir pour la carte */
+}
+
+.city-map-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0.7; /* Légèrement estompée pour l'ambiance */
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.poi {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--neon-red);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--text-color);
+  transition: transform 0.2s ease-in-out;
+}
+
+.poi:hover {
+  transform: scale(1.2);
+}
+
+.poi-label {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /* Fond plus sombre pour la lisibilité */
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: none; /* Caché par défaut */
+  border: 1px solid var(--neon-red); /* Bordure pour le style */
+}
+
+.poi:hover .poi-label {
+  display: block; /* Affiche au survol */
+}
+
+/* Style de la fenêtre du terminal */
+.terminal-content {
+  background-color: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#terminal-output {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.terminal-input-line span {
+  margin-right: 5px;
+}
+
+#terminal-input {
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  outline: none;
+  flex: 1;
+  caret-color: #00ff00;
+}
+
+#terminal-input::selection {
+  background: #008000;
+}
+
+/* AJOUT DE LA FLÈCHE DE RETOUR SUR L'ÉCRAN DE CONNEXION */
+#back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: var(--text-color);
+  font-size: 1.2em;
+  text-decoration: none;
+  background: var(--card-bg);
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+#back-btn:hover {
+  background: var(--neon-red);
+  color: var(--dark-bg);
+  transform: scale(1.1);
+}
+
+/* Style pour le bouton d'envoi du terminal (mobile uniquement) */
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+
+#send-btn {
+  display: none; /* Cache le bouton par défaut sur les grands écrans */
+  background-color: var(--card-bg);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#send-btn:hover {
+  background-color: var(--neon-red);
+  color: var(--dark-bg);
+}
+
+@media (max-width: 768px) {
+  #send-btn {
+    display: block; /* Affiche le bouton sur les écrans mobiles */
+    font-size: 0.8em;
+    padding: 3px 6px;
+  }
+}
+
+/* Style pour les fenêtres déplaçables */
+/* Style pour les fenêtres déplaçables */
+.window {
+  position: absolute; /* Changez la position pour permettre les mouvements */
+  top: 100px; /* Position de départ */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: none !important; /* Important: désactiver la transition du CSS par défaut */
+  min-width: 300px; /* Taille minimale pour éviter la disparition */
+  min-height: 200px;
+  width: auto; /* Permet à la largeur de s'ajuster */
+  height: auto; /* Permet à la hauteur de s'ajuster */
+}
+
+/* Curseur de déplacement sur l'en-tête des fenêtres */
+.window-header {
+  cursor: grab;
+}
+
+.window-header:active {
+  cursor: grabbing;
+}
+
+/* Style pour les poignées de redimensionnement */
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--neon-red);
+  z-index: 9999; /* Toujours visible par-dessus le reste */
+}
+
+/* Curseur pour chaque coin */
+.resize-handle.top-left-handle {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+}
+.resize-handle.top-right-handle {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+}
+.resize-handle.bottom-left-handle {
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+}
+.resize-handle.bottom-right-handle {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+
+/* Style pour les boutons de la fenêtre */
+.window-controls {
+  display: flex;
+  gap: 5px; /* Espacement entre les boutons */
+}
+
+.window-controls button {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--neon-red);
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.window-controls button:hover {
+  background-color: var(--neon-red);
+  color: black;
+}
+
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: #111;
+  border-top: 1px solid #444;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 5000;
+}
+
+#taskbar-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.taskbar-item {
+  background: #222;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.taskbar-item.active {
+  background: #444;
+}
+
+/* Styles pour le bloc-notes */
+#notes-textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #1a1a1a;
+  color: var(--text-color);
+  font-family: monospace;
+  padding: 10px;
+  resize: none;
+  outline: none;
+}
+
+/* Nouveau : Styles du jeu de Morpion */
+.game-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  background-color: #333;
+  border: 2px solid var(--neon-red);
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--text-color);
+}
+
+.cell:hover {
+  background-color: #2a2a2a;
+}
+
+.cell:not(:empty) {
+  cursor: not-allowed;
+}
+
+#game-status {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#reset-game-btn {
+  padding: 10px 20px;
+  background-color: var(--neon-red);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#reset-game-btn:hover {
+  background-color: #e6002c;
+}
+
+/* Styles de la fenêtre de Snake */
+.snake-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+#game-canvas {
+  /* Dimensions maximales pour un affichage optimal sur PC */
+  max-width: 600px;
+  max-height: 600px;
+  /* La largeur et la hauteur s'adaptent à la fenêtre du navigateur */
+  width: 90%;
+  height: auto;
+  aspect-ratio: 1 / 1; /* Force un ratio 1:1 pour rester carré */
+  border: 2px solid var(--neon-red);
+  background-color: #0d0d0d;
+}
+
+/* Styles pour le nouveau conteneur parent */
+#game-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+}
+
+#game-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#score {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--neon-red);
+}
+
+#start-snake-btn {
+  padding: 8px 16px;
+  background-color: var(--neon-red);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#start-snake-btn:hover {
+  background-color: #e6002c;
+}
+
+#game-message {
+  font-style: italic;
+  font-size: 0.9em;
+  color: #aaa;
+  min-height: 2em; /* Ajout d'une hauteur minimale pour éviter le décalage */
+  text-align: center;
+  display: none;
+}
+
+#game-message.hidden {
+  visibility: hidden;
+}
+
+/* Styles pour les contrôles mobiles du jeu Snake */
+.mobile-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobile-controls > div {
+  display: flex;
+  justify-content: center;
+}
+
+.arrow-btn {
+  background-color: var(--neon-red);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1.2rem;
+  margin: 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow-btn:hover {
+  background-color: #e6002c;
+}
+
+/* Masque les contrôles mobiles par défaut */
+.mobile-controls {
+  display: none;
+}
+
+/* Les affiche uniquement sur les écrans de moins de 768px */
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+  }
+}
+
+/* Styles de la calculatrice */
+.calculator-content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--neon-red);
+}
+
+#calculator-display {
+  background-color: #333;
+  color: #fff;
+  font-size: 2.5rem;
+  text-align: right;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 60px;
+  line-height: 60px;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-btn {
+  padding: 20px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.calc-btn:hover {
+  transform: scale(1.05);
+}
+
+.num-btn {
+  background-color: #555;
+  color: #fff;
+}
+
+.op-btn {
+  background-color: var(--neon-red);
+  color: #fff;
+}
+
+.op-btn:hover {
+  background-color: #e6002c;
+}
+
+.equals-btn {
+  grid-column: span 2;
+  background-color: var(--neon-red);
+  color: #fff;
+}
+
+.zero-btn {
+  grid-column: span 2;
+}
+
+/* Styles pour adapter les fenêtres aux écrans mobiles */
+@media (max-width: 768px) {
+  .window {
+    width: 95vw;
+    height: 90vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .window-content {
+    padding: 10px;
+  }
+
+  /* Règle spécifique pour le canvas sur mobile */
+  #game-canvas {
+    width: 90vw;
+    height: 90vw; /* Utilise un ratio de 1:1 pour le canvas */
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  #game-info {
+    max-width: 90vw;
+    flex-direction: column;
+  }
+
+  .calculator-content {
+    padding: 5px;
+  }
+
+  #calculator-display {
+    font-size: 1.8rem;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .calc-btn {
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Styles de la fenêtre d'Analyse médico-légale */
+.forensic-analyser-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 700px; /* Plus large pour accueillir l'image et les curseurs */
+  background-color: #000;
+  padding: 10px;
+  border: 1px solid var(--neon-red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  min-height: 400px; /* Hauteur minimale pour l'image */
+}
+
+.analysed-img {
+  width: 100%;
+  height: auto;
+  filter: brightness(100%) contrast(100%) blur(0px) saturate(100%) grayscale(0%); /* Filtres initiaux */
+  transition: filter 0.1s ease-out;
+  image-rendering: optimizeSpeed; /* Peut aider à la performance visuelle */
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 700px; /* Cohérent avec l'image-container */
+}
+
+.controls label {
+  color: #eee;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 8px;
+  background: #555;
+  border-radius: 5px;
+  outline: none; /* Supprime le contour bleu sur le focus */
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--neon-red);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--neon-red);
+  cursor: pointer;
+}
+
+#reset-filters-btn {
+  padding: 10px 20px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+#reset-filters-btn:hover {
+  background-color: #666;
+}
+
+/* Styles pour mobile - ajustez si nécessaire pour cette fenêtre */
+@media (max-width: 768px) {
+  #forensic-analyser-window .window-content {
+    padding: 10px;
+  }
+  .image-container {
+    max-width: 95vw;
+    min-height: 250px; /* Ajuste la hauteur minimale sur mobile */
+  }
+  .controls {
+    max-width: 95vw;
+  }
+}
+
+/* Styles pour le Glisser-déposer */
+.forensic-analyser-content.drag-over {
+  border: 2px dashed var(--neon-red);
+  background-color: rgba(255, 0, 51, 0.1); /* Rouge transparent */
+  transition: background-color 0.3s, border 0.3s;
+}

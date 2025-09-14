@@ -327,6 +327,33 @@ nav a {
   display: flex;
   height: 100%;
 }
+
+.mail-sidebar {
+  width: 200px;
+  background: #222;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.mail-folder {
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mail-folder:hover {
+  background: #444;
+}
+
+.mail-folder.active {
+  background: #1e1e1e;
+  border: 1px solid #007bff;
+}
+
 .mail-list {
   width: 35%;
   background: #2b2b2b;
@@ -334,14 +361,17 @@ nav a {
   padding: 10px;
   box-sizing: border-box;
 }
+
 .mail-item {
   padding: 8px;
   border-bottom: 1px solid #444;
   cursor: pointer;
 }
+
 .mail-item.unread {
   font-weight: bold;
 }
+
 .mail-view {
   flex: 1;
   background: #1b1b1b;
@@ -350,6 +380,156 @@ nav a {
   margin-left: 10px;
 }
 
+/* Styles pour le contenu du mail */
+.mail-header {
+  border-bottom: 2px solid #555;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.mail-header h3 {
+  color: #fff;
+}
+
+.mail-body p {
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.reply-button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.reply-button:hover {
+  background: #0056b3;
+}
+
+/* Pop-up Sécurité corrompue */
+.security-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s;
+}
+
+.security-popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background-color: #1a1a1a;
+  padding: 30px;
+  border: 3px solid red;
+  box-shadow: 0 0 20px red;
+  text-align: center;
+  border-radius: 10px;
+}
+
+#popup-message {
+  font-size: 2em;
+  font-weight: bold;
+  color: red;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+#launch-antivirus-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: background-color 0.3s ease;
+}
+
+#launch-antivirus-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Antivirus Pop-up */
+.antivirus-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  animation: fadeIn 0.5s;
+}
+
+.antivirus-popup.hidden {
+  display: none;
+}
+
+.antivirus-content {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border: 3px solid #00ff00;
+  box-shadow: 0 0 20px #00ff00;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+}
+
+#antivirus-status {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.progress-bar-container {
+  width: 300px;
+  height: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0; /* La barre commence à 0 */
+  background-color: #00ff00;
+  transition: width 4s ease-in-out;
+}
+
+.progress-bar.filling {
+  width: 100%; /* La barre progresse jusqu'à 100% */
+}
 /* Galerie photos */
 .photos-content {
   display: flex;
@@ -453,22 +633,31 @@ nav a {
   margin-top: 10px;
 }
 
-/* Style de la fenêtre de la carte */
 .map-content {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000; /* Fond noir pour la carte */
+  display: block;
+  background-color: #000;
 }
 
+/* Container responsive uniquement pour la carte */
+.map-responsive-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+/* Carte */
 .city-map-img {
-  max-width: 100%;
+  width: 100%;
+  height: auto;
   max-height: 100%;
   object-fit: contain;
-  opacity: 0.7; /* Légèrement estompée pour l'ambiance */
+  opacity: 0.7;
+  display: block;
+  margin: 0 auto;
 }
 
+/* Overlay des POI */
 .map-overlay {
   position: absolute;
   top: 0;
@@ -498,28 +687,99 @@ nav a {
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.8
-  ); /* Fond plus sombre pour la lisibilité */
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 5px 8px;
   border-radius: 4px;
   font-size: 12px;
-  display: none; /* Caché par défaut */
-  border: 1px solid var(--neon-red); /* Bordure pour le style */
+  display: none;
+  border: 1px solid var(--neon-red);
 }
 
 .poi:hover .poi-label {
-  display: block; /* Affiche au survol */
+  display: block;
 }
+
+/* Vue détaillée - inchangé pour éviter l'écran noir */
+#poi-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+#poi-details-container h2 {
+  color: var(--neon-red);
+  font-size: 1.5rem;
+}
+
+.poi-detail-img {
+  max-width: 90%;
+  max-height: 400px;
+  object-fit: contain;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.poi-description-card {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border: 1px solid var(--text-color);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  max-width: 80%;
+  text-align: center;
+}
+
+.return-button {
+  background-color: var(--neon-red);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.return-button:hover {
+  background-color: var(--neon-blue);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .map-responsive-container {
+    width: 100%;
+  }
+
+  .city-map-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .poi-detail-img {
+    max-height: 250px;
+  }
+
+  #poi-details-container {
+    padding: 15px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /* Style de la fenêtre du terminal */
 .terminal-content {
   background-color: black;
-  color: #00ff00;
+  color: white;
   font-family: "Courier New", monospace;
   padding: 15px;
   height: 100%;

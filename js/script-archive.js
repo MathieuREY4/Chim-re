@@ -37,95 +37,141 @@ document.getElementById("shutdown-btn").addEventListener("click", () => {
   passwordInput.value = "";
   loginError.textContent = "";
 });
-// ----------------- MAILS -----------------
+
+//Mails//
+
 const mails = {
-  1: {
-    subject: "Mise à jour sur Fallen",
-    body: "Agent Selina, le sujet est confirmé présent dans la zone industrielle. Priorité absolue.",
+  inbox: {
+    1: {
+      sender: "Admin",
+      date: "03/09/2025, 14:00",
+      subject: "Mise à jour sur Fallen",
+      body: "Agent Selina, Vous trouverez sur votre bureau plusieurs onglets utilisables.<br><br> - L'onglet 'Rapports' Vous donneras accès à l'avancée de l'enquête.<br><br> - L'onglet 'Boite mail' vous donnera certaines informations importantes pour votre enquête.<br><br> - L'onglet 'Photos' contient des images liées à l'enquête que vous devrait glisser/déposer dans l'onglet 'Analyse' afin de procéder aux retouches.<br><br> - L'onglet 'Orphelinat' est un fichier sécurisé que vous devez réussir à ouvrir en trouvant le bon mot de passe.<br><br> - L'onglet 'corbeille' contient peut-être des choses intéressantes. Ou pas.<br><br> - L'onglet 'Chat sécurisé' sera votre point de départ idéal pour débuter votre immersion. Il simulera un échange dans lequel vous aurez seulement besoin de cliquer sur 'Répondre' lorsque votre interlocuteur aura répondu.<br><br> - L'onglet 'Carte de la ville' vous aidera à mieux situer l'enquête et vous donnera probablement quelques pistes.<br><br> - l'onglet 'Terminal' sera votre meilleur ami pour résoudre l'enquête. Il vous permettra de naviguer dans les fichiers afin de récolter de précieux indices.<br><br> - L'onglet 'Notes' contient un bloc note ordinaire afin de faciliter votre immersion et de pouvoir écrire vos notes tout au long de votre enquête.<br><br> - Les onglets 'Morpion' et 'Snake' Sont simplement là pour vous divertir un peu lors de vos pauses.<br><br> - L'onglet calculatrice vous aidera à... réviser vos multiplications?<br><br> - L'onglet 'Analyse' vous permettra de retoucher les images importées directement depuis l'onglet 'Photos'.<br><br> - L'onglet 'Eteindre' vous déconnectera directement de la session. Attention, si vous cliquez dessus, vous perdrez votre progression! ",
+      reply:
+        "Merci pour les informations. Je me familiarise avec l'interface et je débute l'enquête.",
+      replied: false,
+      read: false,
+    },
+    2: {
+      sender: "Earl",
+      date: "03/09/2025, 14:15",
+      subject: "Rappel de procédure",
+      body: "Aaron,<br> Merci de me fournir un rapport détaillé sur l'enquête Fallen dans les plus brefs délais. Des renforts vous ont été affectés et arriveront au central de Golza dès demain. Il est temps de conclure cette affaire qui a assez durée.",
+      reply:
+        "Je vous ferez parvenir mon rapport au plus vite. Nous suivons une piste intéressante.",
+      replied: false,
+      read: false,
+    },
+    3: {
+      sender: "Carl",
+      date: "03/09/2025, 15:00",
+      subject: "Rapport intermédiaire",
+      body: "Vous avez besoin de vous détendre chef. On se fait un petit morpion à la pause? Si je me souviens bien, le score est de 28 à 14 pour moi! ",
+      reply:
+        "Tu es au courant que ton bureau est en face du miens, et que je vois ton sourire en coin? On jouera quand cette affaire sera bouclée. Maintenant je vais me lever, et te mettre une tape sur la tête, andouille.",
+      replied: false,
+      read: false,
+    },
+    4: {
+      sender: "Police scientifique – Commissariat de Golza",
+      date: "03/09/2025, 15:30",
+      subject: "Pièces à convictions",
+      body: "Bonjour M. SELINA,<br> Vous trouverez dans votre outil 'Photos' les pièces à convictions que vous avez demandé.<br> En vous en souhaitant bonne réception.<br><br> Dr. Léa Martin",
+      reply:
+        "Bonjour,<br> Je vous remercie pour votre réactivité.<br><br> cdt<br> Aaron.",
+      replied: false,
+      read: false,
+    },
+    5: {
+      sender: "Agent 313",
+      date: "03/09/2025, 16:00",
+      subject: "Nouvelle directive",
+      body: "Tous les agents sont priés de transmettre leurs observations avant 18h. Classement top secret.",
+      reply: "Mes rapports seront envoyés avant l'heure limite.",
+      replied: false,
+      read: false,
+    },
+    6: {
+      sender: "Service de surveillance",
+      date: "03/09/2025, 16:45",
+      subject: "Signalement suspect",
+      body: "Un individu non identifié a été observé dans le quartier Nord. Vigilance maximale.",
+      reply: "J'ai alerté les équipes sur place. Vigilance accrue.",
+      replied: false,
+      read: false,
+    },
+    7: {
+      sender: "Le Commandement",
+      date: "03/09/2025, 17:00",
+      subject: "Analyse vidéo",
+      body: "Caméras du secteur 12 : mouvements suspects enregistrés à 02h43.",
+      reply: "J'analyse les enregistrements vidéo du secteur 12.",
+      replied: false,
+      read: false,
+    },
+    8: {
+      sender: "Agent 313",
+      date: "03/09/2025, 17:15",
+      subject: "Confirmation",
+      body: "Fallen a été localisé près de l'ancienne usine. Aucune activité inhabituelle détectée par drones.",
+      reply: "Bien reçu. On continue la surveillance de la zone.",
+      replied: false,
+      read: false,
+    },
+    9: {
+      sender: "Service de surveillance",
+      date: "03/09/2025, 18:00",
+      subject: "Compte rendu",
+      body: "Patrouilles renforcées sur tous les points d'entrée du quartier Est.",
+      reply: "Compris, j'assure le renforcement des patrouilles.",
+      replied: false,
+      read: false,
+    },
+    10: {
+      sender: "Le Commandement",
+      date: "03/09/2025, 18:30",
+      subject: "Message interne",
+      body: "Coordination avec les agents de terrain : surveillance discrète recommandée.",
+      reply: "La coordination avec les agents est en place.",
+      replied: false,
+      read: false,
+    },
   },
-  2: {
-    subject: "Rappel de procédure",
-    body: "Tous les agents doivent se conformer aux nouvelles directives. Confidentialité maximale.",
+  sent: {
+    1: {
+      sender: "Selina",
+      date: "03/09/2025, 14:05",
+      subject: "RE: Mise à jour sur Fallen",
+      body: "Merci pour les informations. Je me familiarise avec l'interface et je débute l'enquête.",
+      read: true,
+    },
   },
-  3: {
-    subject: "Rapport intermédiaire",
-    body: "Le suspect a été localisé à proximité de l'ancien entrepôt. Surveillance continue requise.",
-  },
-  4: {
-    subject: "Message du commandement",
-    body: "Renforcer la sécurité autour des sites sensibles. Eviter toute fuite d'information.",
-  },
-  5: {
-    subject: "Nouvelle directive",
-    body: "Tous les agents sont priés de transmettre leurs observations avant 18h. Classement top secret.",
-  },
-  6: {
-    subject: "Signalement suspect",
-    body: "Un individu non identifié a été observé dans le quartier Nord. Vigilance maximale.",
-  },
-  7: {
-    subject: "Analyse vidéo",
-    body: "Caméras du secteur 12 : mouvements suspects enregistrés à 02h43.",
-  },
-  8: {
-    subject: "Confirmation",
-    body: "Fallen a été localisé près de l'ancienne usine. Aucune activité inhabituelle détectée par drones.",
-  },
-  9: {
-    subject: "Compte rendu",
-    body: "Patrouilles renforcées sur tous les points d'entrée du quartier Est.",
-  },
-  10: {
-    subject: "Message interne",
-    body: "Coordination avec les agents de terrain : surveillance discrète recommandée.",
-  },
-  11: {
-    subject: "Alerte",
-    body: "Présence d'un véhicule inconnu signalée près du secteur industriel.",
-  },
-  12: {
-    subject: "Rapport technique",
-    body: "Analyse des empreintes concorde avec le dossier #12-411.",
-  },
-  13: {
-    subject: "Briefing",
-    body: "Réunion demain 08h00 pour discuter des prochaines étapes de l'enquête.",
-  },
-  14: {
-    subject: "Observation nocturne",
-    body: "Des témoins ont entendu des cris à proximité du complexe abandonné.",
-  },
-  15: {
-    subject: "Confirmation de zone",
-    body: "Toutes les caméras ont été vérifiées et fonctionnent normalement.",
-  },
-  16: {
-    subject: "Rapport de terrain",
-    body: "Le sujet a été aperçu en train de manipuler des objets inconnus dans la ruelle 5.",
-  },
-  17: {
-    subject: "Directive secrète",
-    body: "Ne pas divulguer les informations sur le projet Chimère à l'extérieur de l'unité.",
-  },
-  18: {
-    subject: "Patrouille renforcée",
-    body: "Agents affectés à la surveillance de nuit, quartiers Est et Nord.",
-  },
-  19: {
-    subject: "Coordination",
-    body: "Toutes les équipes doivent envoyer un compte rendu toutes les 3h.",
-  },
-  20: {
-    subject: "Clôture temporaire",
-    body: "L'accès au site industriel est temporairement restreint pour enquête.",
+  spam: {
+    1: {
+      sender: "Pub@spamsite.com",
+      date: "03/09/2025, 13:00",
+      subject: "Gagnez 1.000.000$",
+      body: "Pour recevoir un million de dollars, veuillez cliquer sur ce lien : <a href='#'>Lien malveillant</a>",
+      read: false,
+    },
   },
 };
 
 const mailListDiv = document.getElementById("mail-list");
-const mailContentDiv = document.getElementById("mail-content");
+const mailContentDiv = document.getElementById("mail-view");
 const mailIcon = document.querySelector('.icon[data-window="mails"]');
+const mailSidebar = document.querySelector(".mail-sidebar");
+const securityPopup = document.getElementById("security-popup");
+const antivirusPopup = document.getElementById("antivirus-popup");
+const launchAntivirusBtn = document.getElementById("launch-antivirus-btn");
+const antivirusStatus = document.getElementById("antivirus-status");
+const antivirusProgress = document.getElementById("antivirus-progress");
 
-let unreadMails = Object.keys(mails).length;
+// Initialisation de unreadMails en comptant les mails non lus
+let unreadMails = Object.values(mails.inbox).filter(
+  (mail) => !mail.read
+).length;
+let currentFolder = "inbox";
 
 const updateMailNotification = () => {
   let notification = mailIcon.querySelector(".notification");
@@ -144,30 +190,154 @@ const updateMailNotification = () => {
   }
 };
 
+const displayMails = (folder) => {
+  mailListDiv.innerHTML = "";
+  mailContentDiv.innerHTML = "";
+  const currentMails = mails[folder];
+
+  // Recalculer unreadMails pour le dossier actuel
+  unreadMails = Object.values(currentMails).filter((mail) => !mail.read).length;
+
+  for (let id in currentMails) {
+    const mail = currentMails[id];
+    const mailDiv = document.createElement("div");
+    mailDiv.classList.add("mail-item");
+    mailDiv.dataset.mail = id;
+    mailDiv.dataset.folder = folder;
+
+    // Ajoutez la classe 'unread' uniquement si le mail n'est pas lu
+    if (!mail.read) {
+      mailDiv.classList.add("unread");
+    }
+
+    mailDiv.innerHTML = `<span class="mail-sender">${mail.sender}</span> - <span class="mail-date">${mail.date}</span><br><strong>Sujet:</strong> ${mail.subject}`;
+    mailListDiv.appendChild(mailDiv);
+  }
+  updateMailNotification();
+};
+
+const displayMailContent = (mail, id, folder) => {
+  let content = `
+    <div class="mail-header">
+      <h3>De: ${mail.sender}<br>Sujet: ${mail.subject}<br>Date: ${mail.date}</h3>
+    </div>
+    <div class="mail-body">
+      <p>${mail.body}</p>
+  `;
+
+  // Affiche la réponse si l'e-mail a déjà été répondu
+  if (mail.replied) {
+    content += `
+      <div class="mail-body-reply">
+        <br><br>---<br>Réponse :<br>${mail.reply}
+      </div>
+    `;
+  }
+
+  content += `</div>`;
+
+  // Affiche le bouton "Répondre"
+  if (folder === "inbox" && mail.reply && !mail.replied) {
+    content += `<button class="reply-button">Répondre</button>`;
+  }
+
+  mailContentDiv.innerHTML = content;
+
+  if (folder === "inbox" && mail.reply && !mail.replied) {
+    const replyButton = mailContentDiv.querySelector(".reply-button");
+    if (replyButton) {
+      replyButton.addEventListener("click", () => {
+        mails.inbox[id].replied = true;
+
+        const mailBody = mailContentDiv.querySelector(".mail-body");
+        const replyDiv = document.createElement("div");
+        replyDiv.innerHTML = `<br><br>---<br>Réponse :<br>${mail.reply}`;
+        mailBody.appendChild(replyDiv);
+
+        const newSentMailId = Object.keys(mails.sent).length + 1;
+        mails.sent[newSentMailId] = {
+          sender: "Selina",
+          date: new Date().toLocaleString("fr-FR"),
+          subject: `RE: ${mail.subject}`,
+          body: mail.reply,
+          read: true,
+        };
+
+        replyButton.remove();
+      });
+    }
+  }
+
+  // Écoute du clic sur lien malveillant
+  if (folder === "spam") {
+    const maliciousLink = mailContentDiv.querySelector("a");
+    if (maliciousLink) {
+      maliciousLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        securityPopup.classList.remove("hidden");
+      });
+    }
+  }
+};
+
+mailSidebar.addEventListener("click", (e) => {
+  const folder = e.target.closest(".mail-folder");
+  if (folder) {
+    document.querySelector(".mail-folder.active").classList.remove("active");
+    folder.classList.add("active");
+    currentFolder = folder.dataset.folder;
+    displayMails(currentFolder);
+  }
+});
+
 mailListDiv.addEventListener("click", (e) => {
   const item = e.target.closest(".mail-item");
   if (!item) return;
-  const mail = mails[item.dataset.mail];
+  const folder = item.dataset.folder;
+  const mailId = item.dataset.mail;
+  const mail = mails[folder][mailId];
+
   if (mail) {
-    mailContentDiv.innerHTML = `<h3>${mail.subject}</h3><p>${mail.body}</p>`;
-    if (item.classList.contains("unread")) {
+    displayMailContent(mail, mailId, folder);
+
+    if (!mail.read) {
+      mails[folder][mailId].read = true;
       item.classList.remove("unread");
-      item.innerHTML = mail.subject;
       unreadMails--;
       updateMailNotification();
     }
   }
 });
 
-for (let id in mails) {
-  const mailDiv = document.createElement("div");
-  mailDiv.classList.add("mail-item", "unread");
-  mailDiv.dataset.mail = id;
-  mailDiv.innerHTML = `<strong>[Non lu]</strong> ${mails[id].subject}`;
-  mailListDiv.appendChild(mailDiv);
-}
+// Gère le clic sur le bouton "Lancer l'anti-virus"
+launchAntivirusBtn.addEventListener("click", () => {
+  securityPopup.classList.add("hidden");
+  antivirusPopup.classList.remove("hidden");
 
-updateMailNotification();
+  antivirusStatus.textContent = "Analyse en cours...";
+  antivirusProgress.style.width = "0"; // reset à 0
+
+  // Force un recalcul puis démarre l'animation
+  setTimeout(() => {
+    antivirusProgress.style.width = "100%";
+  }, 50);
+
+  // Quand la transition est finie
+  antivirusProgress.addEventListener(
+    "transitionend",
+    () => {
+      antivirusStatus.textContent = "Sécurité rétablie !";
+      setTimeout(() => {
+        antivirusPopup.classList.add("hidden");
+        antivirusProgress.style.width = "0"; // reset pour la prochaine fois
+      }, 1500);
+    },
+    { once: true }
+  );
+});
+
+// Afficher les mails reçus par défaut au démarrage
+displayMails("inbox");
 
 // ----------------- RAPPORTS -----------------
 const reportsContent = document.querySelector(".reports-content");
@@ -435,6 +605,44 @@ let history = [];
 
 // Nouvelle structure de système de fichiers
 const filesystem = {
+  "README.txt": {
+    type: "file",
+    content: `
+> FICHIER READ-ME<br>
+> ---------------------<br>
+Bienvenue dans votre terminal d’entraînement.<br><br>
+
+Ce logiciel simule un terminal sécurisé, conçu pour vous familiariser avec la navigation et l’utilisation de commandes classiques dans un environnement informatique réaliste.<br><br>
+
+Seule la commande "decrypt" a été inventée spécifiquement pour cette simulation. Elle permet d’accéder aux fichiers cryptés et apporte une dimension de sécurité et de réalisme à votre expérience.<br><br>
+
+Votre mission, Agent SELINA, est de parcourir les répertoires et d’explorer les fichiers cryptés afin de rassembler les indices nécessaires pour accéder au dossier sécurisé situé sur votre bureau. Ce dossier contient une information cruciale et marque l’aboutissement de votre initiation.<br><br>
+
+Cette immersion est conçue pour être instructive et captivante : elle ne divulgue pas l’histoire principale, mais vous offre un aperçu concret de votre environnement de travail simulé.<br><br>
+
+Instructions de base :<br>
+- Tapez "ls" pour lister les fichiers et dossiers du répertoire courant.<br>
+- Tapez "cd <nom_du_dossier>" pour changer de répertoire.<br>
+- Tapez "cd .." pour revenir au dossier précédent.<br>
+- Utilisez "decrypt + "nom_du_fichier" pour ouvrir un fichier crypté et en découvrir le contenu.<br>
+- Tapez "history" pour avoir un visuel clair de vos commandes déjà tapées.<br>
+- Tapez "clear" pour nettoyer votre terminal sans annuler votre avancée.<br>
+- Tapez "help" à tout moment pour afficher les commandes disponibles.<br>
+- Utilisez "TAB" pour compléter automatiquement les noms de fichiers et gagner du temps.<br>
+- Vous pouvez à tout moment réduire la fenêtre dans la barre des tâches ou bien la fermer sans perdre votre progression.<br>
+- Vous pouvez également réduire ou augmenter la taille de la fenêtre afin d'en ouvrir plusieures en simultanées.<br>
+- Attention cependant, si vous actualisez la page vous devrez recommencer car ce site ne contient pas de base de données réelles.<br>
+- Explorez attentivement les fichiers et dossiers : chaque indice compte pour votre réussite.<br><br>
+
+Astuces de navigation :<br> 
+- N'hésitez pas à utiliser régulièrement la commande "clear" afin d'y voir plus clair.<br>
+- Si vous ne savez plus où vous en êtes, la commande "ls" est votre amie. Elle vous permettra à chaque instant de savoir quels sont les fichiers auxquels vous avez accès.<br> 
+- Pour plus de facilité, utilisez le bloc note disponible sur le bureau afin d'écrire les chemins pour certains dossiers et garder en mémoire les indices collectés.<br><br>
+
+Bonne exploration, Agent SELINA.
+
+`,
+  },
   CONFIDENTIAL: {
     type: "dir",
     children: {
@@ -1797,3 +2005,73 @@ resetButton.addEventListener("click", resetGame);
     }
   });
 })();
+
+// Définir les données des points d'intérêt
+const pointsOfInterest = {
+  "poi-orphelinat": {
+    title: "Orphelinat de Golza",
+    image: "./assets/tome5.png", // Remplacez par le chemin de votre image
+    description:
+      "Cet orphelinat abandonné a été le dernier lieu de résidence de Fallen avant sa disparition. Les rumeurs disent que d'étranges événements s'y sont produits, mais aucune preuve n'a été trouvée.",
+  },
+  "poi-industriel": {
+    title: "Secteur industriel",
+    image: "./assets/industriel-pic.jpg", // Remplacez par le chemin de votre image
+    description:
+      "La zone industrielle, autrefois un centre d'activité, est maintenant en grande partie à l'abandon. C'est un point de rencontre connu des gangs locaux et des trafiquants. La police y a mené plusieurs opérations.",
+  },
+  "poi-entrepot": {
+    title: "Ancien entrepôt",
+    image: "./assets/entrepot-pic.jpg", // Remplacez par le chemin de votre image
+    description:
+      "Le rapport d'enquête indique que Fallen a été aperçu pour la dernière fois près de cet ancien entrepôt. Le bâtiment est délabré et sert probablement de repaire. Une surveillance accrue est nécessaire.",
+  },
+  "poi-north": {
+    title: "Quartier Nord",
+    image: "./assets/quartier-nord-pic.jpg", // Remplacez par le chemin de votre image
+    description:
+      "Le quartier Nord est connu pour son taux de criminalité élevé. C'est un terrain fertile pour les activités illégales. Il est fort probable que certains indices se trouvent dans ce secteur.",
+  },
+  "poi-south": {
+    title: "Quartier Sud",
+    image: "./assets/quartier-sud-pic.jpg", // Remplacez par le chemin de votre image
+    description:
+      "Le quartier Sud est une zone résidentielle. Les habitants ont signalé des bruits étranges et des allers-retours suspects la nuit. Il est possible que le suspect se soit réfugié dans l'une des maisons abandonnées.",
+  },
+};
+
+// Sélecteurs d'éléments de la carte
+const cityMapImg = document.querySelector(".city-map-img");
+const mapOverlay = document.querySelector(".map-overlay");
+const poiDetailsContainer = document.getElementById("poi-details-container");
+const poiTitle = document.getElementById("poi-title");
+const poiImage = document.getElementById("poi-image");
+const poiDescription = document.getElementById("poi-description");
+const backToMapBtn = document.getElementById("back-to-map-btn");
+const pois = document.querySelectorAll(".poi");
+
+// Gérer les clics sur les points d'intérêt (POI)
+pois.forEach((poi) => {
+  poi.addEventListener("click", (event) => {
+    const poiId = event.currentTarget.id;
+    const poiData = pointsOfInterest[poiId];
+    if (poiData) {
+      // Masquer la carte et l'overlay, et afficher les détails
+      cityMapImg.classList.add("hidden");
+      mapOverlay.classList.add("hidden");
+      poiDetailsContainer.classList.remove("hidden");
+
+      // Mettre à jour le contenu de la vue détaillée
+      poiTitle.textContent = poiData.title;
+      poiImage.src = poiData.image;
+      poiDescription.textContent = poiData.description;
+    }
+  });
+});
+
+// Gérer le clic sur le bouton de retour
+backToMapBtn.addEventListener("click", () => {
+  poiDetailsContainer.classList.add("hidden");
+  cityMapImg.classList.remove("hidden");
+  mapOverlay.classList.remove("hidden");
+});

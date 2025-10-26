@@ -1,5 +1,3 @@
-/* NAV */
-
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
 
@@ -17,7 +15,6 @@
   --text-color: #e0e0e0;
 }
 
-/* ===== STRUCTURE FLEX POUR FOOTER ===== */
 html,
 body {
   height: 100%;
@@ -34,9 +31,7 @@ main,
 .quiz-container,
 .code-card-wrapper {
   flex: 1;
-  /* occupe tout l'espace vertical restant */
   overflow-y: auto;
-  /* scroll interne si nécessaire */
 }
 
 /* ========== NAVIGATION (mobile first) ========== */
@@ -49,6 +44,9 @@ nav {
 }
 
 nav ul {
+  max-width: 1000px;
+  margin: 0 auto;
+
   display: flex;
   flex-direction: row;
   font-family: "Rubik Glitch", system-ui;
@@ -59,7 +57,7 @@ nav ul {
 }
 
 nav a {
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 0.5rem;
   text-decoration: none;
   border-left: 4px solid transparent;
@@ -106,11 +104,11 @@ nav a {
   border-radius: 2px;
 }
 
-/* MOBILE ONLY (max-width: 599px) */
 @media (max-width: 599px) {
   .burger {
     display: flex;
   }
+
   nav ul {
     display: none;
     flex-direction: column;
@@ -120,30 +118,48 @@ nav a {
     left: 0;
     width: 100%;
     padding: 1rem 0;
+    box-shadow: none;
     z-index: 5;
+    max-width: 100%;
   }
+
   nav ul.active {
     display: flex;
   }
+
   nav {
     position: relative;
   }
+
   nav a {
     font-size: 1em;
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #f5f5f5;
+    color: #f5f5f5;
   }
+
   nav a:hover {
     background: #fff;
     opacity: 0.5;
   }
 }
 
-/* Nav ul desktop - >600px */
 @media (min-width: 600px) {
   nav ul {
+    display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    list-style: none;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    box-shadow: 0px 1px 0px 0px #bababa;
+    padding-left: 0;
+    padding-right: 0;
   }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+
   nav ul li:hover {
     animation-name: tremble;
     animation-duration: 0.3s;
@@ -214,13 +230,12 @@ nav a {
   margin-top: 5px;
 }
 
-/* BUREAU */
 #desktop {
   position: fixed;
   top: 150px;
   left: 0;
   width: 100%;
-  height: calc(100% - 50px); /* laisse le top du nav */
+  height: calc(100% - 50px);
   background: #0b0b0b url("../assets/ordinateur.png") no-repeat center center;
   background-size: cover;
   display: flex;
@@ -243,7 +258,7 @@ nav a {
   margin: 15px;
   cursor: pointer;
   color: #fff;
-  position: relative; /* Pour positionner la notification */
+  position: relative;
 }
 .icon img {
   width: 64px;
@@ -252,7 +267,6 @@ nav a {
   margin: 0 auto 5px auto;
 }
 
-/* Fenêtres */
 .window {
   position: fixed;
   top: 190px;
@@ -294,7 +308,6 @@ nav a {
   flex: 1;
 }
 
-/* Rapports */
 .reports-content .report {
   background: #2b2b2b;
   padding: 15px;
@@ -322,7 +335,6 @@ nav a {
   margin: 10px 0;
 }
 
-/* Mails */
 .mails-content {
   display: flex;
   height: 100%;
@@ -380,7 +392,6 @@ nav a {
   margin-left: 10px;
 }
 
-/* Styles pour le contenu du mail */
 .mail-header {
   border-bottom: 2px solid #555;
   padding-bottom: 10px;
@@ -411,7 +422,6 @@ nav a {
   background: #0056b3;
 }
 
-/* Pop-up Sécurité corrompue */
 .security-popup {
   position: fixed;
   top: 0;
@@ -477,7 +487,6 @@ nav a {
   background-color: #0056b3;
 }
 
-/* Antivirus Pop-up */
 .antivirus-popup {
   position: fixed;
   top: 0;
@@ -522,15 +531,15 @@ nav a {
 
 .progress-bar {
   height: 100%;
-  width: 0; /* La barre commence à 0 */
+  width: 0;
   background-color: #00ff00;
   transition: width 4s ease-in-out;
 }
 
 .progress-bar.filling {
-  width: 100%; /* La barre progresse jusqu'à 100% */
+  width: 100%;
 }
-/* Galerie photos */
+
 .photos-content {
   display: flex;
   flex-wrap: wrap;
@@ -545,7 +554,6 @@ nav a {
   border-radius: 5px;
 }
 
-/* Champ mot de passe Orphelinat */
 #orphelinat-window input {
   width: 60%;
   padding: 10px;
@@ -568,12 +576,10 @@ nav a {
   margin-top: 5px;
 }
 
-/* CLASS HIDDEN */
 .hidden {
   display: none !important;
 }
 
-/* FOOTER */
 .site-footer {
   background-color: #220000dd;
   color: #d4a3a3;
@@ -585,13 +591,11 @@ nav a {
   margin-top: 50rem;
 }
 
-/* cœur */
 .blood-heart {
   color: #8b0000;
   font-size: 1.1rem;
 }
 
-/* Style pour la notification de l'icône de chat */
 .notification {
   position: absolute;
   top: -5px;
@@ -604,7 +608,6 @@ nav a {
   border: 2px solid var(--dark-bg);
 }
 
-/* Style de la fenêtre de chat */
 .chat-content {
   background-color: black;
   color: #00ff00;
@@ -639,14 +642,12 @@ nav a {
   background-color: #000;
 }
 
-/* Container responsive uniquement pour la carte */
 .map-responsive-container {
   position: relative;
   width: 100%;
   height: auto;
 }
 
-/* Carte */
 .city-map-img {
   width: 100%;
   height: auto;
@@ -657,7 +658,6 @@ nav a {
   margin: 0 auto;
 }
 
-/* Overlay des POI */
 .map-overlay {
   position: absolute;
   top: 0;
@@ -700,7 +700,6 @@ nav a {
   display: block;
 }
 
-/* Vue détaillée - inchangé pour éviter l'écran noir */
 #poi-details-container {
   display: flex;
   flex-direction: column;
@@ -754,7 +753,6 @@ nav a {
   display: none !important;
 }
 
-/* MOBILE */
 @media (max-width: 767px) {
   .map-responsive-container {
     width: 100%;
@@ -774,9 +772,6 @@ nav a {
   }
 }
 
-/* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
-
-/* Style de la fenêtre du terminal */
 .terminal-content {
   background-color: black;
   color: white;
@@ -815,7 +810,6 @@ nav a {
   background: #008000;
 }
 
-/* AJOUT DE LA FLÈCHE DE RETOUR SUR L'ÉCRAN DE CONNEXION */
 #back-btn {
   position: absolute;
   top: 20px;
@@ -835,14 +829,13 @@ nav a {
   transform: scale(1.1);
 }
 
-/* Style pour le bouton d'envoi du terminal (mobile uniquement) */
 .terminal-input-line {
   display: flex;
   align-items: center;
 }
 
 #send-btn {
-  display: none; /* Cache le bouton par défaut sur les grands écrans */
+  display: none;
   background-color: var(--card-bg);
   border: 1px solid var(--text-color);
   color: var(--text-color);
@@ -860,27 +853,24 @@ nav a {
 
 @media (max-width: 768px) {
   #send-btn {
-    display: block; /* Affiche le bouton sur les écrans mobiles */
+    display: block;
     font-size: 0.8em;
     padding: 3px 6px;
   }
 }
 
-/* Style pour les fenêtres déplaçables */
-/* Style pour les fenêtres déplaçables */
 .window {
-  position: absolute; /* Changez la position pour permettre les mouvements */
-  top: 100px; /* Position de départ */
+  position: absolute;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
-  transition: none !important; /* Important: désactiver la transition du CSS par défaut */
-  min-width: 300px; /* Taille minimale pour éviter la disparition */
+  transition: none !important;
+  min-width: 300px;
   min-height: 200px;
-  width: auto; /* Permet à la largeur de s'ajuster */
-  height: auto; /* Permet à la hauteur de s'ajuster */
+  width: auto;
+  height: auto;
 }
 
-/* Curseur de déplacement sur l'en-tête des fenêtres */
 .window-header {
   cursor: grab;
 }
@@ -889,16 +879,14 @@ nav a {
   cursor: grabbing;
 }
 
-/* Style pour les poignées de redimensionnement */
 .resize-handle {
   position: absolute;
   width: 10px;
   height: 10px;
   background-color: var(--neon-red);
-  z-index: 9999; /* Toujours visible par-dessus le reste */
+  z-index: 9999;
 }
 
-/* Curseur pour chaque coin */
 .resize-handle.top-left-handle {
   top: 0;
   left: 0;
@@ -920,10 +908,9 @@ nav a {
   cursor: se-resize;
 }
 
-/* Style pour les boutons de la fenêtre */
 .window-controls {
   display: flex;
-  gap: 5px; /* Espacement entre les boutons */
+  gap: 5px;
 }
 
 .window-controls button {
@@ -974,7 +961,6 @@ nav a {
   background: #444;
 }
 
-/* Styles pour le bloc-notes */
 #notes-textarea {
   width: 100%;
   height: 100%;
@@ -987,7 +973,6 @@ nav a {
   outline: none;
 }
 
-/* Nouveau : Styles du jeu de Morpion */
 .game-content {
   display: flex;
   flex-direction: column;
@@ -1046,7 +1031,6 @@ nav a {
   background-color: #e6002c;
 }
 
-/* Styles de la fenêtre de Snake */
 .snake-content {
   display: flex;
   flex-direction: column;
@@ -1057,18 +1041,15 @@ nav a {
 }
 
 #game-canvas {
-  /* Dimensions maximales pour un affichage optimal sur PC */
   max-width: 600px;
   max-height: 600px;
-  /* La largeur et la hauteur s'adaptent à la fenêtre du navigateur */
   width: 90%;
   height: auto;
-  aspect-ratio: 1 / 1; /* Force un ratio 1:1 pour rester carré */
+  aspect-ratio: 1 / 1;
   border: 2px solid var(--neon-red);
   background-color: #0d0d0d;
 }
 
-/* Styles pour le nouveau conteneur parent */
 #game-controls {
   display: flex;
   justify-content: space-between;
@@ -1109,7 +1090,7 @@ nav a {
   font-style: italic;
   font-size: 0.9em;
   color: #aaa;
-  min-height: 2em; /* Ajout d'une hauteur minimale pour éviter le décalage */
+  min-height: 2em;
   text-align: center;
   display: none;
 }
@@ -1118,7 +1099,6 @@ nav a {
   visibility: hidden;
 }
 
-/* Styles pour les contrôles mobiles du jeu Snake */
 .mobile-controls {
   display: flex;
   flex-direction: column;
@@ -1150,19 +1130,16 @@ nav a {
   background-color: #e6002c;
 }
 
-/* Masque les contrôles mobiles par défaut */
 .mobile-controls {
   display: none;
 }
 
-/* Les affiche uniquement sur les écrans de moins de 768px */
 @media (max-width: 768px) {
   .mobile-controls {
     display: flex;
   }
 }
 
-/* Styles de la calculatrice */
 .calculator-content {
   display: flex;
   flex-direction: column;
@@ -1227,7 +1204,6 @@ nav a {
   grid-column: span 2;
 }
 
-/* Styles pour adapter les fenêtres aux écrans mobiles */
 @media (max-width: 768px) {
   .window {
     width: 95vw;
@@ -1241,10 +1217,9 @@ nav a {
     padding: 10px;
   }
 
-  /* Règle spécifique pour le canvas sur mobile */
   #game-canvas {
     width: 90vw;
-    height: 90vw; /* Utilise un ratio de 1:1 pour le canvas */
+    height: 90vw;
     max-width: 400px;
     max-height: 400px;
   }
@@ -1270,7 +1245,6 @@ nav a {
   }
 }
 
-/* Styles de la fenêtre d'Analyse médico-légale */
 .forensic-analyser-content {
   display: flex;
   flex-direction: column;
@@ -1281,7 +1255,7 @@ nav a {
 
 .image-container {
   width: 100%;
-  max-width: 700px; /* Plus large pour accueillir l'image et les curseurs */
+  max-width: 700px;
   background-color: #000;
   padding: 10px;
   border: 1px solid var(--neon-red);
@@ -1289,7 +1263,7 @@ nav a {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  min-height: 400px; /* Hauteur minimale pour l'image */
+  min-height: 400px;
 }
 
 .analysed-img {
@@ -1297,7 +1271,7 @@ nav a {
   height: auto;
   filter: brightness(100%) contrast(100%) blur(0px) saturate(100%) grayscale(0%); /* Filtres initiaux */
   transition: filter 0.1s ease-out;
-  image-rendering: optimizeSpeed; /* Peut aider à la performance visuelle */
+  image-rendering: optimizeSpeed;
 }
 
 .controls {
@@ -1305,7 +1279,7 @@ nav a {
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  max-width: 700px; /* Cohérent avec l'image-container */
+  max-width: 700px;
 }
 
 .controls label {
@@ -1322,7 +1296,7 @@ input[type="range"] {
   height: 8px;
   background: #555;
   border-radius: 5px;
-  outline: none; /* Supprime le contour bleu sur le focus */
+  outline: none;
   cursor: pointer;
 }
 
@@ -1358,23 +1332,21 @@ input[type="range"]::-moz-range-thumb {
   background-color: #666;
 }
 
-/* Styles pour mobile - ajustez si nécessaire pour cette fenêtre */
 @media (max-width: 768px) {
   #forensic-analyser-window .window-content {
     padding: 10px;
   }
   .image-container {
     max-width: 95vw;
-    min-height: 250px; /* Ajuste la hauteur minimale sur mobile */
+    min-height: 250px;
   }
   .controls {
     max-width: 95vw;
   }
 }
 
-/* Styles pour le Glisser-déposer */
 .forensic-analyser-content.drag-over {
   border: 2px dashed var(--neon-red);
-  background-color: rgba(255, 0, 51, 0.1); /* Rouge transparent */
+  background-color: rgba(255, 0, 51, 0.1);
   transition: background-color 0.3s, border 0.3s;
 }

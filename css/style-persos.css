@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
-/* RESET ET BASE */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,12 +9,15 @@
 body {
   font-family: "Arial", sans-serif;
   background: black;
-  /* background-image: url(../assets/chimère-home.jpg);
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat; */
   color: #f5f5f5;
   overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
 }
 
 .hidden {
@@ -52,19 +55,18 @@ body {
   }
 }
 
-/* TITRE & SOUS-TITRE */
 .title {
   font-family: "Creepster", cursive;
   font-size: 3rem;
-  margin-top: 5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
   text-align: center;
   letter-spacing: 0.1em;
-  color: #900;
-  -webkit-text-stroke: 0.1px white;
+  background: linear-gradient(to top, #900 30%, #fff 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-/* ========== NAVIGATION (mobile first) ========== */
 nav {
   background-color: black;
   padding: 2rem;
@@ -74,6 +76,8 @@ nav {
 }
 
 nav ul {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   font-family: "Rubik Glitch", system-ui;
@@ -84,12 +88,11 @@ nav ul {
 }
 
 nav a {
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 0.5rem;
   text-decoration: none;
   border-left: 4px solid transparent;
   transition: 0.3s;
-
   background: linear-gradient(
     90deg,
     white 0%,
@@ -101,12 +104,10 @@ nav a {
   );
   background-size: 300% 100%;
   background-position: 0 0;
-
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-
   animation: bleedingLetters 30s linear infinite;
 }
 
@@ -119,7 +120,6 @@ nav a {
   }
 }
 
-/* BURGER MENU - mobile */
 .burger {
   display: none;
   flex-direction: column;
@@ -134,7 +134,6 @@ nav a {
   border-radius: 2px;
 }
 
-/* MOBILE ONLY (max-width: 599px) */
 @media (max-width: 599px) {
   .burger {
     display: flex;
@@ -149,7 +148,9 @@ nav a {
     left: 0;
     width: 100%;
     padding: 1rem 0;
+    box-shadow: none;
     z-index: 5;
+    max-width: 100%;
   }
 
   nav ul.active {
@@ -162,6 +163,10 @@ nav a {
 
   nav a {
     font-size: 1em;
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #f5f5f5;
+    color: #f5f5f5;
   }
 
   nav a:hover {
@@ -170,21 +175,34 @@ nav a {
   }
 }
 
-/* Nav ul desktop - >600px */
 @media (min-width: 600px) {
   nav ul {
+    display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    list-style: none;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    box-shadow: 0px 1px 0px 0px #bababa;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+
+  .burger,
+  #carousel-controls {
+    display: none;
   }
 
   nav ul li:hover {
-    animation: tremble 0.3s infinite;
+    animation-name: tremble;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
     cursor: pointer;
   }
 }
 
-/* Animation tremble */
 @keyframes tremble {
   0%,
   100% {
@@ -200,8 +218,6 @@ nav a {
     transform: translateX(-3px);
   }
 }
-
-/* Partie NAV terminée------------------------------------------------------------- */
 
 .cards-container {
   display: flex;
@@ -262,7 +278,6 @@ nav a {
     overflow: hidden;
   }
 
-  /* Les flèches visibles */
   .carousel-btn {
     display: block;
     position: absolute;
@@ -281,11 +296,10 @@ nav a {
     right: 5px;
   }
 
-  /* Chaque card prend toute la largeur */
   .card {
     flex: 0 0 100%;
     max-width: 100%;
-    display: none; /* on cache toutes les cards par défaut */
+    display: none;
   }
 
   .card img {
@@ -294,7 +308,6 @@ nav a {
     object-position: center;
   }
 
-  /* La card active est visible */
   .card.active {
     display: block;
   }

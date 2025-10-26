@@ -12,6 +12,13 @@ body {
   background: black;
   color: #f5f5f5;
   overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
 }
 
 .hidden {
@@ -49,21 +56,18 @@ body {
   }
 }
 
-/* TITRE & SOUS-TITRE */
 .title {
   font-family: "Creepster", cursive;
   font-size: 3rem;
   margin-bottom: 0.5rem;
   text-align: center;
   letter-spacing: 0.1em;
-
   background: linear-gradient(to top, #900 30%, #fff 80%);
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
 
-/* ========== NAVIGATION (mobile first) ========== */
 nav {
   background-color: black;
   padding: 2rem;
@@ -73,6 +77,8 @@ nav {
 }
 
 nav ul {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   font-family: "Rubik Glitch", system-ui;
@@ -83,12 +89,11 @@ nav ul {
 }
 
 nav a {
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 0.5rem;
   text-decoration: none;
   border-left: 4px solid transparent;
   transition: 0.3s;
-
   background: linear-gradient(
     90deg,
     white 0%,
@@ -100,12 +105,10 @@ nav a {
   );
   background-size: 300% 100%;
   background-position: 0 0;
-
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-
   animation: bleedingLetters 30s linear infinite;
 }
 
@@ -118,7 +121,6 @@ nav a {
   }
 }
 
-/* BURGER MENU - mobile */
 .burger {
   display: none;
   flex-direction: column;
@@ -133,7 +135,6 @@ nav a {
   border-radius: 2px;
 }
 
-/* MOBILE ONLY (max-width: 599px) */
 @media (max-width: 599px) {
   .burger {
     display: flex;
@@ -148,7 +149,9 @@ nav a {
     left: 0;
     width: 100%;
     padding: 1rem 0;
+    box-shadow: none;
     z-index: 5;
+    max-width: 100%;
   }
 
   nav ul.active {
@@ -161,6 +164,10 @@ nav a {
 
   nav a {
     font-size: 1em;
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #f5f5f5;
+    color: #f5f5f5;
   }
 
   nav a:hover {
@@ -169,21 +176,34 @@ nav a {
   }
 }
 
-/* Nav ul desktop - >600px */
 @media (min-width: 600px) {
   nav ul {
+    display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    list-style: none;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    box-shadow: 0px 1px 0px 0px #bababa;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+
+  .burger,
+  #carousel-controls {
+    display: none;
   }
 
   nav ul li:hover {
-    animation: tremble 0.3s infinite;
+    animation-name: tremble;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
     cursor: pointer;
   }
 }
 
-/* Animation tremble */
 @keyframes tremble {
   0%,
   100% {
@@ -200,7 +220,6 @@ nav a {
   }
 }
 
-/* INTRO */
 .intro {
   display: flex;
   justify-content: center;
@@ -218,7 +237,6 @@ nav a {
   padding-top: 5rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
-
   color: #ff1c1c;
   text-shadow: 0 0 5px #ff1c1c, 0 0 10px #ff1c1c, 0 0 20px #ff0000,
     0 0 30px #ff0000, 0 0 40px #ff0000;
@@ -240,7 +258,6 @@ nav a {
   animation: neonPulse 2s infinite alternate;
 }
 
-/* CARDS SECTION */
 .cards-section {
   display: flex;
   flex-direction: column;
@@ -309,7 +326,6 @@ nav a {
   display: none;
 }
 
-/* SÉPARATEUR */
 hr {
   border: none;
   height: 4px;
@@ -319,7 +335,6 @@ hr {
   border-radius: 2px;
 }
 
-/* QUIZ SECTION */
 .quiz-card {
   background: #121212;
   padding: 2rem 1rem;
@@ -375,7 +390,6 @@ hr {
   background-color: #a10000;
 }
 
-/* RESPONSIVE */
 @media (min-width: 768px) {
   .cards-section {
     flex-direction: row;

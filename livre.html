@@ -3,19 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Livre</title>
+    <title>Nos Livres - Chimère</title>
     <link rel="stylesheet" href="./css/style-livre.css" />
   </head>
   <body>
-    <nav>
-      <div class="burger" id="burger">
+    <nav aria-label="Menu principal">
+      <div
+        class="burger"
+        id="burger"
+        aria-label="Ouvrir le menu de navigation"
+        aria-expanded="false"
+      >
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <ul id="nav-links">
+      <ul id="nav-links" role="list">
         <li><a href="auteur.html">Auteur</a></li>
-        <li><a href="livre.html">Le Livre</a></li>
+        <li class="current-page">
+          <a href="livre.html" aria-current="page">Le Livre</a>
+        </li>
         <li><a href="personnages.html">Personnages</a></li>
         <li><a href="immersion.html">Immersion</a></li>
         <li><a href="index.html" id="replay-door">Accueil</a></li>
@@ -24,32 +31,16 @@
 
     <main class="book-container">
       <h1 class="page-title">Nos Livres</h1>
-      <div class="books-grid">
-        <!-- Exemple : Livre 1 -->
-        <div class="book">
-          <div class="book-inner">
-            <div class="book-front">
-              <img src="./assets/tome1.png" alt="Couverture 1" />
-              <h2>Tome 1</h2>
-              <button class="flip-btn">Voir le dos</button>
-            </div>
-            <div class="book-back">
-              <p>
-                Dans l’obscurité de la ville de Golza, la nuit devient le
-                théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
-                cicatrices du passé et la quête de justice se croisent...
-              </p>
-              <button class="flip-btn">Revenir</button>
-            </div>
-          </div>
-        </div>
 
-        <div class="book">
+      <div class="books-grid" id="books-grid">
+        <figure class="book" data-index="0">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome2.png" alt="Couverture 1" />
-              <h2>Tome 2</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img src="./assets/tome1.png" alt="Couverture du Tome 1" />
+              <figcaption><h2>Tome 1</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 1">
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -57,17 +48,24 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 1"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
+        </figure>
 
-        <div class="book">
+        <figure class="book" data-index="1">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome3.png" alt="Couverture 1" />
-              <h2>Tome 3</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img src="./assets/tome2.png" alt="Couverture du Tome 2" />
+              <figcaption><h2>Tome 2</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 2">
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -75,17 +73,24 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 2"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
+        </figure>
 
-        <div class="book">
+        <figure class="book" data-index="2">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome4.png" alt="Couverture 1" />
-              <h2>Tome 4</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img src="./assets/tome3.png" alt="Couverture du Tome 3" />
+              <figcaption><h2>Tome 3</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 3">
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -93,17 +98,24 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 3"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
+        </figure>
 
-        <div class="book">
+        <figure class="book" data-index="3">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome5.png" alt="Couverture 1" />
-              <h2>Tome 5</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img src="./assets/tome4.png" alt="Couverture du Tome 4" />
+              <figcaption><h2>Tome 4</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 4">
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -111,17 +123,24 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 4"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
+        </figure>
 
-        <div class="book">
+        <figure class="book" data-index="4">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome6.png" alt="Couverture 1" />
-              <h2>Chimère</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img src="./assets/tome5.png" alt="Couverture du Tome 5" />
+              <figcaption><h2>Tome 5</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 5">
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -129,17 +148,30 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 5"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
+        </figure>
 
-        <div class="book">
+        <figure class="book" data-index="5">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome7.png" alt="Couverture 1" />
-              <h2>Tome 7</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img
+                src="./assets/tome6.png"
+                alt="Couverture du Tome 6 : Chimère"
+              />
+              <figcaption><h2>Tome 6</h2></figcaption>
+              <button
+                class="flip-btn"
+                aria-label="Voir le dos du livre Chimère"
+              >
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -147,17 +179,24 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du livre Chimère"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
+        </figure>
 
-        <div class="book">
+        <figure class="book" data-index="6">
           <div class="book-inner">
             <div class="book-front">
-              <img src="./assets/tome8.png" alt="Couverture 1" />
-              <h2>Tome 8</h2>
-              <button class="flip-btn">Voir le dos</button>
+              <img src="./assets/tome7.png" alt="Couverture du Tome 7" />
+              <figcaption><h2>Tome 7</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 7">
+                Voir le dos
+              </button>
             </div>
             <div class="book-back">
               <p>
@@ -165,13 +204,76 @@
                 théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
                 cicatrices du passé et la quête de justice se croisent...
               </p>
-              <button class="flip-btn">Revenir</button>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 7"
+              >
+                Revenir
+              </button>
             </div>
           </div>
-        </div>
-        <!-- Duplique ce bloc pour les 7 autres livres -->
-        <!-- ... -->
+        </figure>
+
+        <figure class="book" data-index="7">
+          <div class="book-inner">
+            <div class="book-front">
+              <img src="./assets/tome8.png" alt="Couverture du Tome 8" />
+              <figcaption><h2>Tome 8</h2></figcaption>
+              <button class="flip-btn" aria-label="Voir le dos du Tome 8">
+                Voir le dos
+              </button>
+            </div>
+            <div class="book-back">
+              <p>
+                Dans l’obscurité de la ville de Golza, la nuit devient le
+                théâtre de l'horreur. 'Chimère' nous plonge dans un monde où les
+                cicatrices du passé et la quête de justice se croisent...
+              </p>
+              <button
+                class="flip-btn"
+                aria-label="Revenir à la couverture du Tome 8"
+              >
+                Revenir
+              </button>
+            </div>
+          </div>
+        </figure>
       </div>
+
+      <div class="carousel-controls" id="carousel-controls">
+        <button id="prev-btn" aria-label="Livre précédent">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <span id="current-page-info" aria-live="polite">1 / 8</span>
+        <button id="next-btn" aria-label="Livre suivant">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
       <footer class="site-footer">
         <div class="footer-content">
           <p>&copy; 2025 Chimère. Tous droits réservés.</p>

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
 
 * {
   margin: 0;
@@ -7,32 +7,79 @@
   box-sizing: border-box;
 }
 
-:root {
-  --neon-red: #ff0033;
-  --dark-bg: #0d0d0d;
-  --light-strip: #f2f2f2;
-  --card-bg: #1a1a1a;
-  --text-color: #e0e0e0;
-}
-
 body {
-  margin: 0;
-  font-family: "Caveat", cursive;
-  background-color: var(--dark-bg);
-  color: var(--text-color);
-  line-height: 1.6;
+  font-family: "Arial", sans-serif;
+  background: black;
+  color: #f5f5f5;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ========== NAVIGATION (mobile first) ========== */
+main {
+  flex-grow: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  20% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  40% {
+    transform: translate(-1px, 1px) rotate(1deg);
+  }
+  60% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  80% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  100% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: inset 0 0 10px #400, 0 0 15px #600;
+  }
+  50% {
+    box-shadow: inset 0 0 20px #900, 0 0 30px #c00;
+  }
+}
+
+/* TITRE & SOUS-TITRE */
+.title {
+  font-family: "Creepster", cursive;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+  background: linear-gradient(to top, #900 30%, #fff 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 nav {
   background-color: black;
   padding: 2rem;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 10;
 }
 
 nav ul {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   font-family: "Rubik Glitch", system-ui;
@@ -43,12 +90,11 @@ nav ul {
 }
 
 nav a {
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 0.5rem;
   text-decoration: none;
   border-left: 4px solid transparent;
   transition: 0.3s;
-
   background: linear-gradient(
     90deg,
     white 0%,
@@ -60,12 +106,10 @@ nav a {
   );
   background-size: 300% 100%;
   background-position: 0 0;
-
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-
   animation: bleedingLetters 30s linear infinite;
 }
 
@@ -78,7 +122,6 @@ nav a {
   }
 }
 
-/* BURGER MENU - mobile */
 .burger {
   display: none;
   flex-direction: column;
@@ -93,7 +136,6 @@ nav a {
   border-radius: 2px;
 }
 
-/* MOBILE ONLY (max-width: 599px) */
 @media (max-width: 599px) {
   .burger {
     display: flex;
@@ -108,7 +150,9 @@ nav a {
     left: 0;
     width: 100%;
     padding: 1rem 0;
+    box-shadow: none;
     z-index: 5;
+    max-width: 100%;
   }
 
   nav ul.active {
@@ -121,6 +165,10 @@ nav a {
 
   nav a {
     font-size: 1em;
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #f5f5f5;
+    color: #f5f5f5;
   }
 
   nav a:hover {
@@ -129,12 +177,24 @@ nav a {
   }
 }
 
-/* Nav ul desktop - >600px */
 @media (min-width: 600px) {
   nav ul {
+    display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    list-style: none;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    box-shadow: 0px 1px 0px 0px #bababa;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+
+  .burger,
+  #carousel-controls {
+    display: none;
   }
 
   nav ul li:hover {
@@ -145,7 +205,6 @@ nav a {
   }
 }
 
-/* Animation tremble */
 @keyframes tremble {
   0%,
   100% {
@@ -162,7 +221,6 @@ nav a {
   }
 }
 
-/* ---------- CAROUSEL PRINCIPAL ---------- */
 .carousel-section {
   padding: 2rem 1rem;
 }
@@ -172,7 +230,7 @@ nav a {
   max-width: 800px;
   margin: auto;
   overflow: hidden;
-  background: transparent; /* Rend la couleur de fond transparente */
+  background: transparent;
   border-radius: 0;
   box-shadow: none;
 }
@@ -245,7 +303,6 @@ nav a {
   right: 0.5rem;
 }
 
-/* ---------- BOUTON DE TÉLÉCHARGEMENT ---------- */
 .download-wrapper {
   text-align: center;
   margin: 3rem 0;
@@ -269,7 +326,6 @@ nav a {
   transform: scale(1.05);
 }
 
-/* ---------- IMAGE + TEXTE ---------- */
 .card-side-by-side {
   padding: 2rem 1rem;
 }
@@ -332,7 +388,6 @@ nav a {
   }
 }
 
-/* ---------- REMERCIEMENTS ---------- */
 .remerciements-section {
   position: relative;
   padding: 2rem 1rem;
@@ -417,7 +472,6 @@ nav a {
   box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
 }
 
-/* Flèches */
 .remerciements-controls {
   position: absolute;
   top: 50%;
@@ -454,7 +508,7 @@ nav a {
 .arrow.right {
   right: 0;
 }
-/* Animation */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -466,7 +520,6 @@ nav a {
   }
 }
 
-/* ---------- PROCHAINS LIVRES ---------- */
 .futurs-livres {
   margin: 4rem 0;
   padding: 0 1rem;

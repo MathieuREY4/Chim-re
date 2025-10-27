@@ -3,31 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Chimère - Le livre sombre et poétique qui explore les abîmes de l'âme humaine. Découvrez l'univers de Fallen et plongez dans le mystère."
+    />
+    <meta
+      name="keywords"
+      content="Chimère, thriller, roman, Fallen, suspense, littérature"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Chimère - Le Livre" />
+    <meta
+      property="og:description"
+      content="Découvrez l'univers sombre et poétique de Chimère et de Fallen."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./assets/chimère-home.jpg" />
+    <meta property="og:url" content="https://www.votresite.com/chimere.html" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chimère - Le Livre" />
+    <meta
+      name="twitter:description"
+      content="Découvrez l'univers sombre et poétique de Chimère et de Fallen."
+    />
+    <meta name="twitter:image" content="./assets/chimère-home.jpg" />
+
+    <link rel="icon" href="assets/fallen-icon.png" type="image/png" />
+
     <title>Chimère - Le Livre</title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <!-- Écran d'accueil avec la porte -->
-    <div id="intro-screen">
+    <!-- Écran d'accueil -->
+    <div id="intro-screen" aria-label="Écran d'accueil">
       <div class="intro-content">
         <h1 class="title">Toc toc toc...</h1>
-        <p class="subtitle"></p>
-        <div id="door-container">
+        <p class="subtitle" id="intro-subtitle"></p>
+        <div id="door-container" role="img" aria-label="Porte d'entrée">
           <div class="door left"></div>
           <div class="door right"></div>
         </div>
         <div class="bloody-button-container">
-          <button id="enter-button">Entrer</button>
-          <span class="drip drip1"></span>
-          <span class="drip drip2"></span>
+          <button id="enter-button" aria-label="Entrer dans le site">
+            Entrer
+          </button>
+          <span class="drip drip1" aria-hidden="true"></span>
+          <span class="drip drip2" aria-hidden="true"></span>
         </div>
       </div>
     </div>
 
-    <!-- Contenu principal du site caché initialement -->
+    <!-- Contenu principal -->
     <main id="main-content" class="hidden">
-      <nav>
-        <div class="burger" id="burger">
+      <nav role="navigation" aria-label="Menu principal">
+        <div class="burger" id="burger" aria-label="Menu mobile" tabindex="0">
           <span></span>
           <span></span>
           <span></span>
@@ -41,43 +74,50 @@
         </ul>
       </nav>
 
-    <div class="card content-wrapper">
-  <div class="card-left">
-    <section class="Intro-container">
-      <h2>
-        " Le bourreau n'a plus toute sa tête depuis que le soleil s'est
-        enrhumé. La chenille s'est enfermée dans sa chrysalide et un loup en
-        est sorti lorsque la lune l'a vacciné de cette froide étoile. Le
-        papillon aux griffes et crocs aiguisés viendra déchiqueter le
-        sinistre arc-en-ciel nait d'une larme et d'un feu..."
-      </h2>
-    </section>
+      <article class="card content-wrapper">
+        <div class="card-left">
+          <section class="Intro-container">
+            <h2>
+              " Le bourreau n'a plus toute sa tête depuis que le soleil s'est
+              enrhumé. La chenille s'est enfermée dans sa chrysalide et un loup
+              en est sorti lorsque la lune l'a vacciné de cette froide étoile.
+              Le papillon aux griffes et crocs aiguisés viendra déchiqueter le
+              sinistre arc-en-ciel nait d'une larme et d'un feu..."
+            </h2>
+          </section>
 
-    <a href="./chimere.html" class="btn">
-      <div class="box" id="box"></div>
-      <span>Entrez</span>
-    </a>
-  </div>
+          <a href="./chimere.html" class="btn" aria-label="Entrer dans Chimère">
+            <div class="box" id="box"></div>
+            <span>Entrez</span>
+          </a>
+        </div>
 
-  <div class="card-right">
-    <img src="./assets/fallen-rue.png" alt="Illustration" />
-  </div>
+        <div class="card-right">
+          <img
+            src="./assets/fallen-rue.png"
+            alt="Illustration de la rue avec Fallen"
+            loading="lazy"
+          />
+        </div>
 
-  <!-- Le filtre SVG reste à la fin du HTML -->
-  <svg>
-    <filter id="gooey">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
-      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 -10">
-    </filter>
-  </svg>
-</div>
+        <!-- Filtre SVG Gooey -->
+        <svg aria-hidden="true">
+          <filter id="gooey">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+            <feColorMatrix
+              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 -10"
+            ></feColorMatrix>
+          </filter>
+        </svg>
+      </article>
 
       <section class="image-text-section">
         <div class="image-text-wrapper">
           <img
             src="./assets/chimère-home.jpg"
-            alt="Image ambiance"
+            alt="Ambiance du livre Chimère"
             class="section-image"
+            loading="lazy"
           />
           <div class="section-text">
             <h3>Quatrième de couverture</h3>
@@ -121,27 +161,31 @@
               “ Chimère est un thriller sombre et poétique où les frontières
               entre le bien et le mal se dissolvent, et où chaque crime est
               dépeint avec une éloquence cruelle, invitant le lecteur à sonder
-              les abîmes de l'âme humaine“
+              les abîmes de l'âme humaine.“
             </p>
           </div>
         </div>
       </section>
+
       <section class="fallen-container">
         <img
           src="./assets/fallen-silhouette.png"
           alt="Silhouette de Fallen tenant un couteau"
+          loading="lazy"
         />
         <p>
           Plongez dans un univers qui vous poussera dans les limites des pensées
           humaines les plus sombres
         </p>
-        <!-- <button class="fallen-button">Plongez dans l’univers</button> -->
-        <a href="profilage.html" class="fallen-button"
-          >Veux-tu sonder ton âme?</a
+        <a
+          href="profilage.html"
+          class="fallen-button"
+          aria-label="Explorer le profilage"
+          >Veux-tu sonder ton âme ?</a
         >
       </section>
 
-      <footer class="site-footer">
+      <footer class="site-footer" role="contentinfo">
         <div class="footer-content">
           <p>&copy; 2025 Chimère. Tous droits réservés.</p>
           <p>
@@ -149,9 +193,23 @@
           </p>
         </div>
       </footer>
-    </main>
 
-    <script src="./js/script.js"></script>
-     <script src="./js/script-btn.js"></script>
+      <script src="./js/script.js" defer></script>
+      <script src="./js/script-btn.js" defer></script>
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Book",
+          "name": "Chimère",
+          "author": {
+            "@type": "Person",
+            "name": "Auteur inconnu"
+          },
+          "datePublished": "2025-01-01",
+          "image": "./assets/chimère-home.jpg",
+          "description": "Chimère est un thriller sombre et poétique où les frontières entre le bien et le mal se dissolvent."
+        }
+      </script>
+    </main>
   </body>
 </html>

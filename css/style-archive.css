@@ -34,7 +34,6 @@ main,
   overflow-y: auto;
 }
 
-/* ========== NAVIGATION (mobile first) ========== */
 nav {
   background-color: black;
   padding: 2rem;
@@ -46,7 +45,6 @@ nav {
 nav ul {
   max-width: 1000px;
   margin: 0 auto;
-
   display: flex;
   flex-direction: row;
   font-family: "Rubik Glitch", system-ui;
@@ -89,7 +87,6 @@ nav a {
   }
 }
 
-/* BURGER MENU - mobile */
 .burger {
   display: none;
   flex-direction: column;
@@ -107,41 +104,72 @@ nav a {
 @media (max-width: 599px) {
   .burger {
     display: flex;
+    position: fixed;
+    top: 2rem;
+    left: 1rem;
+    right: auto;
+    z-index: 100;
   }
 
   nav ul {
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: #111;
-    position: absolute;
-    top: 60px;
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 100%;
-    padding: 1rem 0;
-    box-shadow: none;
-    z-index: 5;
-    max-width: 100%;
+    height: 100vh;
+    width: 60%;
+    max-width: 250px;
+    padding: 6rem 0 0 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-out;
+    gap: 0;
   }
 
   nav ul.active {
-    display: flex;
+    transform: translateX(0);
   }
 
   nav {
     position: relative;
+    z-index: 10;
+  }
+
+  nav ul li {
+    margin: 0;
+    padding: 0;
   }
 
   nav a {
-    font-size: 1em;
-    animation: none;
+    display: block;
+    align-items: initial;
+    justify-content: initial;
+    font-family: "Rubik Glitch", system-ui;
+    font-size: 1.5em;
     background: none;
-    -webkit-text-fill-color: #f5f5f5;
+    background-size: initial;
+    background-position: initial;
+    -webkit-background-clip: initial;
     color: #f5f5f5;
+    -webkit-text-fill-color: #f5f5f5;
+    animation: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    padding: 15px;
+    line-height: 1;
+    width: 100%;
+    min-height: auto;
   }
 
   nav a:hover {
     background: #fff;
-    opacity: 0.5;
+    opacity: 1;
+    color: #000;
+    -webkit-text-fill-color: #000;
+    border-radius: 16px;
   }
 }
 
@@ -158,6 +186,11 @@ nav a {
 
   nav a {
     font-size: 1.5rem;
+  }
+
+  .burger,
+  #carousel-controls {
+    display: none;
   }
 
   nav ul li:hover {
@@ -184,7 +217,6 @@ nav a {
   }
 }
 
-/* ÉCRAN DE LOGIN */
 #login-screen {
   position: fixed;
   top: 0;
@@ -247,7 +279,6 @@ nav a {
   z-index: 1;
 }
 
-/* Icônes */
 .desktop-icons {
   display: flex;
   flex-wrap: wrap;
@@ -538,6 +569,60 @@ nav a {
 
 .progress-bar.filling {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .mails-content {
+    display: block;
+    height: auto;
+  }
+
+  .mail-sidebar {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    min-height: auto;
+  }
+
+  .mail-folder {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 2px;
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .mail-list {
+    width: 100%;
+    height: 350px;
+    border-top: 1px solid #444;
+  }
+
+  .mail-view {
+    width: 100%;
+    flex: none;
+    margin-left: 0;
+    min-height: 400px;
+    margin-top: 10px;
+  }
+
+  .mail-item {
+    white-space: normal;
+    word-break: break-word;
+    font-size: 0.9em;
+  }
+
+  /* **CORRECTION CRUCIALE** : Assure que les popups recouvrent tout en mobile */
+  .security-popup,
+  .antivirus-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
 }
 
 .photos-content {

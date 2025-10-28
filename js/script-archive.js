@@ -15,16 +15,33 @@ loginBtn.addEventListener("click", () => {
     loginError.textContent = "Mot de passe incorrect.";
   }
 });
+
 // ----------------- FENÊTRES -----------------
-const icons = document.querySelectorAll(".icon[data-window]");
+// const icons = document.querySelectorAll(".icon[data-window]"); // Ancienne ligne supprimée
+const desktopIconsContainer = document.querySelector(".desktop-icons"); // Nouvel élément pour la délégation
 const windows = document.querySelectorAll(".window");
 const closeButtons = document.querySelectorAll(".close-btn");
-icons.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    const win = document.getElementById(icon.dataset.window + "-window");
-    if (win) win.classList.remove("hidden");
+
+// **Délégation d'Événements**
+// Cet écouteur gère les clics sur TOUTES les icônes, y compris les fichiers restaurés.
+if (desktopIconsContainer) {
+  desktopIconsContainer.addEventListener("click", (event) => {
+    // Trouve l'icône la plus proche de l'élément cliqué.
+    const icon = event.target.closest(".icon[data-window]");
+
+    if (icon) {
+      const windowId = icon.dataset.window;
+
+      // 1. Logique simplifiée : ouvrir la fenêtre correspondante
+      const targetWindow = document.getElementById(windowId + "-window");
+      if (targetWindow) {
+        targetWindow.classList.remove("hidden");
+        // Logique pour mettre la fenêtre au premier plan
+      }
+    }
   });
-});
+}
+
 closeButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     btn.closest(".window").classList.add("hidden");
@@ -498,34 +515,217 @@ burger.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
 
-// ----------------- CORBEILLE / NOTES -----------------
-const trashContent = document.querySelector(".trash-content");
+// ----------------- CORBEILLE (Fonctionnalité Liste/Détail + RESTAURATION) -----------------
+
+// Variables spécifiques à la Corbeille :
+const trashWindow = document.getElementById("trash-window");
+const trashContent = document.querySelector("#trash-window .trash-content");
+const fileListView = document.getElementById("file-list-view");
+const fileDetailView = document.getElementById("file-detail-view");
+const detailTitle = document.getElementById("detail-title");
+const detailDate = document.getElementById("detail-date");
+const detailContent = document.getElementById("detail-content");
+const backToListBtn = document.querySelector(".back-to-list-btn");
+const restoreFileBtn = document.getElementById("restore-file-btn");
+
+// VARIABLES DU LECTEUR DE FICHIER (MAINTENUES MAIS INUTILISÉES POUR L'INSTANT)
+const fileReaderWindow = document.getElementById("file-reader-window");
+const fileReaderTitle = document.getElementById("file-reader-title");
+const fileReaderBody = document.getElementById("file-reader-body");
+
+let currentFile = null;
+
+// Liste des notes/fichiers avec des données pour la restauration
+// NOTE : La "Note personnelle" a été supprimée pour simplifier.
 const notes = [
   {
-    title: "Note personnelle",
-    date: "10/08/2034",
-    content:
-      "Ne pas oublier de vérifier les enregistrements de l'orphelinat. Le code de déverrouillage est le nom d'un ancien camarade de la promo Golza.",
-  },
-  {
-    title: "Rappel",
+    id: "rapport-313",
+    title: "Rapport d'Agent 313",
     date: "14/08/2034",
     content:
       "Une voiture suspecte a été aperçue près du secteur industriel. L'information n'est pas dans le rapport officiel. Agent : 313. Confiance limitée.",
+    icon: "https://img.icons8.com/color/48/file.png",
+    restored: false,
+    dataType: "reports",
+    fileContent: `<div class="restored-report">
+        <h3>[CONFIDENTIEL] Rapport Additionnel - 14/08/2034</h3>
+        <p><strong>Sujet :</strong> Anomalie dans le Secteur Industriel</p>
+        <p>Une voiture suspecte (Plaque 4X87Z-G) a été aperçue près de l'ancien entrepôt à 02h15. Le véhicule appartient à une entreprise de sécurité privée non listée dans nos registres. Agent 313 a jugé l'information digne d'intérêt.</p>
+        <p>Action requise : Vérification des registres financiers de la société.</p>
+      </div>`,
+  },
+  {
+    id: "image-crypt",
+    title: "Photo de la scène",
+    date: "16/08/2034",
+    content:
+      "Image cryptée. Nécessite l'outil d'analyse forensique pour être visualisée. Détails : Type de fichier inconnu. Poids : 4.2 MB",
+    icon: "https://img.icons8.com/color/48/picture.png",
+    restored: false,
+    dataType: "photos",
+    imageURL: "./assets/tyler.png",
   },
 ];
 
-notes.forEach((note) => {
-  const div = document.createElement("div");
-  div.classList.add("report");
-  div.innerHTML = `
-    <h3>${note.title}</h3>
-    <p><strong>Date :</strong> ${note.date}</p>
-    <hr>
-    <p>${note.content}</p>
+// FONCTION DE LECTURE DE FICHIER (MAINTENUE MAIS NON UTILISÉE PAR LA CORBEILLE)
+function openFileReader(file) {
+  // S'assurer que les variables locales sont disponibles
+  const fileReaderWindow = document.getElementById("file-reader-window");
+  const fileReaderTitle = document.getElementById("file-reader-title");
+  const fileReaderBody = document.getElementById("file-reader-body");
+
+  if (fileReaderWindow && fileReaderTitle && fileReaderBody) {
+    fileReaderTitle.textContent = file.title;
+    fileReaderBody.textContent =
+      file.fileContent || file.content || "Contenu du fichier non disponible.";
+    fileReaderWindow.classList.remove("hidden");
+  }
+}
+
+// Fonction pour ajouter une icône au bureau
+function addIconToDesktop(file) {
+  const container = document.querySelector(".desktop-icons");
+
+  if (!container) {
+    console.error("Conteneur des icônes du bureau non trouvé.");
+    return;
+  }
+
+  const newIcon = document.createElement("div");
+  newIcon.classList.add("icon");
+
+  newIcon.setAttribute("data-window", file.dataType);
+  newIcon.setAttribute("id", `restored-${file.id}`);
+
+  newIcon.innerHTML = `
+    <img src="${file.icon}" alt="${file.title}" />
+    <span>${file.title}</span>
   `;
-  trashContent.appendChild(div);
-});
+
+  container.appendChild(newIcon);
+}
+
+// Fonction pour afficher le détail du fichier
+function showFileDetail(note) {
+  currentFile = note;
+
+  detailTitle.textContent = note.title;
+  detailDate.textContent = note.date;
+  detailContent.textContent = note.content;
+
+  // Met à jour le bouton de restauration
+  if (restoreFileBtn) {
+    if (note.restored) {
+      restoreFileBtn.textContent = "Fichier déjà restauré";
+      restoreFileBtn.disabled = true;
+    } else {
+      restoreFileBtn.textContent = "Restaurer le fichier sur le bureau";
+      restoreFileBtn.disabled = false;
+    }
+  }
+
+  // Cache la liste et affiche le détail
+  fileListView.classList.add("hidden");
+  fileDetailView.classList.remove("hidden");
+}
+
+// Fonction pour retourner à la liste
+function showFileList() {
+  fileListView.classList.remove("hidden");
+  fileDetailView.classList.add("hidden");
+  currentFile = null;
+}
+
+// Fonction d'initialisation de la corbeille
+function initTrash() {
+  // 1. GÉNÉRATION DES FICHIERS DANS LA CORBEILLE
+  if (trashContent) {
+    trashContent.innerHTML = "";
+
+    notes.forEach((note) => {
+      // Créer l'élément de fichier UNIQUEMENT s'il n'a pas été restauré
+      if (!note.restored) {
+        const div = document.createElement("div");
+        div.classList.add("trash-file");
+        div.setAttribute("data-id", note.id);
+
+        div.innerHTML = `
+                <span class="trash-file-icon"><img src="${note.icon}" alt="Icone ${note.title}"></span>
+                <span>${note.title}</span>
+              `;
+
+        // Ajout de l'événement de clic pour ouvrir le fichier
+        div.addEventListener("click", () => {
+          showFileDetail(note);
+        });
+
+        trashContent.appendChild(div);
+      }
+    });
+  }
+
+  // 2. GESTION DE LA RESTAURATION
+  if (restoreFileBtn) {
+    restoreFileBtn.addEventListener("click", () => {
+      if (currentFile && !currentFile.restored) {
+        // A. Ajouter l'icône sur le bureau
+        addIconToDesktop(currentFile);
+
+        // B. LOGIQUE SPÉCIFIQUE D'AJOUT DE CONTENU DANS LES FENÊTRES EXISTANTES
+        if (currentFile.dataType === "reports") {
+          const reportsContent = document.querySelector(
+            "#reports-window .reports-content"
+          );
+          if (reportsContent) {
+            reportsContent.insertAdjacentHTML(
+              "afterbegin",
+              currentFile.fileContent
+            );
+          }
+        } else if (currentFile.dataType === "photos") {
+          const photosContainer = document.getElementById("photos-container");
+          if (photosContainer && currentFile.imageURL) {
+            const newPhoto = document.createElement("img");
+            newPhoto.src = currentFile.imageURL;
+            newPhoto.classList.add("gallery-photo");
+            newPhoto.alt = currentFile.title;
+            newPhoto.draggable = true;
+            photosContainer.appendChild(newPhoto);
+          }
+        }
+
+        // C. Finalisation de la restauration
+        currentFile.restored = true;
+        restoreFileBtn.textContent = "Fichier restauré !";
+        restoreFileBtn.disabled = true;
+
+        // Retirer l'élément de la liste visible
+        const fileElement = document.querySelector(
+          `.trash-file[data-id="${currentFile.id}"]`
+        );
+        if (fileElement) {
+          fileElement.remove();
+        }
+
+        // Fermer la fenêtre de la corbeille
+        if (trashWindow) {
+          trashWindow.classList.add("hidden");
+        }
+
+        console.log(`Fichier "${currentFile.title}" restauré sur le bureau.`);
+        currentFile = null;
+      }
+    });
+  }
+
+  // 3. BOUTON DE RETOUR
+  if (backToListBtn) {
+    backToListBtn.addEventListener("click", showFileList);
+  }
+}
+
+// Appeler l'initialisation de la corbeille
+initTrash();
 
 // ----------------- CHAT SÉCURISÉ -----------------
 const chatIcon = document.querySelector('.icon[data-window="chat"]');
@@ -1970,18 +2170,26 @@ resetButton.addEventListener("click", resetGame);
     slider.addEventListener("input", updateImageFilter);
   });
 
-  // ----------------- Gestion du Glisser-Déposer -----------------
+  // ----------------- Gestion du Glisser-Déposer (CORRIGÉE) -----------------
   const photosContainer = document.getElementById("photos-container");
   const forensicAnalyserContent = forensicWindow.querySelector(
     ".forensic-analyser-content"
   );
 
-  const galleryPhotos = photosContainer.querySelectorAll(".gallery-photo");
-  galleryPhotos.forEach((photo) => {
-    photo.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", photo.src);
-      e.dataTransfer.effectAllowed = "copy";
-    });
+  // Changement : Utilisation de la délégation d'événement sur le conteneur des photos
+  photosContainer.addEventListener("dragstart", (e) => {
+    // Cible le nouveau conteneur glissable (.file-display)
+    const fileDisplay = e.target.closest(".file-display");
+
+    if (fileDisplay) {
+      // Récupère l'image réelle cachée à l'intérieur
+      const actualPhoto = fileDisplay.querySelector(".gallery-photo");
+
+      if (actualPhoto) {
+        e.dataTransfer.setData("text/plain", actualPhoto.src);
+        e.dataTransfer.effectAllowed = "copy";
+      }
+    }
   });
 
   forensicAnalyserContent.addEventListener("dragover", (e) => {
@@ -2074,4 +2282,131 @@ backToMapBtn.addEventListener("click", () => {
   poiDetailsContainer.classList.add("hidden");
   cityMapImg.classList.remove("hidden");
   mapOverlay.classList.remove("hidden");
+});
+
+// ----------------------------------------------------
+// ----------------- GLISSER-DÉPOSER UNIVERSEL (PC & TACTILE) -----------------
+// ----------------------------------------------------
+
+// ATTENTION : Pour que cela fonctionne, assurez-vous que :
+// 1. Vos fenêtres (.window) ont la propriété CSS 'position: absolute;' ou 'position: fixed;'.
+// 2. La barre de titre que l'utilisateur va glisser a la classe '.window-header' (ou modifiez le sélecteur à la fin).
+
+// Variables de gestion du glissement
+let activeDrag = {
+  element: null, // L'élément en cours de déplacement (la fenêtre)
+  initialX: 0,
+  initialY: 0,
+  xOffset: 0, // Décalage du clic par rapport au bord de l'élément
+  yOffset: 0,
+  currentX: 0,
+  currentY: 0,
+};
+
+// --- FONCTION UTILITAIRE CLÉ ---
+// Harmonise les coordonnées entre la souris et le tactile.
+function getEventCoords(e) {
+  // Si c'est un événement tactile, on prend le premier doigt (touches[0])
+  if (e.touches && e.touches.length) {
+    return e.touches[0];
+  }
+  // Sinon, c'est un événement de souris
+  return e;
+}
+
+// --- Démarrer le Glisser (Start Drag) ---
+function startDrag(e) {
+  // Empêche le comportement par défaut (ex: défilement sur tactile, sélection de texte sur PC)
+  e.preventDefault();
+
+  // S'assure que c'est le bouton gauche de la souris (pour PC)
+  if (e.type === "mousedown" && e.button !== 0) return;
+
+  // 1. Définir l'élément à glisser (la fenêtre parente de l'en-tête)
+  const windowElement = e.target.closest(".window");
+  if (!windowElement) return;
+
+  activeDrag.element = windowElement;
+
+  // Récupérer la position actuelle de la fenêtre
+  const rect = activeDrag.element.getBoundingClientRect();
+  activeDrag.currentX = rect.left;
+  activeDrag.currentY = rect.top;
+
+  const event = getEventCoords(e);
+
+  // Position initiale du curseur/doigt
+  activeDrag.initialX = event.clientX;
+  activeDrag.initialY = event.clientY;
+
+  // Calculer le décalage pour que la fenêtre ne "saute" pas lors du clic
+  activeDrag.xOffset = activeDrag.currentX - activeDrag.initialX;
+  activeDrag.yOffset = activeDrag.currentY - activeDrag.initialY;
+
+  // 2. Attacher les fonctions de déplacement et de fin au DOCUMENT
+  // Cela permet de ne pas perdre le glissement
+  document.addEventListener("mousemove", onDrag);
+  document.addEventListener("touchmove", onDrag);
+  document.addEventListener("mouseup", endDrag);
+  document.addEventListener("touchend", endDrag);
+
+  activeDrag.element.classList.add("is-dragging");
+
+  // Mettre la fenêtre au premier plan (z-index)
+  activeDrag.element.style.zIndex = getHighestZIndex() + 1;
+}
+
+// --- Déplacer l'Élément (On Drag) ---
+function onDrag(e) {
+  if (!activeDrag.element) return;
+
+  e.preventDefault();
+
+  const event = getEventCoords(e);
+
+  // Nouveau calcul de position : Position du curseur + Décalage initial
+  let newX = event.clientX + activeDrag.xOffset;
+  let newY = event.clientY + activeDrag.yOffset;
+
+  // Application de la nouvelle position via top/left
+  activeDrag.element.style.left = newX + "px";
+  activeDrag.element.style.top = newY + "px";
+}
+
+// --- Terminer le Glisser (End Drag) ---
+function endDrag(e) {
+  if (!activeDrag.element) return;
+
+  // 1. Retirer les écouteurs d'événements du DOCUMENT
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("touchmove", onDrag);
+  document.removeEventListener("mouseup", endDrag);
+  document.removeEventListener("touchend", endDrag);
+
+  activeDrag.element.classList.remove("is-dragging");
+
+  // 2. Réinitialiser la structure de drag
+  activeDrag.element = null;
+}
+
+// --- UTILITIES : Pour mettre la fenêtre au premier plan ---
+function getHighestZIndex() {
+  return Array.from(document.querySelectorAll(".window")).reduce(
+    (max, windowEl) => {
+      // ParseInt permet d'obtenir le z-index actuel (ou 0 si non défini)
+      const zIndex = parseInt(windowEl.style.zIndex) || 0;
+      return Math.max(max, zIndex);
+    },
+    100
+  ); // Base de z-index pour les fenêtres
+}
+
+// ----------------------------------------------------
+// 6. Point d'entrée : Attacher les Écouteurs aux EN-TÊTES DE FENÊTRES
+// ----------------------------------------------------
+// SÉLECTEUR CLÉ : Ciblez tous les éléments qui servent de poignée pour glisser une fenêtre.
+document.querySelectorAll(".window-header").forEach((handle) => {
+  // Attacher MOUSE (PC) et TOUCH (Mobile) au même gestionnaire de DÉMARRAGE
+  handle.addEventListener("mousedown", startDrag);
+  handle.addEventListener("touchstart", startDrag);
 });

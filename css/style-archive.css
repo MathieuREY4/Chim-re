@@ -301,8 +301,6 @@ nav a {
 .window {
   position: fixed;
   top: 190px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 80%;
   max-width: 1000px;
   max-height: calc(100vh - 190px - 60px - 20px);
@@ -613,7 +611,6 @@ nav a {
     font-size: 0.9em;
   }
 
-  /* **CORRECTION CRUCIALE** : Assure que les popups recouvrent tout en mobile */
   .security-popup,
   .antivirus-popup {
     position: fixed;
@@ -625,18 +622,73 @@ nav a {
   }
 }
 
-.photos-content {
+/* ------------------------------------- */
+/* --- STYLES DE LA GALERIE (PHOTOS) --- */
+/* ------------------------------------- */
+
+#photos-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  overflow-y: auto;
+  /* Augmente le gap horizontal (40px) et vertical (30px) pour éviter les chevauchements */
+  gap: 30px 40px;
+  padding: 15px;
 }
-.photos-content .gallery-photo {
-  width: calc(33% - 10px);
-  max-height: 200px;
-  object-fit: contain;
+
+/* Le conteneur qui simule le fichier sur le bureau */
+.file-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Augmente la largeur du conteneur pour mieux contenir les noms de fichiers */
+  width: 90px;
+  cursor: grab;
+  user-select: none;
+  padding: 5px;
   border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.file-display:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* MASQUE L'IMAGE RÉELLE */
+.gallery-photo {
+  /* Cache l'image visuellement mais la conserve pour le drag and drop (src) */
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none; /* S'assure qu'on ne peut pas cliquer dessus */
+}
+
+/* AFFICHE L'ICÔNE ET LE NOM DE FICHIER */
+.file-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 5px;
+}
+
+.file-label {
+  color: #eee;
+  font-size: 0.8em;
+  text-align: center;
+  word-wrap: break-word;
+  /* Assure que le nom ne sorte pas du conteneur s'il est trop long */
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* STYLE POUR LE TEXTE D'INSTRUCTION (Ajouter cette section) */
+#photos-instruction {
+  width: 100%; /* Prend toute la largeur de la fenêtre */
+  margin-top: 25px; /* Sépare du dernier rang d'icônes */
+  padding-top: 15px;
+  text-align: center;
+  color: #888; /* Couleur plus discrète */
+  font-size: 0.9em;
+  border-top: 1px solid #222; /* Ligne de séparation subtile */
+  font-style: italic;
 }
 
 #orphelinat-window input {
@@ -663,6 +715,127 @@ nav a {
 
 .hidden {
   display: none !important;
+}
+
+/* ======================================= */
+/* Styles pour la Corbeille (Trash) */
+/* (Inclus les styles pour le bouton Restaurer) */
+/* ======================================= */
+
+/* Style général pour l'élément "fichier" dans la corbeille */
+.trash-file {
+  display: flex; /* Aligner l'icône et le nom */
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #2b2b2b; /* Fond sombre */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--text-color);
+}
+
+.trash-file:hover {
+  background: #3a3a3a;
+}
+
+/* Style de l'icône de fichier */
+.trash-file-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.trash-file-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Séparateur pour la vue détail */
+#file-detail-view hr {
+  border-top: 1px solid #444;
+  margin: 10px 0;
+}
+
+/* Conteneur pour afficher le détail du fichier */
+#file-detail-view {
+  padding: 15px;
+  background: #1b1b1b;
+  border-radius: 5px;
+  margin-top: 10px;
+  flex-direction: column;
+  display: flex; /* Assure que les boutons sont bien alignés */
+}
+
+#file-detail-view h3 {
+  margin-top: 0;
+  color: var(--neon-red);
+}
+
+#file-detail-view .file-content-body {
+  margin-top: 10px;
+  white-space: pre-wrap; /* Maintient les sauts de ligne du texte du fichier */
+}
+
+.back-to-list-btn {
+  background-color: var(--neon-red);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  transition: background-color 0.2s ease;
+}
+
+.back-to-list-btn:hover {
+  background-color: #e6002c;
+}
+
+/* NOUVEAU STYLE : Style du bouton de restauration */
+.restore-button {
+  background-color: #00b0ff; /* Bleu vif pour l'action */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.1s;
+}
+
+.restore-button:hover:not(:disabled) {
+  background-color: #008fcc;
+  transform: translateY(-1px);
+}
+
+.restore-button:disabled {
+  cursor: not-allowed;
+  background-color: #555 !important;
+  transform: none !important;
+}
+
+/* Classe de masquage utilisée par le JavaScript */
+.hidden {
+  display: none !important;
+}
+
+/* Style pour le rapport restauré */
+.restored-report {
+  background-color: #222;
+  border: 1px solid var(--neon-red);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.restored-report h3 {
+  color: var(--neon-red);
+  border-bottom: 1px dashed #444;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .site-footer {

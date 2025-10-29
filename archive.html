@@ -2,6 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bureau sécurisé - Aaron Selina</title>
     <link rel="stylesheet" href="./css/style-archive.css" />
   </head>
@@ -449,30 +450,148 @@
       <div class="resize-handle bottom-left-handle"></div>
       <div class="resize-handle bottom-right-handle"></div>
     </div>
-    <div id="chat-window" class="window hidden">
-      <div class="window-header">
+  <div id="chat-window" class="window hidden" style="width: 700px; height: 500px;">
+    <div class="window-header">
         <span>C:\> Chat Sécurisé</span>
         <div class="window-controls">
-          <button class="minimize-btn">_</button>
-          <button class="close-btn">X</button>
+            <button class="minimize-btn">_</button>
+            <button class="close-btn">X</button>
         </div>
-      </div>
-      <div class="window-content chat-content">
-        <div id="chat-output">
-          <p>> Connexion au serveur ...</p>
-          <p>> Authentification réussie. Bienvenue, Agent Selina.</p>
-          <p>
-            > ANONYME:<br />
-            > &nbsp;&nbsp;[Dossier FALLEN - Confidentiel]<br />
-            > Vous jouez à un jeu dont vous ignorez les règles, Aaron. J'ai pris
-            > soin de vous transférer des fichiers qui vous aideront peut-être.
-            À > vous de réussir à les décoder pour y voir plus clair.
-          </p>
+    </div>
+    
+    <div class="window-content chat-interface-container">
+        
+        <div class="chat-contacts-list">
+            <div class="chat-contact-search">
+                <input type="text" placeholder="Rechercher..." disabled> 
+            </div>
+            
+            <div class="chat-contact-item active" data-contact-id="anonymous">
+                <div class="contact-status online"></div>
+                <div class="contact-info">
+                    <strong>ANONYME</strong>
+                    <small class="last-message-preview">Fin de la conversation.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
+            <div class="chat-contact-item" data-contact-id="earl">
+                <div class="contact-status away"></div>
+                <div class="contact-info">
+                    <strong>Earl - Chef du département</strong>
+                    <small class="last-message-preview">Je suis en réunion...</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
+            <div class="chat-contact-item" data-contact-id="kylia">
+                <div class="contact-status online"></div>
+                <div class="contact-info">
+                    <strong>Kylia Selina</strong>
+                    <small class="last-message-preview">Papa, tu vas bien ?</small>
+                    <span class="unread-count hidden"></span> 
+                </div>
+            </div>
+
+            <div class="chat-contact-item" data-contact-id="emilie">
+                <div class="contact-status online"></div>
+                <div class="contact-info">
+                    <strong>Dr. Emilie Dubois</strong>
+                    <small class="last-message-preview">Résultats de l'autopsie...</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
+            <div class="chat-contact-item" data-contact-id="lucy">
+                <div class="contact-status offline"></div>
+                <div class="contact-info">
+                    <strong>Lucy Selina</strong>
+                    <small class="last-message-preview">Hors ligne.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
+            <div class="chat-contact-item" data-contact-id="lea">
+                <div class="contact-status offline"></div>
+                <div class="contact-info">
+                    <strong>Léa Dupuis</strong>
+                    <small class="last-message-preview">Hors ligne.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+
+            <div class="chat-contact-item" data-contact-id="catherine">
+                <div class="contact-status online"></div>
+                <div class="contact-info">
+                    <strong>Catherine Morel</strong>
+                    <small class="last-message-preview">En ligne.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
+            <div class="chat-contact-item" data-contact-id="marc">
+                <div class="contact-status away"></div>
+                <div class="contact-info">
+                    <strong>Marc Dubois</strong>
+                    <small class="last-message-preview">Status: En patrouille.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
+            <div class="chat-contact-item" data-contact-id="sophie">
+                <div class="contact-status away"></div>
+                <div class="contact-info">
+                    <strong>Sophie Blanc</strong>
+                    <small class="last-message-preview">Status: Surveillance discrète.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+
+            <div class="chat-contact-item" data-contact-id="david">
+                <div class="contact-status online"></div>
+                <div class="contact-info">
+                    <strong>David Chen</strong>
+                    <small class="last-message-preview">J'ai quelques infos pour vous.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+
+            <div class="chat-contact-item" data-contact-id="service">
+                <div class="contact-status offline"></div>
+                <div class="contact-info">
+                    <strong>Service Technique</strong>
+                    <small class="last-message-preview">Hors ligne.</small>
+                    <span class="unread-count hidden"></span>
+                </div>
+            </div>
+            
         </div>
-        <div id="chat-actions">
-          <button id="chat-reply-btn">Répondre</button>
+        
+        <div class="chat-conversation-area">
+            
+            <div id="chat-output" class="chat-output-scroll">
+                </div>
+            
+            <div id="chat-actions">
+                <button id="chat-reply-btn">Répondre</button>
+                <button id="trace-ip-btn" style="display: none">
+                    Retracer l'adresse IP
+                </button>
+
+                <div id="response-choices-container" style="display: none;">
+                    </div>
+            </div>
+            
         </div>
-      </div>
+        
+    </div>
+    
+    <div class="resize-handle top-left-handle"></div>
+    <div class="resize-handle top-right-handle"></div>
+    <div class="resize-handle bottom-left-handle"></div>
+    <div class="resize-handle bottom-right-handle"></div>
+    
+</div>
       <div class="resize-handle top-left-handle"></div>
       <div class="resize-handle top-right-handle"></div>
       <div class="resize-handle bottom-left-handle"></div>
@@ -686,6 +805,17 @@
       <div id="taskbar-icons"></div>
     </div>
 
-    <script src="./js/script-archive.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/window.js"></script>
+    <script src="./js/rapports.js"></script>
+    <script src="./js/mails.js"></script>
+    <script src="./js/corbeille.js"></script>
+    <script src="./js/terminal.js"></script>
+    <script src="./js/chat-secure.js"></script>
+    <script src="./js/map.js"></script>
+    <script src="./js/morpion.js"></script>
+    <script src="./js/snake.js"></script>
+    <script src="./js/analyse.js"></script>
+    <script src="./js/calculate.js"></script>
   </body>
 </html>

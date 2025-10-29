@@ -622,24 +622,17 @@ nav a {
   }
 }
 
-/* ------------------------------------- */
-/* --- STYLES DE LA GALERIE (PHOTOS) --- */
-/* ------------------------------------- */
-
 #photos-container {
   display: flex;
   flex-wrap: wrap;
-  /* Augmente le gap horizontal (40px) et vertical (30px) pour éviter les chevauchements */
   gap: 30px 40px;
   padding: 15px;
 }
 
-/* Le conteneur qui simule le fichier sur le bureau */
 .file-display {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Augmente la largeur du conteneur pour mieux contenir les noms de fichiers */
   width: 90px;
   cursor: grab;
   user-select: none;
@@ -652,17 +645,14 @@ nav a {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* MASQUE L'IMAGE RÉELLE */
 .gallery-photo {
-  /* Cache l'image visuellement mais la conserve pour le drag and drop (src) */
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
-  pointer-events: none; /* S'assure qu'on ne peut pas cliquer dessus */
+  pointer-events: none;
 }
 
-/* AFFICHE L'ICÔNE ET LE NOM DE FICHIER */
 .file-icon {
   width: 48px;
   height: 48px;
@@ -674,20 +664,18 @@ nav a {
   font-size: 0.8em;
   text-align: center;
   word-wrap: break-word;
-  /* Assure que le nom ne sorte pas du conteneur s'il est trop long */
   overflow-wrap: break-word;
   max-width: 100%;
 }
 
-/* STYLE POUR LE TEXTE D'INSTRUCTION (Ajouter cette section) */
 #photos-instruction {
-  width: 100%; /* Prend toute la largeur de la fenêtre */
-  margin-top: 25px; /* Sépare du dernier rang d'icônes */
+  width: 100%;
+  margin-top: 25px;
   padding-top: 15px;
   text-align: center;
-  color: #888; /* Couleur plus discrète */
+  color: #888;
   font-size: 0.9em;
-  border-top: 1px solid #222; /* Ligne de séparation subtile */
+  border-top: 1px solid #222;
   font-style: italic;
 }
 
@@ -717,19 +705,13 @@ nav a {
   display: none !important;
 }
 
-/* ======================================= */
-/* Styles pour la Corbeille (Trash) */
-/* (Inclus les styles pour le bouton Restaurer) */
-/* ======================================= */
-
-/* Style général pour l'élément "fichier" dans la corbeille */
 .trash-file {
-  display: flex; /* Aligner l'icône et le nom */
+  display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px;
   margin-bottom: 5px;
-  background: #2b2b2b; /* Fond sombre */
+  background: #2b2b2b;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -740,7 +722,6 @@ nav a {
   background: #3a3a3a;
 }
 
-/* Style de l'icône de fichier */
 .trash-file-icon {
   width: 24px;
   height: 24px;
@@ -751,20 +732,18 @@ nav a {
   height: 100%;
 }
 
-/* Séparateur pour la vue détail */
 #file-detail-view hr {
   border-top: 1px solid #444;
   margin: 10px 0;
 }
 
-/* Conteneur pour afficher le détail du fichier */
 #file-detail-view {
   padding: 15px;
   background: #1b1b1b;
   border-radius: 5px;
   margin-top: 10px;
   flex-direction: column;
-  display: flex; /* Assure que les boutons sont bien alignés */
+  display: flex;
 }
 
 #file-detail-view h3 {
@@ -774,7 +753,7 @@ nav a {
 
 #file-detail-view .file-content-body {
   margin-top: 10px;
-  white-space: pre-wrap; /* Maintient les sauts de ligne du texte du fichier */
+  white-space: pre-wrap;
 }
 
 .back-to-list-btn {
@@ -793,9 +772,8 @@ nav a {
   background-color: #e6002c;
 }
 
-/* NOUVEAU STYLE : Style du bouton de restauration */
 .restore-button {
-  background-color: #00b0ff; /* Bleu vif pour l'action */
+  background-color: #00b0ff;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -817,12 +795,10 @@ nav a {
   transform: none !important;
 }
 
-/* Classe de masquage utilisée par le JavaScript */
 .hidden {
   display: none !important;
 }
 
-/* Style pour le rapport restauré */
 .restored-report {
   background-color: #222;
   border: 1px solid var(--neon-red);
@@ -866,23 +842,153 @@ nav a {
   border: 2px solid var(--dark-bg);
 }
 
-.chat-content {
+.window-content {
+  padding: 0;
+  height: 100%;
+}
+
+.chat-interface-container {
+  display: flex;
+  height: 100%;
+  background-color: #111;
+}
+
+.chat-conversation-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-output-scroll {
+  /* Maintient les styles de terminal */
   background-color: black;
   color: #00ff00;
   font-family: "Courier New", monospace;
   padding: 15px;
   overflow-y: auto;
-  border: 1px solid #00ff00;
+  border: none;
   white-space: pre-wrap;
-}
-
-#chat-output {
-  margin-bottom: 10px;
+  flex-grow: 1;
+  position: relative;
 }
 
 #chat-actions {
+  flex-shrink: 0;
+  padding: 10px 15px;
+  background-color: #222;
+  border-top: 1px solid #00ff00;
   text-align: right;
 }
+
+.chat-output-scroll::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    rgba(0, 255, 0, 0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.chat-output-scroll p {
+  text-shadow: 0 0 1px #00ff00;
+}
+
+.chat-output-scroll p[style*="white"] {
+  text-shadow: 0 0 2px #ccffcc;
+  color: #ccffcc !important;
+}
+
+.chat-contacts-list {
+  width: 250px;
+  min-width: 150px;
+  background-color: #222;
+  border-right: 1px solid #00ff00;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* ========================================= */
+/* STYLE DES CONTACTS ET NOTIFICATIONS - Inchangé */
+/* ========================================= */
+
+.chat-contact-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-contact-item.active {
+  background-color: #00ff0030;
+  border-left: 3px solid #00ff00;
+  padding-left: 12px;
+}
+
+.contact-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.contact-status.online {
+  background-color: #00ff00;
+}
+.contact-status.away {
+  background-color: #ffaa00;
+}
+.contact-status.offline {
+  background-color: #666;
+}
+
+.contact-info {
+  flex-grow: 1;
+  color: white;
+}
+
+.contact-info strong {
+  display: block;
+  font-size: 1em;
+  color: #00ff00;
+}
+
+.contact-info small {
+  display: block;
+  font-size: 0.8em;
+  color: #999;
+}
+
+/* Compteur de messages non lus */
+.unread-count {
+  background-color: #ff0000;
+  color: white;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: 10px;
+  text-shadow: none;
+}
+
+.unread-count.hidden {
+  display: none;
+}
+
+/* ========================================= */
+/* ZONE D'ACTIONS ET BOUTONS - Inchangé */
+/* ========================================= */
 
 #chat-reply-btn {
   background-color: #0078d7;
@@ -891,7 +997,67 @@ nav a {
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 0;
+}
+
+#trace-ip-btn {
+  display: inline-block;
+  padding: 8px 15px;
+  margin-top: 0;
+  background-color: #333;
+  color: #66ff66;
+  border: 2px solid #66ff66;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: "monospace", sans-serif;
+  box-shadow: 0 0 5px #66ff66;
+  font-size: 1em;
+}
+
+#trace-ip-btn:hover,
+#trace-ip-btn:active {
+  background-color: #66ff66;
+  color: #333;
+  box-shadow: 0 0 10px #66ff66;
+  transform: translateY(-1px);
+}
+
+#response-choices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.choice-btn {
+  background-color: #1a1a1a;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  text-align: left;
+  font-size: 0.9em;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  text-transform: none;
+  text-shadow: 0 0 1px #00ff00;
+  box-shadow: 0 0 3px #00ff00;
+}
+
+.choice-btn:hover {
+  background-color: #00ff00;
+  color: black;
+  box-shadow: 0 0 10px #00ff00;
+  text-shadow: none;
+}
+
+.typing-indicator {
+  font-style: italic;
+  color: #aaa;
+  padding: 5px 0;
 }
 
 .map-content {
@@ -1527,7 +1693,7 @@ nav a {
 .analysed-img {
   width: 100%;
   height: auto;
-  filter: brightness(100%) contrast(100%) blur(0px) saturate(100%) grayscale(0%); /* Filtres initiaux */
+  filter: brightness(100%) contrast(100%) blur(0px) saturate(100%) grayscale(0%);
   transition: filter 0.1s ease-out;
   image-rendering: optimizeSpeed;
 }

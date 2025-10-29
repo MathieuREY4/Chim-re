@@ -1,5 +1,5 @@
 // ===================================================================
-// 1. DÉCLARATIONS ET INITIALISATION DES ÉLÉMENTS (Inchangés)
+// 1. DÉCLARATIONS ET INITIALISATION DES ÉLÉMENTS
 // ===================================================================
 
 const chatIcon = document.querySelector('.icon[data-window="chat"]');
@@ -20,7 +20,7 @@ let activeContactId = "anonymous";
 let totalUnreadCount = 0;
 
 // ===================================================================
-// 2. DATA : Historique et Réponses (CORRECTION DÉFINITIVE DES CHAÎNES DE CHOIX)
+// 2. DATA : Historique et Réponses
 // ===================================================================
 
 const INITIAL_CHAT_MESSAGE = `
@@ -77,11 +77,11 @@ const chatData = {
   // EARL : CHEMINS UNIQUES IMPLÉMENTÉS
   // -------------------------------------------------------------------
   earl: {
-    initialMessage: "> Earl - Chef du département :",
+    initialMessage: null,
     currentStep: "step1",
     history: null,
     finished: false,
-    typingDelay: 1500,
+    typingDelay: 800,
     conversations: {
       step1: {
         choices: [
@@ -397,21 +397,18 @@ const chatData = {
   // -------------------------------------------------------------------
   emilie: {
     initialMessage:
-      "> Dr. Emilie Dubois :<br>> &nbsp;&nbsp;Aaron, j'ai les premiers résultats de l'autopsie. Ce n'est pas ce que l'on attendait. Contactez-moi rapidement.",
+      "> Dr. Emilie Dubois :<br>> &nbsp;&nbsp;Aaron, j'ai les premiers résultats de l'autopsie. Pouvez-vous passer dans la journée ?",
     currentStep: "step1",
     history: null,
     finished: false,
     typingDelay: 1800,
     conversations: {
       step1: {
-        bossReply:
-          "Le corps ne présentait pas de traces de lutte. La cause du décès est un poison non identifié, extrêmement rapide.",
         choices: [
           {
-            text: "Un poison ? Est-ce lié au dossier Chimère ?",
+            text: "Je peux me libérer vers 15h, cela vous convient ?",
             next: "step2_r1",
-            reply:
-              "C'est possible. Le produit est très sophistiqué. Je mets l'équipe sur l'analyse de la composition exacte.",
+            reply: "C'est noté de mon coté, ",
           },
           {
             text: "Je comprends. Transférez-moi le rapport complet.",
@@ -713,15 +710,49 @@ const chatData = {
     initialMessage: null,
   },
   service: {
-    history: `<p>> Service Technique :<br>> &nbsp;&nbsp;Déconnecté.</p>`,
-    currentStep: "offline",
-    finished: true,
     initialMessage: null,
+    currentStep: "step1",
+    history: null,
+    finished: false,
+    typingDelay: 800,
+    hasScanned: false,
+    conversations: {
+      step1: {
+        choices: [
+          {
+            text: "Bonjour, j'ai besoin d'une vérification de mon ordinateur, je pense qu'il est peut être compromis. Pouvez vous faire une analyse?",
+            next: "step2_wait",
+            reply:
+              "Bonjour Aaron, biensure, veuillez cliquer sur le lien suivant afin que je puisse accéder à votre terminal : <a href='#' class='simulation-link' onclick='startScanSimulation(\"service\"); return false;'>[Lien Sécurisé : Dépannage à Distance v3.1]</a>",
+          },
+        ],
+      },
+      step2_wait: {
+        bossReply: null,
+        choices: [],
+      },
+      step2_scan: {
+        bossReply:
+          "Il semblerait effectivement qu'une intrusion ait eu lieu sur votre terminal. je ne détecte aucun virus mais j'ai néanmoins trouvé un fichier caché qui ne contient qu'une seule phrase. << Bravo Aaron, vous m'avez trouvé, en guise de récompense, je vous suggère d'aller consulter les archives du département en retournant sur la page \" immersion \" en haut de votre écran, et d'entrer le mot de passe : @234_jB!Dam4",
+        choices: [
+          {
+            text: "Merci, je vais regarder ça",
+            next: "step_end",
+            reply: "À votre service.",
+          },
+        ],
+      },
+      step_end: {
+        bossReply: "Communication terminée.",
+        choices: [],
+        finished: true,
+      },
+    },
   },
 };
 
 // ===================================================================
-// 3. FONCTIONS DE GESTION DE LA NOTIFICATION GLOBALE (Inchangées)
+// 3. FONCTIONS DE GESTION DE LA NOTIFICATION GLOBALE
 // ===================================================================
 
 function updateDesktopIcon() {
@@ -772,7 +803,7 @@ function resetUnreadCount() {
 }
 
 // ===================================================================
-// 4. FONCTIONS DE GESTION DE L'AFFICHAGE ET DES CHOIX (CORRIGÉES)
+// 4. FONCTIONS DE GESTION DE L'AFFICHAGE ET DES CHOIX
 // ===================================================================
 
 function renderResponseChoices(contactId) {
@@ -1096,9 +1127,232 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateDesktopIcon();
 });
+
 if (chatIcon) {
   chatIcon.addEventListener("click", () => {
     activeContactId = "anonymous";
     updateChatInterface("anonymous");
   });
+}
+
+function disableScanLink(contactId) {
+  const chatLink = document.querySelector(`#chat-output a.simulation-link`);
+  if (chatLink) {
+    chatLink.textContent = "[Analyse exécutée]";
+    chatLink.classList.add("disabled-link");
+    chatLink.removeAttribute("onclick");
+    chatLink.href = "#";
+  }
+
+  const contactLink = document.querySelector(
+    `[data-contact-id="${contactId}"] a.simulation-link`
+  );
+  if (contactLink) {
+    contactLink.textContent = "[Analyse exécutée]";
+    contactLink.classList.add("disabled-link");
+    contactLink.removeAttribute("onclick");
+    contactLink.href = "#";
+  }
+}
+
+function simulateProgress(chatOutputEl, data, duration = 12000) {
+  const progWrap = document.createElement("div");
+  progWrap.className = "scan-progress";
+  progWrap.innerHTML = `<div id="scan-progress-bar" class="scan-progress-bar"></div>`;
+  chatOutputEl.appendChild(progWrap);
+  data.history += progWrap.outerHTML;
+
+  const bar = progWrap.querySelector(".scan-progress-bar");
+  let start = Date.now();
+  function tick() {
+    const elapsed = Date.now() - start;
+    const pct = Math.min(100, Math.round((elapsed / duration) * 100));
+    bar.style.width = pct + "%";
+    chatOutputEl.scrollTop = chatOutputEl.scrollHeight;
+    if (pct < 100) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  return new Promise((resolve) =>
+    setTimeout(() => resolve(progWrap), duration)
+  );
+}
+
+function showTypingIndicator(contactId) {
+  const chatOutput = document.getElementById("chat-output");
+  const typing = document.createElement("p");
+  typing.className = "typing-indicator";
+  typing.dataset.typingFor = contactId;
+  typing.textContent = `> ${contactId.toUpperCase()} est en train d'écrire...`;
+  chatOutput.appendChild(typing);
+  chatOutput.scrollTop = chatOutput.scrollHeight;
+  return typing;
+}
+function hideTypingIndicator(typingElement) {
+  if (typingElement && typingElement.remove) {
+    typingElement.remove();
+  }
+}
+
+function revealText(element, text, delay = 40) {
+  return new Promise((resolve) => {
+    element.textContent = "";
+    let i = 0;
+    function step() {
+      if (i < text.length) {
+        element.textContent += text[i++];
+        element.parentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+        setTimeout(step, delay);
+      } else {
+        resolve();
+      }
+    }
+    step();
+  });
+}
+
+function playBeep(frequency = 700, length = 80) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.type = "sine";
+    o.frequency.value = frequency;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.1, ctx.currentTime + 0.01);
+    o.start();
+    setTimeout(() => {
+      o.stop();
+      ctx.close();
+    }, length);
+  } catch (e) {}
+}
+
+function makeCopyButton(passText) {
+  const btn = document.createElement("button");
+  btn.className = "copy-pass-btn";
+  btn.textContent = "Copier le mot de passe";
+  btn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(passText);
+      btn.textContent = "Copié ✓";
+      setTimeout(() => (btn.textContent = "Copier"), 1500);
+    } catch (e) {
+      btn.textContent = "Erreur";
+      setTimeout(() => (btn.textContent = "Copier"), 1500);
+    }
+  });
+  return btn;
+}
+
+async function startScanSimulation(contactId) {
+  const data = chatData[contactId];
+  const chatOutput = document.getElementById("chat-output");
+  const responseChoicesContainer = document.getElementById(
+    "response-choices-container"
+  );
+
+  if (data.hasScanned) {
+    const alreadyMsg = `<p class="system-msg">Analyse déjà effectuée. Résultats disponibles ci-dessous.</p>`;
+    chatOutput.insertAdjacentHTML("beforeend", alreadyMsg);
+    chatOutput.scrollTop = chatOutput.scrollHeight;
+    return;
+  }
+  data.hasScanned = true;
+
+  disableScanLink(contactId);
+
+  responseChoicesContainer.innerHTML =
+    '<p class="system-msg">Simulation d\'analyse en cours... Veuillez patienter.</p>';
+
+  const smallIntro = `<p class="trace-code-line">> Système :<br>> &nbsp;&nbsp;Démarrage du module d'analyse.</p>`;
+  chatOutput.insertAdjacentHTML("beforeend", smallIntro);
+  data.history += smallIntro;
+
+  const progressPromise = simulateProgress(chatOutput, data, 12000);
+
+  const fakeLogs = [
+    "Initialisation du protocole de balayage des registres...",
+    "Scan des processus actifs (PID: 1-1000)... OK.",
+    "Vérification de l'intégrité des fichiers système... 45%...",
+    "Détection d'activité anormale sur le port TCP 443.",
+    "Balayage des archives des terminaux (80%)...",
+    "Finalisation de l'analyse...",
+    "Préparation du rapport...",
+  ];
+
+  let accDelay = 400;
+  fakeLogs.forEach((line, idx) => {
+    setTimeout(() => {
+      const lineHtml = `<p class="trace-code-line">> Système :<br>> &nbsp;&nbsp;${line}</p>`;
+      chatOutput.insertAdjacentHTML("beforeend", lineHtml);
+      data.history += lineHtml;
+      chatOutput.scrollTop = chatOutput.scrollHeight;
+
+      if (idx % 2 === 0) playBeep(700 - idx * 20, 45);
+    }, accDelay + idx * 1200);
+  });
+
+  await progressPromise;
+
+  const typingEl = showTypingIndicator(contactId);
+  const typingDelay = 800 + Math.random() * 1000;
+  await new Promise((res) => setTimeout(res, typingDelay));
+  hideTypingIndicator(typingEl);
+
+  data.currentStep = "step2_scan";
+  const step = data.conversations[data.currentStep];
+  const bossReplyText = step.bossReply || "";
+
+  let introText = bossReplyText;
+  let passwordText = "";
+  const pwMarker = "entrer le mot de passe :";
+  const lower = bossReplyText.toLowerCase();
+  if (lower.includes(pwMarker)) {
+    const idx = lower.indexOf(pwMarker);
+    introText = bossReplyText.substring(0, idx + pwMarker.length);
+    passwordText = bossReplyText.substring(idx + pwMarker.length).trim();
+  } else {
+    const match = bossReplyText.match(/<<\s*([^>]+)\s*>>/);
+    if (match) {
+      passwordText = match[1].trim();
+      introText = bossReplyText.replace(match[0], "");
+    }
+  }
+
+  const contactElement = document.querySelector(
+    `[data-contact-id="${contactId}"] h4`
+  );
+  const contactName = contactElement
+    ? contactElement.textContent.split(" ")[0]
+    : "Service";
+
+  const finalContainer = document.createElement("div");
+  finalContainer.className = "boss-reply-text";
+  finalContainer.innerHTML = `> ${contactName} :<br>> &nbsp;&nbsp;<span class="reply-intro">${introText}</span> `;
+  chatOutput.appendChild(finalContainer);
+  data.history += finalContainer.outerHTML;
+  chatOutput.scrollTop = chatOutput.scrollHeight;
+
+  if (passwordText) {
+    const codeEl = document.createElement("code");
+    codeEl.className = "found-pass";
+    finalContainer.appendChild(codeEl);
+
+    playBeep(900, 140);
+
+    await revealText(codeEl, passwordText, 55);
+
+    const copyBtn = makeCopyButton(passwordText);
+    finalContainer.appendChild(copyBtn);
+  } else {
+  }
+
+  data.history = chatOutput.innerHTML;
+
+  renderResponseChoices(contactId);
 }

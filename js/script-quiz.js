@@ -190,51 +190,62 @@ const codeCard = document.querySelector(".code-card");
 const validationOverlay = document.querySelector(".validation-overlay");
 const validationText = document.getElementById("validation-text");
 
-// Base simulée de 20 mots de passe et journaux
 const journalTexts = {
-  Alix: "Journal Intime de l'Ombre - 24 Mai\nLes jours se ressemblent et les nuits sont courtes. Je pensais trouver un peu de paix ici...",
-  "-A-":
+  alix: "Journal Intime de l'Ombre - 24 Mai\nLes jours se ressemblent et les nuits sont courtes. Je pensais trouver un peu de paix ici...",
+  "-a-":
     "Journal d'Alpha - 1er Juin\nLa mission a été difficile, mais nous avons survécu...",
-  Fallen:
+  fallen:
     "Journal de Beta - 2 Juin\nRien n'est ce qu'il semble dans cette ville...",
-  Ambre:
+  ambre:
     "Journal de Gamma - 3 Juin\nJe dois prendre une décision importante aujourd'hui...",
-  Kylia:
+  kylia:
     "Journal de Delta - 4 Juin\nLes ombres deviennent plus longues chaque soir...",
-  Abby: "Journal d'Epsilon - 5 Juin\nJ'ai rencontré quelqu'un qui connaît la vérité...",
-  Aaron:
+  abby: "Journal d'Epsilon - 5 Juin\nJ'ai rencontré quelqu'un qui connaît la vérité...",
+  aaron:
     "Journal de Zeta - 6 Juin\nIl y a des secrets que personne ne doit découvrir...",
-  Fox: "Journal d'Eta - 7 Juin\nJe commence à perdre confiance en mes alliés...",
-  Shayna: "Journal de Theta - 8 Juin\nUne énigme étrange m'a été laissée...",
-  Glenn: "Journal d'Iota - 9 Juin\nLes souvenirs du passé me hantent encore...",
-  Nina: "Journal de Kappa - 10 Juin\nJe sens que quelqu'un m'observe...",
-  Tyler:
+  fox: "Journal d'Eta - 7 Juin\nJe commence à perdre confiance en mes alliés...",
+  shayna: "Journal de Theta - 8 Juin\nUne énigme étrange m'a été laissée...",
+  glenn: "Journal d'Iota - 9 Juin\nLes souvenirs du passé me hantent encore...",
+  nina: "Journal de Kappa - 10 Juin\nJe sens que quelqu'un m'observe...",
+  tyler:
     "Journal de Lambda - 11 Juin\nIl faut agir avant qu'il ne soit trop tard...",
-  Grace: "Journal de Mu - 12 Juin\nLa vérité est plus sombre que prévu...",
-  John: "Journal de Nu - 13 Juin\nJe dois me méfier de chaque visage...",
-  Victoria:
+  grace: "Journal de Mu - 12 Juin\nLa vérité est plus sombre que prévu...",
+  john: "Journal de Nu - 13 Juin\nJe dois me méfier de chaque visage...",
+  victoria:
     "Journal de Xi - 14 Juin\nLe temps presse et les décisions sont critiques...",
-  Carl: "Journal d'Omicron - 15 Juin\nUne découverte surprenante change tout...",
-  Earl: "Journal de Pi - 16 Juin\nJe ne peux plus faire confiance à personne...",
-  Nathan:
+  carl: "Journal d'Omicron - 15 Juin\nUne découverte surprenante change tout...",
+  earl: "Journal de Pi - 16 Juin\nJe ne peux plus faire confiance à personne...",
+  nathan:
     "Journal de Rho - 17 Juin\nChaque nuit apporte de nouveaux dangers...",
-  Laurenn:
+  laurenn:
     "Journal de Sigma - 18 Juin\nLe passé refait surface et menace mes plans...",
-  Lucie: "Journal de Tau - 19 Juin\nDemain, tout pourrait changer à jamais...",
+  lucie: "Journal de Tau - 19 Juin\nDemain, tout pourrait changer à jamais...",
 };
+
+const specialPassword = "@234_jB!Dam4";
+const specialJournalText =
+  "Journal du Département A - 21 Octobre\nCes archives contiennent tous les dossiers secrets : 'FALLEN', 'CHIMÈRE', 'OMEGA'. L'accès est crypté mais les notes sont intactes. Le niveau de sécurité est élevé. Seul le code 'ANONYME' permet d'accéder au Journal Intime du créateur.";
 
 submitBtn.addEventListener("click", () => {
   const userInput = passwordInput.value.trim();
+  const generalInput = userInput.toLowerCase();
 
-  if (journalTexts[userInput]) {
+  let journalEntry = null;
+
+  if (userInput === specialPassword) {
+    journalEntry = specialJournalText;
+  } else if (journalTexts[generalInput]) {
+    journalEntry = journalTexts[generalInput];
+  }
+
+  if (journalEntry) {
     passwordFeedback.textContent = "";
     passwordFeedback.classList.remove("error");
     validationText.textContent = "Accès autorisé";
     validationOverlay.classList.add("visible");
 
-    // Mettre le texte du journal dans la face arrière
     const cardBackText = codeCard.querySelector(".journal-page p");
-    cardBackText.textContent = journalTexts[userInput];
+    cardBackText.textContent = journalEntry;
 
     setTimeout(() => {
       codeCard.classList.add("flipped");
@@ -245,7 +256,6 @@ submitBtn.addEventListener("click", () => {
     submitBtn.classList.add("shake");
     setTimeout(() => submitBtn.classList.remove("shake"), 500);
 
-    // Supprimer le message après 2 secondes
     setTimeout(() => {
       passwordFeedback.textContent = "";
       passwordFeedback.classList.remove("error");

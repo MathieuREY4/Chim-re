@@ -16,8 +16,78 @@ const responseChoicesContainer = document.getElementById(
   "response-choices-container"
 );
 
+const chatContactsList = document.querySelector(".chat-contacts-list");
+const toggleContactsBtn = document.querySelector(".toggle-contacts-btn");
+
 let activeContactId = "anonymous";
 let totalUnreadCount = 0;
+
+const toggleBtn = document.querySelector(".toggle-contacts-btn");
+const contactsList = document.querySelector(".chat-contacts-list");
+
+toggleBtn.addEventListener("click", () => {
+  contactsList.classList.toggle("show");
+});
+
+// ---------- Sélection / rendu d'un contact ----------
+function renderChatForContact(contactId) {
+  const data = chatData[contactId];
+  if (!data) {
+    chatOutput.innerHTML =
+      '<p class="system-msg">Conversation introuvable.</p>';
+    return;
+  }
+
+  chatOutput.innerHTML =
+    data.history || '<p class="system-msg">Aucun message.</p>';
+
+  chatOutput.scrollTop = 0;
+}
+
+function setActiveContactUI(contactId) {
+  contactItems.forEach((el) => {
+    if (el.dataset.contactId === contactId) {
+      el.classList.add("active");
+
+      if (typeof el.scrollIntoView === "function") {
+        el.scrollIntoView({ block: "nearest" });
+      }
+    } else {
+      el.classList.remove("active");
+    }
+  });
+}
+
+function selectContact(contactId) {
+  activeContactId = contactId;
+  setActiveContactUI(contactId);
+  renderChatForContact(contactId);
+
+  if (window.innerWidth <= 768 && contactsList.classList.contains("show")) {
+    contactsList.classList.remove("show");
+  }
+
+  const contactData = chatData[contactId];
+  if (contactData && contactData.traced) {
+    traceIpBtn.style.display = "inline-block";
+  } else {
+    traceIpBtn.style.display = "none";
+  }
+}
+
+contactItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const id = item.dataset.contactId;
+    if (!id) return;
+    selectContact(id);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const initialId = activeContactId || "anonymous";
+
+  setTimeout(() => selectContact(initialId), 0);
+});
 
 // ===================================================================
 // 2. DATA : Historique et Réponses

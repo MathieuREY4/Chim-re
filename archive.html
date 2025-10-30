@@ -219,45 +219,67 @@
     </div>
 
     <div id="mails-window" class="window hidden">
-      <div class="window-header">
-        <span>Boîte mail sécurisée</span>
-        <div class="window-controls">
-          <button class="minimize-btn">_</button>
-          <button class="close-btn">X</button>
-        </div>
-      </div>
-      <div class="window-content mails-content">
-        <div class="mail-sidebar">
-          <div class="mail-folder active" data-folder="inbox">Mails Reçus</div>
-          <div class="mail-folder" data-folder="sent">Mails Envoyés</div>
-          <div class="mail-folder" data-folder="spam">Spams</div>
-        </div>
-        <div class="mail-list" id="mail-list"></div>
-        <div class="mail-view" id="mail-view">
-          <h3>Sélectionnez un mail pour l’ouvrir</h3>
-        </div>
-      </div>
-      <div class="resize-handle top-left-handle"></div>
-      <div class="resize-handle top-right-handle"></div>
-      <div class="resize-handle bottom-left-handle"></div>
-      <div class="resize-handle bottom-right-handle"></div>
+  <div class="window-header">
+    <span>Boîte mail sécurisée</span>
+    <div class="window-controls">
+      <button class="minimize-btn">_</button>
+      <button class="close-btn">X</button>
+    </div>
+  </div>
+  <div class="window-content mails-content">
+    <div class="mail-sidebar">
+      <div class="mail-folder active" data-folder="inbox">Mails Reçus</div>
+      <div class="mail-folder" data-folder="sent">Mails Envoyés</div>
+      <div class="mail-folder" data-folder="spam">Spams</div>
+    </div>
+    <div class="mail-list" id="mail-list"></div>
+    <div class="mail-view" id="mail-view">
+      <h3>Sélectionnez un mail pour l’ouvrir</h3>
+    </div>
+  </div>
+  <div class="resize-handle top-left-handle"></div>
+  <div class="resize-handle top-right-handle"></div>
+  <div class="resize-handle bottom-left-handle"></div>
+  <div class="resize-handle bottom-right-handle"></div>
+</div>
+
+<!-- SECURITE REALISTE -->
+<div id="security-popup" class="security-popup hidden">
+  <div class="popup-content">
+    <!-- Title Bar -->
+    <div class="popup-title-bar">
+      <div class="title-icon"></div>
+      Alerte de sécurité
+      <div class="close-btn" onclick="document.getElementById('security-popup').classList.add('hidden')">X</div>
     </div>
 
-    <div id="security-popup" class="security-popup hidden">
-      <div class="popup-content">
-        <p id="popup-message">Sécurité corrompue</p>
-        <button id="launch-antivirus-btn">Lancer l'anti-virus</button>
+    <!-- Message Content -->
+    <div class="popup-message">
+      <div class="main-text">Sécurité compromise !</div>
+      <div class="details">
+        Un virus a été détecté dans votre boîte mail. <br>
+        Il est fortement recommandé de lancer immédiatement l'analyse antivirus pour protéger vos données.
       </div>
     </div>
 
-    <div id="antivirus-popup" class="antivirus-popup hidden">
-      <div class="antivirus-content">
-        <p id="antivirus-status">Analyse en cours...</p>
-        <div class="progress-bar-container">
-          <div id="antivirus-progress" class="progress-bar"></div>
-        </div>
-      </div>
+    <!-- Action Buttons -->
+    <div class="popup-actions">
+      <button class="btn-scan" id="launch-antivirus-btn">Lancer l'analyse</button>
+      <button class="btn-ignore" onclick="document.getElementById('security-popup').classList.add('hidden')">Ignorer</button>
     </div>
+  </div>
+</div>
+
+<!-- ANTIVIRUS -->
+<div id="antivirus-popup" class="antivirus-popup hidden">
+  <div class="antivirus-content">
+    <p id="antivirus-status">Analyse en cours...</p>
+    <div class="progress-bar-container">
+      <div id="antivirus-progress" class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
 
     <div id="photos-window" class="window hidden">
       <div class="window-header">
@@ -454,6 +476,7 @@
     <div class="window-header">
         <span>C:\> Chat Sécurisé</span>
         <div class="window-controls">
+            <button class="toggle-contacts-btn">☰</button>
             <button class="minimize-btn">_</button>
             <button class="close-btn">X</button>
         </div>
@@ -585,6 +608,8 @@
         </div>
         
     </div>
+</div>
+
     
     <div class="resize-handle top-left-handle"></div>
     <div class="resize-handle top-right-handle"></div>

@@ -364,18 +364,53 @@ nav a {
   margin: 10px 0;
 }
 
+@media (max-width: 760px) {
+  .icon {
+    width: 70px; /* Réduit la largeur totale du conteneur d'icône */
+    margin: 10px; /* Ajuste la marge entre les icônes */
+    font-size: 0.7rem; /* Réduit la taille de la police */
+  }
+
+  .icon img {
+    width: 48px; /* Réduit la taille de l'image (de 64px à 48px) */
+    height: 48px;
+    margin-bottom: 3px;
+  }
+
+  /* 2. REDIMENSIONNEMENT ET CENTRAGE DES FENÊTRES */
+  .window {
+    /* Centrage de la fenêtre */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Hauteur/Largeur pour prendre presque tout l'écran */
+    width: 95%; /* 95% de la largeur de l'écran */
+    max-width: 95%; /* S'assure de ne pas dépasser 95% */
+
+    /* Ajuste la position verticale et la hauteur pour le mobile */
+    top: 50%; /* Positionne le haut à 50% de la hauteur */
+    height: 90vh; /* Prend 90% de la hauteur de la fenêtre visible */
+    max-height: 90vh; /* Assure que ça ne déborde pas */
+    transform: translate(-50%, -50%); /* CENTRAGE PARFAIT (ajusté) */
+
+    /* Enlève la marge forcée du top: 190px pour le centrage */
+    margin: 0;
+
+    /* Réduit le rayon pour un look plus "mobile-friendly" */
+    border-radius: 4px;
+  }
+}
+/* ============================= BOITE MAIL + GENERAL UI ============================= */
 .mails-content {
   display: flex;
   height: 100%;
 }
-
 .mail-sidebar {
   width: 200px;
   background: #222;
   padding: 10px;
   box-sizing: border-box;
 }
-
 .mail-folder {
   padding: 10px;
   margin-bottom: 5px;
@@ -385,16 +420,13 @@ nav a {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-
 .mail-folder:hover {
   background: #444;
 }
-
 .mail-folder.active {
   background: #1e1e1e;
   border: 1px solid #007bff;
 }
-
 .mail-list {
   width: 35%;
   background: #2b2b2b;
@@ -402,17 +434,14 @@ nav a {
   padding: 10px;
   box-sizing: border-box;
 }
-
 .mail-item {
   padding: 8px;
   border-bottom: 1px solid #444;
   cursor: pointer;
 }
-
 .mail-item.unread {
   font-weight: bold;
 }
-
 .mail-view {
   flex: 1;
   background: #1b1b1b;
@@ -420,22 +449,18 @@ nav a {
   overflow-y: auto;
   margin-left: 10px;
 }
-
 .mail-header {
   border-bottom: 2px solid #555;
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
-
 .mail-header h3 {
   color: #fff;
 }
-
 .mail-body p {
   color: #ccc;
   line-height: 1.5;
 }
-
 .reply-button {
   background: #007bff;
   color: #fff;
@@ -446,45 +471,131 @@ nav a {
   margin-top: 20px;
   transition: background-color 0.2s ease;
 }
-
 .reply-button:hover {
   background: #0056b3;
 }
-
+/* ============================= POPUP SECURITE (REALISTE + FLASHY) ============================= */
 .security-popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(20, 0, 0, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(4px);
   z-index: 1000;
   animation: fadeIn 0.5s;
 }
-
 .security-popup.hidden {
   display: none;
 }
-
-.popup-content {
-  background-color: #1a1a1a;
-  padding: 30px;
-  border: 3px solid red;
-  box-shadow: 0 0 20px red;
+.security-popup .popup-content {
+  background: linear-gradient(180deg, #3c0000, #1b0000);
+  border: 3px solid #ff3b3b;
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.9),
+    inset 0 0 15px rgba(255, 50, 50, 0.2);
   text-align: center;
-  border-radius: 10px;
+  border-radius: 12px;
+  padding: 28px 24px;
+  width: 460px;
+  max-width: 92%;
+  position: relative;
+  animation: alertPulse 1s infinite alternate;
 }
-
-#popup-message {
-  font-size: 2em;
+/* TITLE BAR */
+.security-popup .popup-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffbebe;
+}
+.security-popup .popup-title-bar .title-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M12 0L1.5 21h21L12 0zm0 3.3l8.6 15H3.4L12 3.3zm-.75 5.7h1.5v5.25h-1.5V9zm0 6.3h1.5v1.5h-1.5v-1.5z"/></svg>')
+    no-repeat center center;
+  background-size: contain;
+}
+/* CLOSE BUTTON */
+.security-popup .popup-title-bar .close-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: #ffdede;
   font-weight: bold;
-  color: red;
-  animation: blinker 1s linear infinite;
+  transition: all 0.2s ease;
 }
-
+.security-popup .popup-title-bar .close-btn:hover {
+  color: #ff6b6b;
+  text-shadow: 0 0 8px #ff3b3b;
+}
+/* MESSAGE TEXT */
+.security-popup .popup-message .main-text {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ff5b5b;
+  text-shadow: 0 0 8px #ff2e2e, 0 0 16px #ff4b4b;
+  margin-bottom: 12px;
+}
+.security-popup .popup-message .details {
+  font-size: 0.9rem;
+  color: #ffdede;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+/* ACTION BUTTONS */
+.security-popup .popup-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+.security-popup .popup-actions button {
+  min-width: 140px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+/* bouton scan = néon vert (comme antivirus) */
+.security-popup #launch-antivirus-btn {
+  background: linear-gradient(90deg, #00ff8a, #00b36a);
+  color: #012;
+  box-shadow: 0 6px 20px rgba(0, 255, 120, 0.2);
+}
+.security-popup #launch-antivirus-btn:hover {
+  box-shadow: 0 8px 30px rgba(0, 255, 120, 0.35);
+}
+/* bouton ignore = rouge néon */
+.security-popup .btn-ignore {
+  background: linear-gradient(90deg, #ff6b6b, #ff3b3b);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(255, 60, 60, 0.2);
+}
+.security-popup .btn-ignore:hover {
+  box-shadow: 0 8px 30px rgba(255, 60, 60, 0.35);
+}
+/* ============================= ANIMATIONS ============================= */
+@keyframes alertPulse {
+  0% {
+    box-shadow: 0 0 10px #ff1e1e;
+  }
+  100% {
+    box-shadow: 0 0 40px #ff3b3b;
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -493,88 +604,243 @@ nav a {
     opacity: 1;
   }
 }
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
-}
-
-#launch-antivirus-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  cursor: pointer;
-  margin-top: 25px;
-  transition: background-color 0.3s ease;
-}
-
-#launch-antivirus-btn:hover {
-  background-color: #0056b3;
-}
-
+/* ============================= ANTIVIRUS POPUP (avec cases séparées) ============================= */
 .antivirus-popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 15, 0, 0.85);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1001;
   animation: fadeIn 0.5s;
+  overflow: hidden;
 }
-
 .antivirus-popup.hidden {
   display: none;
 }
-
 .antivirus-content {
-  background-color: #1a1a1a;
-  padding: 40px;
-  border: 3px solid #00ff00;
-  box-shadow: 0 0 20px #00ff00;
-  text-align: center;
-  border-radius: 10px;
-  color: #fff;
-}
-
-#antivirus-status {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-}
-
-.progress-bar-container {
-  width: 300px;
-  height: 20px;
-  background-color: #333;
-  border-radius: 10px;
+  background: linear-gradient(180deg, #001b00, #003300);
+  color: #dfffe6;
+  padding: 18px;
+  border-radius: 12px;
+  width: 760px;
+  max-width: 96%;
+  border: 2px solid rgba(0, 255, 120, 0.12);
+  box-shadow: 0 40px 120px rgba(0, 120, 70, 0.12),
+    inset 0 0 18px rgba(0, 255, 120, 0.03);
+  font-family: "Courier New", monospace;
   overflow: hidden;
-  margin-top: 15px;
 }
-
-.progress-bar {
-  height: 100%;
-  width: 0;
-  background-color: #00ff00;
-  transition: width 4s ease-in-out;
+.antivirus-content .av-top {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
 }
-
-.progress-bar.filling {
+.antivirus-content .av-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #00ff7a, #00a86b);
+  box-shadow: 0 8px 26px rgba(0, 255, 120, 0.08);
+}
+/* main layout */
+.av-main {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+/* circular panel */
+.av-circle-wrap {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.av-circle-wrap svg {
+  width: 180px;
+  height: 180px;
+  transform: rotate(-90deg);
+}
+.av-circle-wrap .percent-text {
+  position: absolute;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #e6ffea;
+}
+/* console area */
+.av-console {
+  width: 410px;
+  min-height: 180px;
+  max-height: 260px;
+  background: rgba(0, 0, 0, 0.36);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: #bfffc1;
+}
+/* CPU / Process / Threats stats (PC - LARGE SCREENS) */
+.av-cpu {
   width: 100%;
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.av-cpu .stat {
+  background: rgba(0, 0, 0, 0.18);
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 120px; /* VALEUR PC (LAISSER ICI) */
+  text-align: center;
+  color: #dfffdc;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  box-shadow: 0 2px 6px rgba(0, 255, 120, 0.06);
+}
+.stat .label {
+  font-size: 0.82rem;
+  opacity: 0.8;
+}
+.stat .value {
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: #fff;
+  display: block;
+  margin-top: 6px;
+}
+/* actions and threats */
+.av-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.av-actions .btn {
+  min-width: 120px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+.btn-primary {
+  background: linear-gradient(90deg, #00ff8a, #00b36a);
+  color: #012;
+  box-shadow: 0 8px 26px rgba(0, 255, 120, 0.12);
+}
+.btn-danger {
+  background: linear-gradient(90deg, #ff6b6b, #ff3b3b);
+  color: #fff;
+  box-shadow: 0 8px 26px rgba(255, 60, 60, 0.12);
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #dfffdc;
+}
+/* small log-line animation */
+.log-line {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: logIn 280ms forwards;
+}
+@keyframes logIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* small success badge */
+.av-success {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #0b3, #06b);
+  color: #eaffea;
+  font-weight: 800;
+}
+/* ============================= RESPONSIVE (CORRECTIF MOBILE) ============================= */
+@media (max-width: 760px) {
+  .antivirus-popup .antivirus-content {
+    width: 94%;
+    padding: 12px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .av-main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .av-cpu {
+    /* Styles pour que les trois boîtes tiennent sur une ligne */
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    padding-bottom: 0;
+  }
+
+  /* BOITES D'ÉTAT MOBILE (maintenant que les labels sont courts en JS) */
+  .av-cpu .stat {
+    flex-basis: auto;
+    flex-grow: 1;
+    min-width: 80px; /* LARGEUR ADAPTÉE AUX LABELS ABRÉGÉS */
+    padding: 6px 4px;
+
+    /* Ne pas toucher aux propriétés flex ici, elles viennent du code PC */
+    height: 52px;
+  }
+
+  /* TEXTE LISIBLE AVEC REM */
+  .av-cpu .stat .label {
+    font-size: 0.65rem;
+    line-height: 1.1;
+    opacity: 0.8;
+  }
+  .av-cpu .stat .value {
+    font-size: 0.9rem;
+    margin-top: 3px;
+    font-weight: 800;
+  }
+
+  .av-console {
+    width: 100%;
+    min-height: 120px;
+    max-height: 180px;
+  }
+  .av-circle-wrap {
+    width: 140px;
+    height: 140px;
+  }
 }
 
+/* ============================= MOBILES BOITE MAIL ============================= */
 @media (max-width: 768px) {
   .mails-content {
     display: block;
     height: auto;
   }
-
   .mail-sidebar {
     width: 100%;
     display: flex;
@@ -582,7 +848,6 @@ nav a {
     padding: 5px;
     min-height: auto;
   }
-
   .mail-folder {
     flex-grow: 1;
     text-align: center;
@@ -590,13 +855,11 @@ nav a {
     padding: 8px;
     font-size: 0.9em;
   }
-
   .mail-list {
     width: 100%;
     height: 350px;
     border-top: 1px solid #444;
   }
-
   .mail-view {
     width: 100%;
     flex: none;
@@ -604,13 +867,11 @@ nav a {
     min-height: 400px;
     margin-top: 10px;
   }
-
   .mail-item {
     white-space: normal;
     word-break: break-word;
     font-size: 0.9em;
   }
-
   .security-popup,
   .antivirus-popup {
     position: fixed;
@@ -621,7 +882,6 @@ nav a {
     z-index: 9999;
   }
 }
-
 #photos-container {
   display: flex;
   flex-wrap: wrap;
@@ -1116,6 +1376,50 @@ nav a {
 .typing-indicator {
   color: #aaa;
   font-style: italic;
+}
+
+.toggle-contacts-btn {
+  display: none;
+}
+
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+  .chat-contacts-list {
+    width: 100%;
+    max-height: 0;
+    overflow-y: auto; /* ← permet le scroll */
+    transition: max-height 0.3s ease;
+    border-right: none;
+    border-bottom: 1px solid #00ff00;
+  }
+
+  .chat-contacts-list.show {
+    max-height: 300px; /* tu peux ajuster ou mettre 50vh pour plus flexible */
+  }
+
+  .chat-interface-container {
+    flex-direction: column;
+  }
+
+  .chat-conversation-area {
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .toggle-contacts-btn {
+    display: inline-block;
+    margin-right: 10px;
+    background: none;
+    color: #00ff00;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .window-controls .minimize-btn,
+  .window-controls .close-btn {
+    margin-left: 5px;
+  }
 }
 
 .map-content {

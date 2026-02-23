@@ -1387,14 +1387,14 @@ nav a {
   .chat-contacts-list {
     width: 100%;
     max-height: 0;
-    overflow-y: auto; /* ← permet le scroll */
+    overflow-y: auto; 
     transition: max-height 0.3s ease;
     border-right: none;
     border-bottom: 1px solid #00ff00;
   }
 
   .chat-contacts-list.show {
-    max-height: 300px; /* tu peux ajuster ou mettre 50vh pour plus flexible */
+    max-height: 300px; 
   }
 
   .chat-interface-container {
